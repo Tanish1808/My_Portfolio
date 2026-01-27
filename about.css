@@ -1,0 +1,173 @@
+.about-me{
+  list-style: none;
+  background: rgb(200, 200, 200,0.1);
+  color: #ffffff;
+  padding: 15px 25px;
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(27, 77, 212, 0.2);
+  display: inline-block;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: 750;
+  padding-top: 80px;
+  margin-top: 70px;
+  margin-left: 55px;
+  margin-right: 55px;
+  gap: 20px;
+}
+
+.about-me h2{
+    font-size: 3rem;
+    font-weight: 750;
+    margin-bottom: 20px;
+    padding-left: 70px;
+    color: #1B4DD4;
+    font-weight: 600;
+    opacity: 1;
+}
+
+.about-me p{
+    font-size: 1.5rem;
+    font-weight: normal;
+    margin-top: 35px;
+    margin-left: 10px;
+    margin-right: 10px;
+    text-indent: 60px;
+    line-height: 1.6;
+    padding-left: 70px;
+    font-weight: 500;
+    color :rgb(200, 200, 200,0.8);
+}
+
+.about-me span{
+    color: white;
+    font-weight: 600;
+}
+
+
+h5{
+    font-size: 2.1rem;
+    font-weight: 600;
+    margin-top: 60px;
+    margin-left: 10px;
+    margin-right: 10px;
+    line-height: 1.6;
+    padding-left: 70px;
+    font-weight: 700;
+    color :#6EC6FF;
+}
+
+/* .education{
+    list-style: none;
+    background: rgb(200, 200, 200,0.1);
+    padding: 15px 25px;
+    border-radius: 12px;
+    box-shadow: 0 0 8px rgba(27, 77, 212, 0.2);
+    display: inline-block;
+    justify-content: center;
+    font-size: 3rem;
+    font-weight: 750;
+    padding-top: 80px;
+    margin-top: 50px;
+    margin-left: 55px;
+    margin-right: 55px;
+    gap: 20px;
+    opacity: 1;
+    font-weight: 750;
+} */
+
+/* .education p{
+    font-size: 1.5rem;
+    font-weight: normal;
+    margin-top: 35px;
+    margin-left: 10px;
+    margin-right: 10px;
+    line-height: 1.6;
+    padding-left: 70px;
+    font-weight: 400;
+    color :rgb(200, 200, 200,0.8);
+} */
+
+/* .course{
+    font-weight: 600;
+    color: #1B4DD4;
+    font-size: 4rem;
+} */
+
+.edu-card {
+    display: flex;
+    align-items: center;     /* Vertically center logo */
+    gap: 20px;
+    background: rgba(255,255,255,0.06);
+    padding: 18px;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.edu-logo {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 85px;
+    padding-left: 20px;
+}
+
+
+.edu-info {
+    display: flex;
+    flex-direction: column;   /* Stack text vertically */
+    justify-content: center;
+}
+
+.edu-info .course {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #6EC6FF;
+    margin-left: 140px;
+}
+
+.edu-info .university {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: white;
+}
+
+.edu-info p {
+    margin-top: 4px;
+    color: #ccc;
+    font-size: 1.4rem;
+    font-weight: 400;
+}
+
+.edu-card:hover {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 12px rgba(27, 77, 212, 0.5);
+    transform: translateY(-6px);
+    transition: 0.3s ease;
+}
+
+#backToTop1 {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: none;
+  background-color: pink;
+  color: #ffffff;
+  font-size: 20px;
+  cursor: pointer;
+  display: none;                 /* hidden initially */
+  z-index: 1000;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+#backToTop1:hover {
+  transform: translateY(-4px);
+}
