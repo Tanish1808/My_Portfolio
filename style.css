@@ -162,26 +162,27 @@ body {
   margin-bottom: 20px;
 }
 
-/* Flashy Moving Line */
+/* Typewriter — handled by JavaScript */
 .flash-line {
- font-size: 32px;
-  font-weight: 700;
+  display: inline-block;
+}
+
+.hero-role {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 5px 0 15px 0;
+  border-right: 3px solid #00E5FF;
   white-space: nowrap;
   overflow: hidden;
-  animation-name: typing;
-  animation-duration: 4s;
-  animation-timing-function: steps(90);
-  animation-iteration-count: infinite;
+  display: inline-block;
+  animation: blink-caret 0.75s step-end infinite;
 }
 
-@keyframes typing {
-  from { width: 0; }
-  to { width: 100%; }
+@keyframes blink-caret {
+  0%, 100% { border-color: #00E5FF; }
+  50%       { border-color: transparent; }
 }
 
-@keyframes blink {
-  50% { border-color: transparent; }
-}
 
 
 /* Info Card */
