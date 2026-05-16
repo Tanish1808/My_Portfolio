@@ -51,7 +51,7 @@
 
 /* Hover Effect */
 .nav-link:hover {
-  color: #6EC6FF;
+  color: #00E5FF;
 }
 
 /* Active / Selected Link */
@@ -70,10 +70,12 @@
 
 
 body {
-    background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #0f2027);
-    background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
-    color: #fff;
+    background: #050505;
+    background-image: 
+        radial-gradient(circle at 15% 50%, rgba(139, 92, 246, 0.15), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(0, 229, 255, 0.15), transparent 25%);
+    background-attachment: fixed;
+    color: #f8fafc;
     min-height: 100vh;
 }
 
@@ -124,7 +126,7 @@ body {
   height: 230px;
   object-fit: cover;
   border-radius: 50%;
-  border: 4px solid #1B4DD4;
+  border: 4px solid #8B5CF6;
   box-shadow: 0px 0px 20px rgba(27, 77, 212, 0.4);
 }
 
@@ -146,7 +148,7 @@ body {
 }
 
 .hero-name span {
-  color: yellowgreen;
+  color: #00E5FF;
 }
 
 .hero-role {
@@ -325,14 +327,14 @@ body {
 /* Hover: border + glow */
 .social-icons a:hover {
   transform: translateY(-6px);
-  border: 2px solid #1B4DD4;       /* <-- Border only on hover */
+  border: 2px solid #8B5CF6;       /* <-- Border only on hover */
   box-shadow: 0 0 18px rgba(27, 77, 212, 0.5);
   border: 2px solid #000;
 }
 
 /* Hover: change icon color */
 .social-icons a:hover i {
-  color: yellowgreen;
+  color: #00E5FF;
 }
 
 .navbar a.active {
@@ -404,7 +406,7 @@ body {
     font-weight: 750;
     margin-bottom: 20px;
     padding-left: 70px;
-    color: #1B4DD4;
+    color: #8B5CF6;
     font-weight: 600;
     opacity: 1;
 }
@@ -437,7 +439,7 @@ h5{
     line-height: 1.6;
     padding-left: 70px;
     font-weight: 700;
-    color :#6EC6FF;
+    color :#00E5FF;
 }
 
 /* .education{
@@ -473,7 +475,7 @@ h5{
 
 /* .course{
     font-weight: 600;
-    color: #1B4DD4;
+    color: #8B5CF6;
     font-size: 4rem;
 } */
 
@@ -509,7 +511,7 @@ h5{
 .edu-info .course {
     font-size: 2rem;
     font-weight: 600;
-    color: #6EC6FF;
+    color: #00E5FF;
 }
 
 .edu-info .university {
@@ -568,7 +570,7 @@ h5{
     margin-bottom: 20px;
     font-weight: 700;
     font-size: 3.5rem;
-    color: #6EC6FF;    
+    color: #00E5FF;    
     margin-top: 65px;
 }
 
@@ -612,14 +614,16 @@ display: flex;
 
 .projects-card div{
     
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    border-left: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
 
     padding: 10px 15px;
-    border: 0px solid #1B4DD4;
+    border: 0px solid #8B5CF6;
     border-radius: 13px;
     margin: 8px;
     box-shadow: 0 0 8px rgba(27, 77, 212, 0.6);
@@ -628,7 +632,7 @@ display: flex;
 
 .project h3{
     margin-bottom: 10px;
-    color: #6EC6FF;
+    color: #00E5FF;
     font-size: 2rem;
     font-weight: 600;
     text-align: center;
@@ -702,7 +706,7 @@ display: flex;
     padding: 10px 20px;
     margin-top: 15px;
     background-color: black;
-    color: yellowgreen;
+    color: #00E5FF;
     font-size: 1rem;
     font-weight: 700;
     border-radius: 8px;
@@ -740,20 +744,22 @@ display: flex;
     margin-bottom: 20px;
     font-weight: 700;
     font-size: 3.5rem;
-    color: #6EC6FF;    
+    color: #00E5FF;    
     margin-top: 65px;
 }
 
 .skills-card div{
     
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    border-left: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
 
     padding: 10px 15px;
-    border: 0px solid #1B4DD4;
+    border: 0px solid #8B5CF6;
     border-radius: 13px;
     margin: 8px;
     box-shadow: 0 0 8px rgba(27, 77, 212, 0.6);
@@ -785,7 +791,7 @@ display: flex;
 }
 
 .skills-card li:hover {
-    color: yellowgreen;
+    color: #00E5FF;
     font-weight: 700;
     font-size: 1.5rem;
 }
@@ -800,10 +806,14 @@ display: flex;
     }
 
     body {
-      /* background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); */
-      color: #fff;
-      min-height: 100vh;
-    }
+    background: #050505;
+    background-image: 
+        radial-gradient(circle at 15% 50%, rgba(139, 92, 246, 0.15), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(0, 229, 255, 0.15), transparent 25%);
+    background-attachment: fixed;
+    color: #f8fafc;
+    min-height: 100vh;
+}
 
     .container {
       max-width: 1100px;
@@ -984,14 +994,14 @@ h2{
 /* Hover: border + glow */
 .social-icons a:hover {
   transform: translateY(-6px);
-  border: 2px solid #1B4DD4;       /* <-- Border only on hover */
+  border: 2px solid #8B5CF6;       /* <-- Border only on hover */
   box-shadow: 0 0 18px rgba(27, 77, 212, 0.5);
   border: 2px solid #000;
 }
 
 /* Hover: change icon color */
 .social-icons a:hover i {
-  color: yellowgreen;
+  color: #00E5FF;
 }
 
 .contact{
@@ -1021,7 +1031,7 @@ h2{
     margin-top: 15px;
     border: none;
     border-radius: 8px;
-    background-color: #1B4DD4;
+    background-color: #8B5CF6;
     color: white;
     font-size: 1rem;
     font-weight: 700;
@@ -1043,4 +1053,89 @@ h2{
 }
 html {
     scroll-behavior: smooth;
+}
+
+
+/* --- PREMIUM THEME OVERRIDES --- */
+
+body {
+    background: #0B0F19 !important; /* Deep Navy */
+    background-image: 
+        radial-gradient(circle at 15% 50%, rgba(139, 92, 246, 0.15), transparent 30%),
+        radial-gradient(circle at 85% 30%, rgba(0, 229, 255, 0.15), transparent 30%) !important;
+    background-attachment: fixed !important;
+    color: #f8fafc !important;
+    min-height: 100vh !important;
+}
+
+/* Premium Text Colors */
+.hero-name span, .about-me span, .project span, .skills-card li:hover {
+    color: #00E5FF !important;
+    text-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
+}
+
+.hero-role, .main, h5, .course, .edu-info .course, .project h3 {
+    color: #8B5CF6 !important;
+}
+
+h2 {
+    color: #f8fafc !important;
+}
+
+/* Ultra-Premium Glassmorphism Cards */
+.hero-box, .about-me, .skills-card div, .project, .cert-card, .contact input, .contact textarea, .edu-card {
+    background: rgba(255, 255, 255, 0.03) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-left: 1px solid rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4) !important;
+    border-radius: 16px !important;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease !important;
+}
+
+/* Card Hover States */
+.hero-box:hover, .skills-card div:hover, .project:hover, .cert-card:hover, .edu-card:hover {
+    transform: translateY(-8px) !important;
+    box-shadow: 0 15px 50px rgba(139, 92, 246, 0.3) !important;
+    border: 1px solid rgba(139, 92, 246, 0.4) !important;
+}
+
+/* Buttons */
+.contact button, .btn a, .view-btn {
+    background: linear-gradient(135deg, #8B5CF6, #00E5FF) !important;
+    color: #0B0F19 !important;
+    font-weight: 800 !important;
+    border: none !important;
+    box-shadow: 0 4px 15px rgba(0, 229, 255, 0.4) !important;
+    transition: all 0.3s ease !important;
+}
+
+.contact button:hover, .btn a:hover, .view-btn:hover {
+    transform: scale(1.05) !important;
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6) !important;
+    color: #fff !important;
+}
+
+/* Social Icons */
+.social-icons a {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.social-icons a:hover {
+    background: rgba(0, 229, 255, 0.1) !important;
+    border: 1px solid #00E5FF !important;
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.4) !important;
+}
+.social-icons a:hover i {
+    color: #00E5FF !important;
+}
+
+/* Navbar Upgrade */
+.navbar {
+    background: rgba(11, 15, 25, 0.8) !important;
+    backdrop-filter: blur(15px) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
 }
