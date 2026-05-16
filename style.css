@@ -68,10 +68,21 @@
   width: 80px;
 }
 
-body{
-    background-color: #0E2A47;
-    color: white;
+
+body {
+    background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #0f2027);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    color: #fff;
+    min-height: 100vh;
 }
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 
 .hero-section{
     display: flex;
@@ -600,7 +611,13 @@ display: flex;
 }
 
 .projects-card div{
-    background-color: #0E2A47;
+    
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+
     padding: 10px 15px;
     border: 0px solid #1B4DD4;
     border-radius: 13px;
@@ -728,7 +745,13 @@ display: flex;
 }
 
 .skills-card div{
-    background-color: #0E2A47;
+    
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+
     padding: 10px 15px;
     border: 0px solid #1B4DD4;
     border-radius: 13px;
