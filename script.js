@@ -1,55 +1,63 @@
 document.addEventListener("DOMContentLoaded", () => {
-    let currentPage = window.location.pathname.split("/").pop();
-
-    // Handle root URL correctly
-    if (!currentPage || currentPage.trim() === "") {
-        currentPage = "index.html";
-    }
-
-    document.querySelectorAll(".navbar a").forEach(link => {
-        let linkPage = link.getAttribute("href");
-
-        // Extract only file name from link href
-        let linkFile = linkPage.split("/").pop();
-
-        if (linkFile === currentPage) {
-            link.classList.add("active");
+    // Back to top button logic
+    const backToTop = document.getElementById("backToTop");
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 300) {
+            backToTop.style.display = "block";
+            backToTop.style.opacity = "1";
         } else {
-            link.classList.remove("active");  // ensures Home doesn't stay active
+            backToTop.style.opacity = "0";
+            setTimeout(() => {
+                if (window.scrollY <= 300) backToTop.style.display = "none";
+            }, 300);
         }
     });
-});
 
-const backToTop = document.getElementById("backToTop");
+    backToTop.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    });
 
-window.addEventListener("scroll", () => {
-  if (window.scrollY > 10) {
-    backToTop.style.display = "block";
-  } else {
-    backToTop.style.display = "none";
-  }
-});
+    // Scroll Spy for Navbar Links
+    const sections = document.querySelectorAll("section");
+    const navLinks = document.querySelectorAll(".nav-links a");
 
-backToTop.addEventListener("click", () => {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
-});
+    window.addEventListener("scroll", () => {
+        let current = "";
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (scrollY >= (sectionTop - sectionHeight / 3)) {
+                current = section.getAttribute("id");
+            }
+        });
 
-// const backToTop1 = document.getElementById("backToTop1");
+        navLinks.forEach(link => {
+            link.classList.remove("active");
+            if (current && link.getAttribute("href").includes(current)) {
+                link.classList.add("active");
+            }
+        });
+    });
 
-// window.addEventListener("scroll", () => {
-//   if (window.scrollY > 10) {
-//     backToTop1.style.display = "block";
-//   } else {
-//     backToTop1.style.display = "none";
-//   }
-// });
+    // Intersection Observer for Fade-In Animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px"
+    };
 
-// backToTop1.addEventListener("click", () => {
-//   window.scrollTo({
-//     top: 0,
-//     behavior: "smooth"
-//   });
-// });
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Add .fade-in class to elements we want to animate, then observe them
+    const animatedElements = document.querySelectorAll(".hero-box, .about-me, .skills-card div, .project, .cert-card, .contact input, .contact textarea");
+    animatedElements.forEach(el => {
+        el.classList.add("fade-in");
+        observer.observe(el);
+    });
+});
