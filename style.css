@@ -1180,7 +1180,10 @@ h2 {
    HAMBURGER BUTTON — hidden on desktop, shown on mobile
    ============================================================ */
 .menu-toggle {
-    display: none;
+    display: flex;           /* Keep in layout as a balancing spacer */
+    visibility: hidden;      /* Invisible on desktop — shown on mobile */
+    align-items: center;
+    justify-content: center;
     font-size: 1.6rem;
     color: white;
     cursor: pointer;
@@ -1188,6 +1191,7 @@ h2 {
     border-radius: 6px;
     transition: color 0.3s ease;
     z-index: 1100;
+    min-width: 42px;         /* Match logo side width for symmetry */
 }
 
 .menu-toggle:hover {
@@ -1235,6 +1239,7 @@ h2 {
 
     .menu-toggle {
         display: flex;
+        visibility: visible;  /* Override desktop hidden state */
         align-items: center;
         justify-content: center;
     }
