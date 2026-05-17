@@ -1122,3 +1122,347 @@ h2 {
     backdrop-filter: blur(15px) !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
 }
+
+/* ============================================================
+   HAMBURGER BUTTON — hidden on desktop, shown on mobile
+   ============================================================ */
+.menu-toggle {
+    display: none;
+    font-size: 1.6rem;
+    color: white;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: color 0.3s ease;
+    z-index: 1100;
+}
+
+.menu-toggle:hover {
+    color: #00E5FF;
+}
+
+/* ============================================================
+   TABLET (max 1024px) — gentle adjustments
+   ============================================================ */
+@media (max-width: 1024px) {
+    .hero {
+        padding: 60px 40px;
+    }
+    .hero-content {
+        gap: 40px;
+    }
+    .about-me {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    .about-me h2,
+    .about-me p {
+        padding-left: 20px;
+    }
+    h5 {
+        padding-left: 20px;
+    }
+    .edu-logo {
+        margin-left: 20px;
+    }
+}
+
+/* ============================================================
+   MOBILE (max 768px) — full responsive overhaul
+   ============================================================ */
+@media (max-width: 768px) {
+
+    /* ── Navbar ── */
+    .navbar {
+        position: relative;
+        padding: 0 20px;
+        height: 65px;
+        flex-wrap: wrap;
+    }
+
+    .menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        gap: 0;
+        position: absolute;
+        top: 65px;
+        left: 0;
+        right: 0;
+        background: rgba(11, 15, 25, 0.97);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 10px 0 20px;
+        z-index: 1000;
+    }
+
+    .nav-links.nav-open {
+        display: flex;
+    }
+
+    .nav-links li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-link {
+        display: block;
+        padding: 12px 20px;
+        font-size: 1.05rem;
+        border-bottom: none;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+        color: #00E5FF;
+        background: rgba(0, 229, 255, 0.06);
+    }
+
+    /* ── Hero Section ── */
+    .hero {
+        padding: 50px 20px;
+        height: auto;
+    }
+
+    .hero-content {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        text-align: center;
+    }
+
+    .hero-img img {
+        width: 170px;
+        height: 170px;
+    }
+
+    .hero-text {
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-name {
+        font-size: 2rem;
+    }
+
+    .hero-role {
+        font-size: 1.1rem;
+        white-space: normal;
+        overflow: visible;
+        text-align: center;
+    }
+
+    .buttons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .buttons li {
+        margin-top: 0;
+        font-size: 0.8rem;
+        padding: 7px 12px;
+    }
+
+    .hero-box {
+        justify-content: center;
+        max-width: 100%;
+    }
+
+    .hero-box .stat-item {
+        width: calc(50% - 7px);
+        padding: 14px 10px;
+    }
+
+    /* ── About Section ── */
+    .about-me {
+        margin-left: 10px;
+        margin-right: 10px;
+        padding: 30px 15px;
+        padding-top: 30px;
+        margin-top: 20px;
+    }
+
+    .about-me h2 {
+        font-size: 2rem;
+        padding-left: 0;
+        text-align: center;
+    }
+
+    .about-me p {
+        font-size: 1rem;
+        padding-left: 0;
+        text-indent: 0;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    h5 {
+        font-size: 1.5rem;
+        padding-left: 0;
+        margin-left: 0;
+    }
+
+    .edu-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .edu-logo {
+        margin-left: 0;
+        padding-left: 0;
+    }
+
+    .edu-info .course {
+        font-size: 1.3rem;
+    }
+
+    .edu-info .university {
+        font-size: 1.1rem;
+    }
+
+    .edu-info p {
+        font-size: 1rem;
+    }
+
+    /* ── Skills Section ── */
+    .skills-card {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        padding: 16px;
+    }
+
+    .skills-card > div {
+        width: 100%;
+        max-width: 480px;
+        margin: 0;
+    }
+
+    .skills-card h2 {
+        font-size: 1.4rem;
+    }
+
+    .skills-card ul {
+        font-size: 1rem;
+        padding: 6px;
+    }
+
+    /* ── Projects Section ── */
+    .projects-card {
+        grid-template-columns: 1fr;
+        padding: 10px;
+    }
+
+    .project-logo img {
+        margin-left: auto;
+        margin-right: auto;
+        width: 180px;
+        height: 180px;
+        display: block;
+    }
+
+    .project h3 {
+        font-size: 1.4rem;
+    }
+
+    .project p {
+        font-size: 1rem;
+    }
+
+    .main {
+        font-size: 2.2rem;
+        margin-left: 10px;
+        text-align: center;
+    }
+
+    .speech {
+        font-size: 1rem;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    /* ── Certifications Section ── */
+    .page-header h1 {
+        font-size: 2.2rem !important;
+    }
+
+    .cert-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cert-card h3 {
+        font-size: 1.1rem;
+    }
+
+    /* ── Contact Section ── */
+    h2 {
+        font-size: 2.2rem !important;
+    }
+
+    .greetings {
+        font-size: 1rem;
+    }
+
+    .contact input,
+    .contact textarea {
+        width: 100%;
+        max-width: 480px;
+        box-sizing: border-box;
+    }
+
+    .contact button {
+        width: 100%;
+        max-width: 480px;
+    }
+
+    /* ── Footer ── */
+    .footer {
+        font-size: 0.75rem;
+        padding: 16px 10px;
+    }
+}
+
+/* ============================================================
+   SMALL PHONES (max 480px)
+   ============================================================ */
+@media (max-width: 480px) {
+    .hero-name {
+        font-size: 1.7rem;
+    }
+
+    .hero-box .stat-item {
+        width: 100%;
+    }
+
+    .hero-img img {
+        width: 140px;
+        height: 140px;
+    }
+
+    .about-me h2 {
+        font-size: 1.6rem;
+    }
+
+    .main {
+        font-size: 1.8rem;
+    }
+
+    .page-header h1 {
+        font-size: 1.8rem !important;
+    }
+
+    h2 {
+        font-size: 1.8rem !important;
+    }
+}

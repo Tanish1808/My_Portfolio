@@ -59,8 +59,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Scroll Spy for Navbar Links
-    const sections = document.querySelectorAll("section");
-    const navLinks = document.querySelectorAll(".nav-links a");
+    const sections     = document.querySelectorAll("section");
+    const scrollNavLinks = document.querySelectorAll(".nav-links a");
 
     window.addEventListener("scroll", () => {
         let current = "";
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        navLinks.forEach(link => {
+        scrollNavLinks.forEach(link => {
             link.classList.remove("active");
             if (current && link.getAttribute("href").includes(current)) {
                 link.classList.add("active");
@@ -101,4 +101,26 @@ document.addEventListener("DOMContentLoaded", () => {
         el.classList.add("fade-in");
         observer.observe(el);
     });
+
+    // ── Hamburger Menu Toggle ──────────────────────────────────────────
+    const menuToggle   = document.getElementById("menuToggle");
+    const mobileNav    = document.querySelector(".nav-links");
+    const menuIcon     = document.getElementById("menuIcon");
+
+    if (menuToggle) {
+        menuToggle.addEventListener("click", () => {
+            mobileNav.classList.toggle("nav-open");
+            const isOpen = mobileNav.classList.contains("nav-open");
+            menuIcon.className = isOpen ? "fa-solid fa-xmark" : "fa-solid fa-bars";
+        });
+
+        // Auto-close menu when a nav link is clicked
+        document.querySelectorAll(".nav-link").forEach(link => {
+            link.addEventListener("click", () => {
+                mobileNav.classList.remove("nav-open");
+                menuIcon.className = "fa-solid fa-bars";
+            });
+        });
+    }
+    // ── End Hamburger ──────────────────────────────────────────────────
 });
