@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+
     // ── Typewriter Effect (Continuous Loop) ───────────────────────────
     const roleEl  = document.querySelector(".hero-role");
     const phrase  = "IT Student | Coder | Problem Solver";
