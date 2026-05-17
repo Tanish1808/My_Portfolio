@@ -96,7 +96,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }, observerOptions);
 
     // Add .fade-in class to elements we want to animate, then observe them
-    const animatedElements = document.querySelectorAll(".hero-box, .about-me, .skills-card div, .project, .cert-card, .contact input, .contact textarea");
+    const animatedElements = document.querySelectorAll(
+        ".hero-box .stat-item, .about-me, .edu-card, .skills-card > div, .project, .cert-card, .contact input, .contact textarea"
+    );
     animatedElements.forEach(el => {
         el.classList.add("fade-in");
         observer.observe(el);
