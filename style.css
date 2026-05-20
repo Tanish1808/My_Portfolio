@@ -167,15 +167,6 @@ body, .navbar, .about-me, .skills-card > div, .project, .cert-card, .contact inp
 }
 
 
-body {
-    background: #050505;
-    background-image: 
-        radial-gradient(circle at 15% 50%, rgba(139, 92, 246, 0.15), transparent 25%),
-        radial-gradient(circle at 85% 30%, rgba(0, 229, 255, 0.15), transparent 25%);
-    background-attachment: fixed;
-    color: #f8fafc;
-    min-height: 100vh;
-}
 
 @keyframes gradientBG {
     0% { background-position: 0% 50%; }
@@ -415,8 +406,9 @@ body {
     padding: 9px 17px;
     margin-top: 20px;
     margin-right: 0px;
-    background: rgb(200, 200, 200,0.1);
-    color: #ffffff;
+    background: var(--border-card);
+    border: 1px solid var(--border-card);
+    color: var(--text-primary);
     text-decoration: none;
     border-radius: 17px;
     font-weight: 600;
@@ -435,7 +427,7 @@ body {
 }
 
 .hero-box .stat-item {
-  color: white;
+  color: var(--text-primary);
   padding: 18px 24px;
   border-radius: 14px;
   text-align: center;
@@ -460,7 +452,7 @@ body {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--text-muted);
 }
 
 /* Value */
@@ -468,7 +460,7 @@ body {
   margin: 0;
   font-size: 1rem;
   font-weight: 600;
-  color: #f8fafc;
+  color: var(--text-primary);
 }
 
 /* Hover */
@@ -488,7 +480,7 @@ body {
     margin-top: 50px;
     font-size: 1.8rem;
     text-align: center;
-    color: white;
+    color: var(--text-primary);
     font-weight: 600;
 }
 
@@ -533,7 +525,7 @@ body {
 /* Icon look */
 .social-icons i {
   font-size: 1.6rem;
-  color: white;
+  color: var(--text-primary);
   transition: 0.3s ease;
 }
 
@@ -598,11 +590,11 @@ body {
 
 .about-me{
   list-style: none;
-  background: rgb(200, 200, 200,0.1);
-  color: #ffffff;
+  background: var(--bg-card);
+  color: var(--text-primary);
   padding: 15px 25px;
   border-radius: 12px;
-  box-shadow: 0 0 8px rgba(27, 77, 212, 0.2);
+  box-shadow: var(--shadow-card);
   display: inline-block;
   justify-content: center;
   font-size: 3rem;
@@ -619,7 +611,7 @@ body {
     font-weight: 750;
     margin-bottom: 20px;
     padding-left: 70px;
-    color: #8B5CF6;
+    color: var(--accent-purple);
     font-weight: 600;
     opacity: 1;
 }
@@ -634,11 +626,11 @@ body {
     line-height: 1.6;
     padding-left: 70px;
     font-weight: 500;
-    color :rgb(200, 200, 200,0.8);
+    color: var(--text-secondary);
 }
 
 .about-me span{
-    color: white;
+    color: var(--accent-cyan);
     font-weight: 600;
 }
 
@@ -730,12 +722,12 @@ h5{
 .edu-info .university {
     font-size: 1.6rem;
     font-weight: 700;
-    color: white;
+    color: var(--text-primary);
 }
 
 .edu-info p {
     margin-top: 4px;
-    color: #ccc;
+    color: var(--text-secondary);
     font-size: 1.4rem;
     font-weight: 400;
 }
@@ -797,7 +789,7 @@ h5{
     line-height: 1.6;
     /* padding-left: 70px; */
     font-weight: 500;
-    color :rgb(200, 200, 200,0.8);
+    color: var(--text-secondary);
     font-weight: 600;
 }
 
@@ -847,7 +839,7 @@ display: flex;
     padding: 10px;
     font-size: 1.3rem;
     font-weight: 500;
-    color: rgb(200, 200, 200);
+    color: var(--text-secondary);
 }
 
 .project:hover {
@@ -910,21 +902,22 @@ display: flex;
 
 .project span {
     font-weight: 700;
-    color: white;
+    color: var(--text-primary);
 }
 
 .skills li{
     margin: 8px 0px;
     list-style: none;
-    background: rgb(200, 200, 200,0.1);
+    background: var(--border-card);
     padding: 8px 12px;
     border-radius: 10px;
-    color: white;
+    color: var(--text-primary);
     font-size: 0.8rem;
     font-weight: 700;
     display: inline-block;
     margin-right: 8px;
     flex-wrap: wrap;
+    border: 1px solid var(--border-card);
 }
 
 
@@ -966,7 +959,7 @@ display: flex;
   margin-top: 20px;
   margin-right: 0px;
   /* background: rgb(200, 200, 200,0.1); */
-  color: #ffffff;
+  color: var(--text-primary);
   text-decoration: none;
   border-radius: 17px;
   font-weight: 600;
@@ -1006,7 +999,7 @@ display: flex;
 
 .skills-card h2{
     margin-bottom: 10px;
-    color: white;
+    color: var(--text-primary);
     font-size: 2rem;
     font-weight: 600;
 }
@@ -1017,7 +1010,7 @@ display: flex;
     margin: 10px;
     font-size: 1.3rem;
     font-weight: 500;
-    color: rgb(200, 200, 200);
+    color: var(--text-secondary);
 }
 
 .skills-card li{
@@ -1036,23 +1029,6 @@ display: flex;
 }
 
 /* --- certification.css --- */
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
-
-    body {
-    background: #050505;
-    background-image: 
-        radial-gradient(circle at 15% 50%, rgba(139, 92, 246, 0.15), transparent 25%),
-        radial-gradient(circle at 85% 30%, rgba(0, 229, 255, 0.15), transparent 25%);
-    background-attachment: fixed;
-    color: #f8fafc;
-    min-height: 100vh;
-}
 
     .container {
       max-width: 1100px;
@@ -1074,7 +1050,7 @@ display: flex;
     .page-header p {
       margin-top: 10px;
       font-size: 17px;
-      color: #cfd8dc;
+      color: var(--text-secondary);
     }
 
     /* Category */
@@ -1121,14 +1097,14 @@ display: flex;
 
     .issuer {
       font-size: 16px;
-      color: #b0bec5;
+      color: var(--text-secondary);
       margin-bottom: 8px;
       font-weight: 600;
     }
 
     .date {
       font-size: 15px;
-      color: #90a4ae;
+      color: var(--text-secondary);
       margin-bottom: 12px;
       font-weight: 600;
     }
@@ -1172,7 +1148,7 @@ display: flex;
       text-align: center;
       margin-top: 60px;
       font-size : 1.3rem;
-      color: #cfd8dc;
+      color: var(--text-secondary);
     }
 
 
@@ -1188,7 +1164,7 @@ h2{
 }
 
 .greetings{
-    color: white;
+    color: var(--text-secondary);
     font-size: 1.3rem;
     text-align: center;
     margin: 10px;
@@ -1226,7 +1202,7 @@ h2{
 /* Icon look */
 .social-icons i {
   font-size: 1.6rem;
-  color: white;
+  color: var(--text-primary);
   transition: 0.3s ease;
 }
 
@@ -1259,9 +1235,13 @@ h2{
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    color: white;
+    color: var(--text-primary);
     font-size: 1rem;
     font-weight: 500;
+}
+
+.contact input::placeholder, .contact textarea::placeholder {
+    color: var(--text-muted);
 }
 
 .contact button{
@@ -1396,7 +1376,7 @@ h2 {
     align-items: center;
     justify-content: center;
     font-size: 1.6rem;
-    color: white;
+    color: var(--text-primary);
     cursor: pointer;
     padding: 4px 8px;
     border-radius: 6px;
