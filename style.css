@@ -338,6 +338,60 @@ body.light-theme .theme-toggle-btn i {
 @keyframes blink {
   50% { opacity: 0; }
 }
+
+/* Interactive Terminal Styling */
+.terminal-body {
+  max-height: 380px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+}
+
+.terminal-body::-webkit-scrollbar {
+  width: 6px;
+}
+.terminal-body::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+.terminal-welcome {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+}
+
+.terminal-line.input-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#terminalInput {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: inherit;
+  flex-grow: 1;
+  padding: 0;
+  caret-color: var(--accent-cyan);
+}
+
+.terminal-command-error {
+  color: #EF4444;
+}
+
+.terminal-command-success {
+  color: #10B981;
+}
+
+.terminal-command-info {
+  color: var(--accent-purple);
+}
 /* ── End Mock Code Terminal Styles ─────────────────────── */
 
 /* Text Area */

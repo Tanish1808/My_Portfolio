@@ -54,17 +54,23 @@
             <div class="terminal-title">tanish@portfolio:~</div>
           </div>
           <div class="terminal-body">
-            <div class="terminal-line"><span class="prompt">tanishshah ~ %</span> <span class="cmd">cat developer.json</span></div>
-            <div class="terminal-output">
-              <span class="bracket">{</span>
-              <div class="indent"><span class="key">"name"</span>: <span class="val">"Tanish Shah"</span>,</div>
-              <div class="indent"><span class="key">"role"</span>: <span class="val">"IT Student & Coder"</span>,</div>
-              <div class="indent"><span class="key">"skills"</span>: <span class="bracket">[</span><span class="val">"Java"</span>, <span class="val">"JS"</span>, <span class="val">"DBMS"</span><span class="bracket">]</span>,</div>
-              <div class="indent"><span class="key">"focus"</span>: <span class="val">"Clean Code"</span>,</div>
-              <div class="indent"><span class="key">"status"</span>: <span class="val">"Building the future..."</span></div>
-              <span class="bracket">}</span>
+            <div id="terminalHistory">
+              <div class="terminal-welcome">Type 'help' to explore the interactive terminal.</div>
+              <div class="terminal-line"><span class="prompt">tanishshah ~ %</span> <span class="cmd">cat developer.json</span></div>
+              <div class="terminal-output">
+                <span class="bracket">{</span>
+                <div class="indent"><span class="key">"name"</span>: <span class="val">"Tanish Shah"</span>,</div>
+                <div class="indent"><span class="key">"role"</span>: <span class="val">"IT Student & Coder"</span>,</div>
+                <div class="indent"><span class="key">"skills"</span>: <span class="bracket">[</span><span class="val">"Java"</span>, <span class="val">"JS"</span>, <span class="val">"DBMS"</span><span class="bracket">]</span>,</div>
+                <div class="indent"><span class="key">"focus"</span>: <span class="val">"Clean Code"</span>,</div>
+                <div class="indent"><span class="key">"status"</span>: <span class="val">"Building the future..."</span></div>
+                <span class="bracket">}</span>
+              </div>
             </div>
-            <div class="terminal-line"><span class="prompt">tanishshah ~ %</span> <span class="cursor">_</span></div>
+            <div class="terminal-line input-line">
+              <span class="prompt">tanishshah ~ %</span>
+              <input type="text" id="terminalInput" autofocus autocomplete="off" spellcheck="false" aria-label="Terminal input">
+            </div>
           </div>
         </div>
       </div>
