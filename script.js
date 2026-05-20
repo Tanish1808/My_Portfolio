@@ -4,11 +4,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const themeToggleBtn = document.getElementById("themeToggle");
     const themeIcon = themeToggleBtn ? themeToggleBtn.querySelector("i") : null;
     
-    // Check saved theme
+    // Check saved theme (default is dark, ignoring system preferences for initial load)
     const savedTheme = localStorage.getItem("theme");
-    const systemPrefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
     
-    if (savedTheme === "light" || (!savedTheme && systemPrefersLight)) {
+    if (savedTheme === "light") {
         document.body.classList.add("light-theme");
         if (themeIcon) {
             themeIcon.className = "fa-solid fa-sun";

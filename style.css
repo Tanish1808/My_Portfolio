@@ -98,6 +98,13 @@ body, .navbar, .about-me, .skills-card > div, .project, .cert-card, .contact inp
   color: var(--text-primary);
 }
 
+/* Nav Actions Container */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
 /* Theme Toggle Button */
 .theme-toggle-btn {
   background: transparent;
@@ -106,7 +113,6 @@ body, .navbar, .about-me, .skills-card > div, .project, .cert-card, .contact inp
   font-size: 1.3rem;
   cursor: pointer;
   padding: 8px;
-  margin-left: 20px;
   border-radius: 50%;
   display: flex;
   align-items: center;
