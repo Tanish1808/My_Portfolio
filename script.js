@@ -1,5 +1,45 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+    // ── Theme Switcher ──────────────────────────────────────────────────
+    const themeToggleBtn = document.getElementById("themeToggle");
+    const themeIcon = themeToggleBtn ? themeToggleBtn.querySelector("i") : null;
+    
+    // Check saved theme
+    const savedTheme = localStorage.getItem("theme");
+    const systemPrefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+    
+    if (savedTheme === "light" || (!savedTheme && systemPrefersLight)) {
+        document.body.classList.add("light-theme");
+        if (themeIcon) {
+            themeIcon.className = "fa-solid fa-sun";
+        }
+    } else {
+        document.body.classList.remove("light-theme");
+        if (themeIcon) {
+            themeIcon.className = "fa-solid fa-moon";
+        }
+    }
+    
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener("click", () => {
+            document.body.classList.toggle("light-theme");
+            const isLight = document.body.classList.contains("light-theme");
+            
+            // Save theme
+            localStorage.setItem("theme", isLight ? "light" : "dark");
+            
+            // Switch icon with transition
+            if (themeIcon) {
+                themeIcon.style.transition = "transform 0.2s ease";
+                themeIcon.style.transform = "rotate(180deg) scale(0)";
+                setTimeout(() => {
+                    themeIcon.className = isLight ? "fa-solid fa-sun" : "fa-solid fa-moon";
+                    themeIcon.style.transform = "rotate(0deg) scale(1)";
+                }, 200);
+            }
+        });
+    }
+
     // ── Typewriter Effect (Continuous Loop) ───────────────────────────
     const roleEl  = document.querySelector(".hero-role");
     const phrase  = "IT Student | Coder | Problem Solver";
