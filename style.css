@@ -525,6 +525,16 @@ body.light-theme .theme-toggle-btn i {
   color: var(--text-primary);
 }
 
+/* Special highlight for Availability status */
+.status-highlight {
+  color: #00E5FF !important;
+  font-weight: 700 !important;
+}
+
+body.light-theme .status-highlight {
+  color: #00738C !important;
+}
+
 /* Hover */
 .hero-box .stat-item:hover {
   transform: translateY(-5px);
