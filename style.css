@@ -117,8 +117,16 @@ body, .navbar, .about-me, .skills-card > div, .project, .cert-card, .contact inp
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: color 0.3s ease, transform 0.5s ease;
+  transition: color 0.3s ease, transform 0.3s ease;
   outline: none;
+}
+
+.theme-toggle-btn i {
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.light-theme .theme-toggle-btn i {
+  transform: rotate(180deg);
 }
 
 .theme-toggle-btn:hover {
