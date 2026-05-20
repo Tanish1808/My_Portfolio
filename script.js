@@ -177,18 +177,19 @@ document.addEventListener("DOMContentLoaded", () => {
             about: () => `Tanish Shah is an enthusiastic Information Technology student, problem solver, and coder. 
 Currently building premium user interfaces and software systems, focusing on clean code, scalability, and modern web APIs.`,
             skills: () => `Core Tech Stack & Skills:
-  - Languages  : Java, Javascript (ES6+), C++, HTML5, CSS3
-  - Web & App  : React.js, Node.js, REST APIs, Bootstrap
-  - Databases  : DBMS, SQL, Oracle SQL, MongoDB
-  - Core Competencies : Data Structures, Algorithms, OOPs, SDLC`,
+  - Languages  : Java, Python, .NET
+  - Web Tech   : HTML5, CSS3, JavaScript, React JS
+  - Databases  : PostgreSQL, MySQL, MongoDB, Git
+  - Frameworks : Node JS, Express JS, Bootstrap, Tailwind CSS
+  - Suites     : Data Structures & Algorithms, Problem Solving, UI/UX Design`,
             projects: () => `Portfolio Projects:
-  1. <span class="terminal-command-info">Online Voting System</span> — Java/Servlets based voting portal with secure verification.
-  2. <span class="terminal-command-info">Crop Yield Prediction</span> — ML platform analyzing soil parameters to recommend crops.
-  3. <span class="terminal-command-info">Modern Portfolio Website</span> — This interactive, variable-driven glassmorphism showcase.`,
+  1. <span class="terminal-command-info">Bus Seat Reservation System (SEM-I)</span> — Java app automating real-time seat availability & booking.
+  2. <span class="terminal-command-info">Hostel Management System (SEM-I)</span> — OOPs-based administration portal for room management & payments.
+  3. <span class="terminal-command-info">Course Management System (SEM-II)</span> — Institutional platform for digital course enrollment, grading & DB structures.`,
             contact: () => `Let's connect!
-  - Email    : <a href="mailto:tanishshah051@gmail.com" target="_blank" style="color: var(--accent-cyan);">tanishshah051@gmail.com</a>
-  - GitHub   : <a href="https://github.com/Tanishshah05" target="_blank" style="color: var(--accent-cyan);">github.com/Tanishshah05</a>
-  - LinkedIn : <a href="https://linkedin.com/in/tanishshah1808" target="_blank" style="color: var(--accent-cyan);">linkedin.com/in/tanishshah1808</a>`,
+  - Email    : <a href="mailto:tanish.shahdev@gmail.com" target="_blank" style="color: var(--accent-cyan);">tanish.shahdev@gmail.com</a>
+  - GitHub   : <a href="https://github.com/Tanish1808" target="_blank" style="color: var(--accent-cyan);">github.com/Tanish1808</a>
+  - LinkedIn : <a href="https://www.linkedin.com/in/tanish-shah-703489349/" target="_blank" style="color: var(--accent-cyan);">tanish-shah-703489349</a>`,
             "cat developer.json": () => `<span class="bracket">{</span>
   <div class="indent"><span class="key">"name"</span>: <span class="val">"Tanish Shah"</span>,</div>
   <div class="indent"><span class="key">"role"</span>: <span class="val">"IT Student & Coder"</span>,</div>
