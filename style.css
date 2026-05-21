@@ -918,9 +918,9 @@ display: flex;
 }
 
 .project:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 50px rgba(139, 92, 246, 0.3);
-    border: 1px solid rgba(139, 92, 246, 0.4);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-card-hover);
+    border-color: var(--accent-purple);
 }
 
 /* ── Project Card Hover Expand ─────────────────────────── */
@@ -1167,8 +1167,9 @@ display: flex;
     }
 
     .cert-card:hover {
-      transform: translateY(-6px);
+      transform: translateY(-8px) scale(1.02);
       box-shadow: var(--shadow-card-hover);
+      border-color: var(--accent-purple);
     }
 
     .cert-card h3 {
