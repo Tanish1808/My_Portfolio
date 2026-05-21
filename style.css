@@ -981,18 +981,22 @@ display: flex;
 }
 
 .skills li{
-    margin: 8px 0px;
+    margin: 6px 4px;
     list-style: none;
-    background: var(--border-card);
-    padding: 8px 12px;
-    border-radius: 10px;
-    color: var(--text-primary);
+    background: rgba(0, 229, 255, 0.05);
+    padding: 6px 14px;
+    border-radius: 20px;
+    color: var(--accent-cyan);
     font-size: 0.8rem;
-    font-weight: 700;
+    font-weight: 600;
     display: inline-block;
-    margin-right: 8px;
-    flex-wrap: wrap;
-    border: 1px solid var(--border-card);
+    border: 1px solid rgba(0, 229, 255, 0.15);
+    transition: all 0.3s ease;
+}
+
+.skills li:hover {
+    background: rgba(0, 229, 255, 0.15);
+    transform: translateY(-2px);
 }
 
 
@@ -1201,12 +1205,20 @@ display: flex;
     }
 
     .tag {
-      font-size: 12px;
-      padding: 4px 10px;
+      padding: 6px 14px;
       border-radius: 20px;
+      background: rgba(0, 229, 255, 0.05);
+      color: var(--accent-cyan);
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: 1px solid rgba(0, 229, 255, 0.15);
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    .tag:hover {
       background: rgba(0, 229, 255, 0.15);
-      color: #00e5ff;
-      font-size: 0.9rem;
+      transform: translateY(-2px);
     }
 
     /* Button */
@@ -1406,26 +1418,37 @@ h2 {
 }
 
 /* Card Hover States */
-.skills-card div:hover, .project:hover, .cert-card:hover, .edu-card:hover, .hero-box .stat-item:hover {
+.skills-card div:hover, .edu-card:hover, .hero-box .stat-item:hover {
     transform: translateY(-8px) !important;
     box-shadow: var(--shadow-card-hover) !important;
     border: 1px solid var(--accent-purple-glow) !important;
 }
 
+.project:hover, .cert-card:hover {
+    transform: translateY(-8px) scale(1.02) !important;
+    box-shadow: var(--shadow-card-hover) !important;
+    border: 1px solid var(--accent-purple) !important;
+}
+
 /* Buttons */
 .contact button, .btn a, .view-btn {
-    background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan)) !important;
-    color: var(--btn-text) !important;
-    font-weight: 800 !important;
-    border: none !important;
-    box-shadow: 0 4px 15px var(--accent-cyan-glow) !important;
-    transition: all 0.3s ease !important;
+    background: rgba(0, 229, 255, 0.05) !important;
+    color: var(--accent-cyan) !important;
+    font-weight: 600 !important;
+    border: 1px solid var(--accent-cyan) !important;
+    border-radius: 30px !important;
+    box-shadow: none !important;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1) !important;
+    display: inline-block;
+    padding: 10px 22px !important;
+    text-decoration: none;
 }
 
 .contact button:hover, .btn a:hover, .view-btn:hover {
-    transform: scale(1.05) !important;
-    box-shadow: 0 6px 20px var(--accent-purple-glow) !important;
-    color: #fff !important;
+    background: var(--accent-cyan) !important;
+    color: var(--btn-text) !important;
+    box-shadow: 0 0 15px var(--accent-cyan-glow) !important;
+    transform: translateY(-2px) scale(1.02) !important;
 }
 
 /* Social Icons */
