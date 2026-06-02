@@ -292,6 +292,7 @@ body.light-theme .theme-toggle-btn i {
   font-size: 0.92rem;
   line-height: 1.6;
   text-align: left;
+  position: relative; /* Support absolute canvas overlay positioning */
 }
 
 .terminal-line {
@@ -391,6 +392,32 @@ body.light-theme .theme-toggle-btn i {
 
 .terminal-command-info {
   color: var(--accent-purple);
+}
+
+.matrix-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000000;
+  z-index: 10;
+  border-radius: inherit;
+}
+
+.matrix-exit-hint {
+  position: absolute;
+  bottom: 12px;
+  right: 18px;
+  color: #00E5FF;
+  font-family: 'Fira Code', 'Courier New', Courier, monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  z-index: 20;
+  pointer-events: none;
+  text-shadow: 0 0 5px rgba(0, 229, 255, 0.6);
+  opacity: 0.8;
+  animation: blink-caret 1.5s step-end infinite;
 }
 /* ── End Mock Code Terminal Styles ─────────────────────── */
 

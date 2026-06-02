@@ -163,6 +163,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (terminalInput && terminalHistory) {
+        // Command History Tracking
+        const commandHistory = [];
+        let historyIndex = -1;
+
         // Commands Dictionary: Maps command keys to functions returning HTML strings
         const commands = {
             help: () => `Available commands:
@@ -173,6 +177,9 @@ document.addEventListener("DOMContentLoaded", () => {
   - <span class="terminal-command-info">theme</span>    : Toggle Light/Dark mode of the site
   - <span class="terminal-command-info">clear</span>    : Clear the console screen
   - <span class="terminal-command-info">cat developer.json</span> : Output raw developer info
+  - <span class="terminal-command-info">matrix</span>   : Run Matrix digital rain animation
+  - <span class="terminal-command-info">joke</span>     : Print a random coding joke
+  - <span class="terminal-command-info">sudo</span>     : Run a superuser command
   - <span class="terminal-command-info">help</span>     : Show this instructions message`,
             about: () => `Tanish Shah is an enthusiastic Information Technology student, problem solver, and coder. 
 Currently building premium user interfaces and software systems, focusing on clean code, scalability, and modern web APIs.`,
@@ -204,6 +211,106 @@ Currently building premium user interfaces and software systems, focusing on cle
                 localStorage.setItem("theme", isLight ? "light" : "dark");
                 return `<span class="terminal-command-success">Theme toggled to ${isLight ? "Light Mode" : "Dark Mode"}!</span>`;
             },
+            joke: () => {
+                const jokes = [
+                    "Why do programmers wear glasses? Because they can't C#!",
+                    "There are 10 types of people in the world: those who understand binary, and those who don't.",
+                    "How many programmers does it take to change a light bulb? None, that's a hardware problem.",
+                    "A SQL query goes into a bar, walks up to two tables and asks, 'Can I join you?'",
+                    "['hip', 'hip'] (hip hip array!)",
+                    "Why did the programmer quit their job? Because they didn't get arrays.",
+                    "What is a programmer's favorite hangout place? Foo Bar!"
+                ];
+                const randomIndex = Math.floor(Math.random() * jokes.length);
+                return `<span class="terminal-command-success">Joke:</span> ${jokes[randomIndex]}`;
+            },
+            sudo: () => {
+                return `<span class="terminal-command-error">Permission denied. user 'guest' is not in the sudoers file. This incident will be reported.</span>`;
+            },
+            git: () => {
+                return `git: 'git' is not a registered terminal command here.<br>Try using git in your computer's native terminal to clone repositories!`;
+            },
+            matrix: () => {
+                if (document.querySelector(".matrix-canvas")) return "";
+
+                const canvas = document.createElement("canvas");
+                canvas.className = "matrix-canvas";
+                
+                const exitHint = document.createElement("div");
+                exitHint.className = "matrix-exit-hint";
+                exitHint.innerText = "PRESS ANY KEY TO EXIT";
+                
+                terminalBody.appendChild(canvas);
+                terminalBody.appendChild(exitHint);
+                
+                terminalInput.disabled = true;
+                terminalInput.blur();
+
+                const ctx = canvas.getContext("2d");
+                const originalOverflow = terminalBody.style.overflow;
+                terminalBody.style.overflow = "hidden";
+                
+                function resizeCanvas() {
+                    canvas.width = terminalBody.clientWidth;
+                    canvas.height = terminalBody.clientHeight;
+                }
+                resizeCanvas();
+                
+                const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン".split("");
+                const fontSize = 12;
+                let columns = Math.floor(canvas.width / fontSize);
+                let drops = [];
+                for (let i = 0; i < columns; i++) {
+                    drops[i] = Math.random() * -100;
+                }
+
+                let animationId;
+                
+                function draw() {
+                    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    ctx.fillStyle = "#0F0";
+                    ctx.font = `${fontSize}px monospace`;
+                    
+                    for (let i = 0; i < drops.length; i++) {
+                        const text = chars[Math.floor(Math.random() * chars.length)];
+                        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                        
+                        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                            drops[i] = 0;
+                        }
+                        drops[i]++;
+                    }
+                    animationId = requestAnimationFrame(draw);
+                }
+                
+                draw();
+                
+                window.addEventListener("resize", resizeCanvas);
+                
+                function exitMatrix() {
+                    cancelAnimationFrame(animationId);
+                    window.removeEventListener("resize", resizeCanvas);
+                    
+                    canvas.remove();
+                    exitHint.remove();
+                    
+                    terminalBody.style.overflow = originalOverflow;
+                    terminalInput.disabled = false;
+                    terminalInput.focus();
+                    
+                    document.removeEventListener("keydown", exitMatrix);
+                    canvas.removeEventListener("click", exitMatrix);
+                }
+                
+                setTimeout(() => {
+                    document.addEventListener("keydown", exitMatrix);
+                    canvas.addEventListener("click", exitMatrix);
+                }, 100);
+
+                return "";
+            },
             // Empties the history container
             clear: () => {
                 terminalHistory.innerHTML = "";
@@ -228,6 +335,10 @@ Currently building premium user interfaces and software systems, focusing on cle
 
                 // 2. Process command and route to appropriate outputs
                 if (rawInput.trim() !== "") {
+                    // Save to command history
+                    commandHistory.push(rawInput);
+                    historyIndex = -1; // Reset pointer
+
                     let outputHTML = "";
                     if (commands[cleanedInput]) {
                         outputHTML = commands[cleanedInput](); // Execute command function
@@ -255,6 +366,82 @@ Currently building premium user interfaces and software systems, focusing on cle
                     setTimeout(() => {
                         terminalBody.scrollTop = terminalBody.scrollHeight;
                     }, 10);
+                }
+            } else if (e.key === "ArrowUp") {
+                e.preventDefault();
+                if (commandHistory.length === 0) return;
+                if (historyIndex === -1) {
+                    historyIndex = commandHistory.length - 1;
+                } else if (historyIndex > 0) {
+                    historyIndex--;
+                }
+                terminalInput.value = commandHistory[historyIndex];
+            } else if (e.key === "ArrowDown") {
+                e.preventDefault();
+                if (commandHistory.length === 0) return;
+                if (historyIndex !== -1 && historyIndex < commandHistory.length - 1) {
+                    historyIndex++;
+                    terminalInput.value = commandHistory[historyIndex];
+                } else {
+                    historyIndex = -1;
+                    terminalInput.value = "";
+                }
+            } else if (e.key === "Tab") {
+                e.preventDefault();
+                const rawInput = terminalInput.value;
+                const cleanedInput = rawInput.trim().toLowerCase();
+                if (cleanedInput === "") return;
+                
+                // Get all command keys
+                const commandKeys = Object.keys(commands);
+                const matches = commandKeys.filter(cmd => cmd.startsWith(cleanedInput));
+                
+                if (matches.length === 1) {
+                    terminalInput.value = matches[0];
+                } else if (matches.length > 1) {
+                    // Echo current state and print matches
+                    const cmdLine = document.createElement("div");
+                    cmdLine.className = "terminal-line";
+                    cmdLine.innerHTML = `<span class="prompt">tanishshah ~ %</span> <span class="cmd">${escapeHTML(rawInput)}</span>`;
+                    terminalHistory.appendChild(cmdLine);
+
+                    const matchesDiv = document.createElement("div");
+                    matchesDiv.className = "terminal-output";
+                    matchesDiv.innerHTML = `<span class="terminal-command-info">Possibilities:</span> ${matches.join("  ")}`;
+                    terminalHistory.appendChild(matchesDiv);
+
+                    // Find common prefix to autocomplete as much as possible
+                    let commonPrefix = cleanedInput;
+                    let finished = false;
+                    while (!finished) {
+                        let nextChar = null;
+                        for (let i = 0; i < matches.length; i++) {
+                            const match = matches[i];
+                            if (match.length <= commonPrefix.length) {
+                                finished = true;
+                                break;
+                            }
+                            const char = match[commonPrefix.length];
+                            if (nextChar === null) {
+                                nextChar = char;
+                            } else if (nextChar !== char) {
+                                finished = true;
+                                break;
+                            }
+                        }
+                        if (!finished && nextChar !== null) {
+                            commonPrefix += nextChar;
+                        } else {
+                            finished = true;
+                        }
+                    }
+                    terminalInput.value = commonPrefix;
+
+                    if (terminalBody) {
+                        setTimeout(() => {
+                            terminalBody.scrollTop = terminalBody.scrollHeight;
+                        }, 10);
+                    }
                 }
             }
         });
