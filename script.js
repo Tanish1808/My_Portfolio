@@ -246,9 +246,16 @@ Currently building premium user interfaces and software systems, focusing on cle
                 terminalInput.disabled = true;
                 terminalInput.blur();
 
+                // Track launch time to prevent accidental immediate exits (key repeats / event bubbling)
+                const startTime = Date.now();
+
                 const ctx = canvas.getContext("2d");
                 const originalOverflow = terminalBody.style.overflow;
                 terminalBody.style.overflow = "hidden";
+                
+                // Align scroll position so the absolute canvas container matches the viewport
+                terminalBody.scrollTop = 0;
+                terminalBody.scrollLeft = 0;
                 
                 function resizeCanvas() {
                     canvas.width = terminalBody.clientWidth;
@@ -261,7 +268,8 @@ Currently building premium user interfaces and software systems, focusing on cle
                 let columns = Math.floor(canvas.width / fontSize);
                 let drops = [];
                 for (let i = 0; i < columns; i++) {
-                    drops[i] = Math.random() * -100;
+                    // Populate some drops instantly across height and stagger others above the screen
+                    drops[i] = Math.random() * (canvas.height / fontSize) - 20;
                 }
 
                 let animationId;
@@ -270,7 +278,10 @@ Currently building premium user interfaces and software systems, focusing on cle
                     ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
                     ctx.fillRect(0, 0, canvas.width, canvas.height);
                     
-                    ctx.fillStyle = "#0F0";
+                    // Match cyan accent theme and apply a glowing text filter
+                    ctx.fillStyle = "#00E5FF";
+                    ctx.shadowBlur = 5;
+                    ctx.shadowColor = "#00E5FF";
                     ctx.font = `${fontSize}px monospace`;
                     
                     for (let i = 0; i < drops.length; i++) {
@@ -290,6 +301,9 @@ Currently building premium user interfaces and software systems, focusing on cle
                 window.addEventListener("resize", resizeCanvas);
                 
                 function exitMatrix() {
+                    // Ignore keydowns/clicks within first 400ms to avoid immediate exit
+                    if (Date.now() - startTime < 400) return;
+
                     cancelAnimationFrame(animationId);
                     window.removeEventListener("resize", resizeCanvas);
                     
@@ -304,10 +318,8 @@ Currently building premium user interfaces and software systems, focusing on cle
                     canvas.removeEventListener("click", exitMatrix);
                 }
                 
-                setTimeout(() => {
-                    document.addEventListener("keydown", exitMatrix);
-                    canvas.addEventListener("click", exitMatrix);
-                }, 100);
+                document.addEventListener("keydown", exitMatrix);
+                canvas.addEventListener("click", exitMatrix);
 
                 return "";
             },
@@ -361,8 +373,8 @@ Currently building premium user interfaces and software systems, focusing on cle
                 // 4. Reset input field so user can type the next command
                 terminalInput.value = "";
 
-                // 5. Scroll log window down to make sure new output is visible
-                if (terminalBody) {
+                // 5. Scroll log window down to make sure new output is visible (skip if matrix mode is active)
+                if (terminalBody && !document.querySelector(".matrix-canvas")) {
                     setTimeout(() => {
                         terminalBody.scrollTop = terminalBody.scrollHeight;
                     }, 10);
