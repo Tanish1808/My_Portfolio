@@ -793,4 +793,124 @@ Currently building premium user interfaces and software systems, focusing on cle
             contactStatus.className = `contact-status show ${type}`;
         }
     }
+
+    // ── Projects Detail Modal Logic ────────────────────────────────────
+    const projectsData = {
+        bus: {
+            title: "Bus Seat Reservation System (SEM-I)",
+            description: "This application automates the bus ticketing and seat booking process. It provides real-time availability mapping, user details registration, and secure seat locks, replacing paper-based manual administration.",
+            tech: ["Core Java", "Conditional Statements", "Arrays", "Git"],
+            features: [
+                "Real-time visual seat allocation matrix",
+                "Automated check-ins and ticket generation",
+                "Validation system preventing double bookings",
+                "Console UI designed with structured formatting"
+            ],
+            image: "assets/bus_reservation.png",
+            github: "https://github.com/Tanish1808/Bus_Management_System/blob/main/src/BusSeatReservationSystem.java"
+        },
+        hostel: {
+            title: "Hostel Management System (SEM-I)",
+            description: "A centralized software portal developed to help administrators manage rooms, student profiles, transaction payments, and custom service complaints. Built on solid OOP principles for structured object data representation.",
+            tech: ["Java", "OOPs Concepts", "SRS Documentation", "Arrays"],
+            features: [
+                "Detailed room allocation tracker (occupancy and vacancy metrics)",
+                "Student registration directory with check-in details",
+                "Centralized payment history logger",
+                "Structured request/complaints management workflow"
+            ],
+            image: "assets/hostel_management.png",
+            github: "https://github.com/Tanish1808/Hostel_Management_System/blob/main/src/HostelManagementSystem.java"
+        },
+        course: {
+            title: "Course Management System (SEM-II)",
+            description: "An educational platform built to digitalize academic schedules, student enrollments, course catalogs, and grade records. Leverages basic database storage structures and custom Java OOP classes.",
+            tech: ["Java", "DBMS Concepts", "Data Structures", "OOPs"],
+            features: [
+                "Dynamic course listing, editing, and creation workflows",
+                "Student academic enrollment panel with prerequisites checking",
+                "Grading spreadsheet calculator",
+                "Performance visualization metrics for academic reporting"
+            ],
+            image: "assets/course_management.png",
+            github: "https://github.com/Tanish1808/Course_Management_System/tree/main/src"
+        }
+    };
+
+    const projectModal = document.getElementById("projectModal");
+    const modalCloseBtn = document.getElementById("modalCloseBtn");
+    const modalOverlay = document.getElementById("modalOverlay");
+    
+    // Modal Details Elements
+    const modalImg = document.getElementById("modalProjectImg");
+    const modalTitle = document.getElementById("modalProjectTitle");
+    const modalTags = document.getElementById("modalProjectTags");
+    const modalDesc = document.getElementById("modalProjectDesc");
+    const modalFeatures = document.getElementById("modalProjectFeatures");
+    const modalCodeBtn = document.getElementById("modalProjectCodeBtn");
+
+    if (projectModal && modalCloseBtn && modalOverlay) {
+        // Select all project cards
+        const projectCards = document.querySelectorAll(".project");
+
+        projectCards.forEach(card => {
+            card.addEventListener("click", () => {
+                const projectId = card.getAttribute("data-project-id");
+                const data = projectsData[projectId];
+
+                if (data) {
+                    openModal(data);
+                }
+            });
+        });
+
+        // Close button click
+        modalCloseBtn.addEventListener("click", closeModal);
+
+        // Overlay backdrop click
+        modalOverlay.addEventListener("click", closeModal);
+
+        // Escape key close
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && projectModal.classList.contains("active")) {
+                closeModal();
+            }
+        });
+
+        function openModal(data) {
+            // Populate Modal Content
+            modalImg.src = data.image;
+            modalImg.alt = `${data.title} Screenshot`;
+            modalTitle.textContent = data.title;
+            modalDesc.textContent = data.description;
+            modalCodeBtn.href = data.github;
+
+            // Populate tags
+            modalTags.innerHTML = "";
+            data.tech.forEach(techName => {
+                const span = document.createElement("span");
+                span.textContent = techName;
+                modalTags.appendChild(span);
+            });
+
+            // Populate features
+            modalFeatures.innerHTML = "";
+            data.features.forEach(feat => {
+                const li = document.createElement("li");
+                li.textContent = feat;
+                modalFeatures.appendChild(li);
+            });
+
+            // Show Modal and disable background scrolling
+            projectModal.classList.add("active");
+            projectModal.setAttribute("aria-hidden", "false");
+            document.body.classList.add("modal-open");
+        }
+
+        function closeModal() {
+            projectModal.classList.remove("active");
+            projectModal.setAttribute("aria-hidden", "true");
+            document.body.classList.remove("modal-open");
+        }
+    }
 });

@@ -1565,6 +1565,254 @@ h2 {
     border-bottom: 1px solid var(--border-card) !important;
 }
 
+/* Explore button on project card */
+.explore-btn {
+    background: rgba(0, 229, 255, 0.05);
+    color: var(--accent-cyan);
+    font-weight: 600;
+    border: 1px solid var(--accent-cyan);
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.explore-btn:hover {
+    background: var(--accent-cyan);
+    color: var(--btn-text);
+    box-shadow: 0 0 12px var(--accent-cyan-glow);
+    transform: translateY(-2px);
+}
+.explore-btn i {
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+}
+.explore-btn:hover i {
+    transform: translateX(4px);
+}
+
+/* Project Detail Modal Container */
+.project-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.project-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+body.modal-open {
+    overflow: hidden !important;
+}
+
+/* Dark Backdrop blur */
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(11, 15, 25, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: opacity 0.4s ease;
+}
+
+/* Modal Content Box */
+.modal-wrapper {
+    width: 92%;
+    max-width: 950px;
+    max-height: 85vh;
+    background: var(--bg-card);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid var(--border-card);
+    border-top: 1px solid var(--border-card-top-left);
+    border-left: 1px solid var(--border-card-top-left);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(139, 92, 246, 0.15);
+    border-radius: 20px;
+    position: relative;
+    z-index: 2600;
+    overflow-y: auto;
+    transform: scale(0.9);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+}
+
+.modal-wrapper::-webkit-scrollbar {
+    width: 6px;
+}
+.modal-wrapper::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+.project-modal.active .modal-wrapper {
+    transform: scale(1);
+}
+
+/* Close Button */
+.modal-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 1.3rem;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    z-index: 2700;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+.modal-close-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--accent-cyan);
+    transform: rotate(90deg);
+}
+
+/* Layout Grid */
+.modal-content-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 30px;
+    padding: 35px;
+}
+
+/* Media Gallery panel */
+.modal-left-media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border-card);
+    height: fit-content;
+}
+
+.modal-project-img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    max-height: 450px;
+}
+
+/* Details Description panel */
+.modal-right-details {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    text-align: left;
+}
+
+.modal-project-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--accent-cyan);
+    margin: 0;
+}
+
+.modal-project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.modal-project-tags span {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 20px;
+    background: rgba(0, 229, 255, 0.05);
+    color: var(--accent-cyan);
+    border: 1px solid rgba(0, 229, 255, 0.15);
+}
+
+.modal-project-desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.modal-features-section h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--accent-purple);
+    margin-bottom: 10px;
+}
+
+.modal-project-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.modal-project-features li {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    position: relative;
+    padding-left: 20px;
+}
+
+.modal-project-features li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--accent-cyan);
+    font-weight: bold;
+}
+
+/* Action button inside modal */
+.modal-footer-actions {
+    margin-top: 10px;
+}
+
+.modal-action-btn {
+    background: rgba(0, 229, 255, 0.05) !important;
+    color: var(--accent-cyan) !important;
+    font-weight: 600 !important;
+    border: 1px solid var(--accent-cyan) !important;
+    border-radius: 30px !important;
+    transition: all 0.3s ease !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px !important;
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.modal-action-btn:hover {
+    background: var(--accent-cyan) !important;
+    color: var(--btn-text) !important;
+    box-shadow: 0 0 15px var(--accent-cyan-glow) !important;
+    transform: translateY(-2px);
+}
+
 /* ============================================================
    HAMBURGER BUTTON — hidden on desktop, shown on mobile
    ============================================================ */
@@ -1828,6 +2076,31 @@ h2 {
 
     .project p {
         font-size: 1rem;
+    }
+
+    /* ── Modal Mobile Overrides ── */
+    .modal-content-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 25px;
+    }
+
+    .modal-wrapper {
+        max-height: 90vh;
+        border-radius: 16px;
+    }
+
+    .modal-project-img {
+        max-height: 250px;
+    }
+
+    .modal-project-title {
+        font-size: 1.5rem;
+    }
+
+    .modal-close-btn {
+        top: 10px;
+        right: 10px;
     }
 
     .main {
