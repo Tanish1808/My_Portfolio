@@ -2,29 +2,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // ── Theme Switcher ──────────────────────────────────────────────────
     const themeToggleBtn = document.getElementById("themeToggle");
-    
+
     // Check saved theme (default is dark, ignoring system preferences for initial load)
     const savedTheme = localStorage.getItem("theme");
-    
+
     if (savedTheme === "light") {
         document.body.classList.add("light-theme");
     } else {
         document.body.classList.remove("light-theme");
     }
-    
+
     if (themeToggleBtn) {
         themeToggleBtn.addEventListener("click", () => {
             document.body.classList.toggle("light-theme");
             const isLight = document.body.classList.contains("light-theme");
-            
+
             // Save theme
             localStorage.setItem("theme", isLight ? "light" : "dark");
         });
     }
 
     // ── Typewriter Effect (Continuous Loop) ───────────────────────────
-    const roleEl  = document.querySelector(".hero-role");
-    const phrase  = "IT Student | Coder | Problem Solver";
+    const roleEl = document.querySelector(".hero-role");
+    const phrase = "IT Student | Coder | Problem Solver";
     let charIndex = 0;
     let isDeleting = false;
 
@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Scroll Spy for Navbar Links
-    const sections     = document.querySelectorAll("section");
+    const sections = document.querySelectorAll("section");
     const scrollNavLinks = document.querySelectorAll(".nav-links a");
 
     window.addEventListener("scroll", () => {
@@ -127,9 +127,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ── Hamburger Menu Toggle ──────────────────────────────────────────
-    const menuToggle   = document.getElementById("menuToggle");
-    const mobileNav    = document.querySelector(".nav-links");
-    const menuIcon     = document.getElementById("menuIcon");
+    const menuToggle = document.getElementById("menuToggle");
+    const mobileNav = document.querySelector(".nav-links");
+    const menuIcon = document.getElementById("menuIcon");
 
     if (menuToggle) {
         menuToggle.addEventListener("click", () => {
@@ -235,14 +235,14 @@ Currently building premium user interfaces and software systems, focusing on cle
 
                 const canvas = document.createElement("canvas");
                 canvas.className = "matrix-canvas";
-                
+
                 const exitHint = document.createElement("div");
                 exitHint.className = "matrix-exit-hint";
                 exitHint.innerText = "PRESS ANY KEY TO EXIT";
-                
+
                 terminalBody.appendChild(canvas);
                 terminalBody.appendChild(exitHint);
-                
+
                 terminalInput.disabled = true;
                 terminalInput.blur();
 
@@ -252,17 +252,17 @@ Currently building premium user interfaces and software systems, focusing on cle
                 const ctx = canvas.getContext("2d");
                 const originalOverflow = terminalBody.style.overflow;
                 terminalBody.style.overflow = "hidden";
-                
+
                 // Align scroll position so the absolute canvas container matches the viewport
                 terminalBody.scrollTop = 0;
                 terminalBody.scrollLeft = 0;
-                
+
                 function resizeCanvas() {
                     canvas.width = terminalBody.clientWidth;
                     canvas.height = terminalBody.clientHeight;
                 }
                 resizeCanvas();
-                
+
                 const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン".split("");
                 const fontSize = 12;
                 let columns = Math.floor(canvas.width / fontSize);
@@ -273,21 +273,21 @@ Currently building premium user interfaces and software systems, focusing on cle
                 }
 
                 let animationId;
-                
+
                 function draw() {
                     ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
                     ctx.fillRect(0, 0, canvas.width, canvas.height);
-                    
+
                     // Match cyan accent theme and apply a glowing text filter
                     ctx.fillStyle = "#00E5FF";
                     ctx.shadowBlur = 5;
                     ctx.shadowColor = "#00E5FF";
                     ctx.font = `${fontSize}px monospace`;
-                    
+
                     for (let i = 0; i < drops.length; i++) {
                         const text = chars[Math.floor(Math.random() * chars.length)];
                         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                        
+
                         if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
                             drops[i] = 0;
                         }
@@ -295,29 +295,29 @@ Currently building premium user interfaces and software systems, focusing on cle
                     }
                     animationId = requestAnimationFrame(draw);
                 }
-                
+
                 draw();
-                
+
                 window.addEventListener("resize", resizeCanvas);
-                
+
                 function exitMatrix() {
                     // Ignore keydowns/clicks within first 400ms to avoid immediate exit
                     if (Date.now() - startTime < 400) return;
 
                     cancelAnimationFrame(animationId);
                     window.removeEventListener("resize", resizeCanvas);
-                    
+
                     canvas.remove();
                     exitHint.remove();
-                    
+
                     terminalBody.style.overflow = originalOverflow;
                     terminalInput.disabled = false;
                     terminalInput.focus();
-                    
+
                     document.removeEventListener("keydown", exitMatrix);
                     canvas.removeEventListener("click", exitMatrix);
                 }
-                
+
                 document.addEventListener("keydown", exitMatrix);
                 canvas.addEventListener("click", exitMatrix);
 
@@ -336,7 +336,7 @@ Currently building premium user interfaces and software systems, focusing on cle
             if (e.key === "Enter") {
                 const rawInput = terminalInput.value;
                 const cleanedInput = rawInput.trim().toLowerCase();
-                
+
                 // 1. Echo user's typed command back to history log (skip on 'clear')
                 if (cleanedInput !== "clear" && rawInput.trim() !== "") {
                     const cmdLine = document.createElement("div");
@@ -403,11 +403,11 @@ Currently building premium user interfaces and software systems, focusing on cle
                 const rawInput = terminalInput.value;
                 const cleanedInput = rawInput.trim().toLowerCase();
                 if (cleanedInput === "") return;
-                
+
                 // Get all command keys
                 const commandKeys = Object.keys(commands);
                 const matches = commandKeys.filter(cmd => cmd.startsWith(cleanedInput));
-                
+
                 if (matches.length === 1) {
                     terminalInput.value = matches[0];
                 } else if (matches.length > 1) {
@@ -473,14 +473,14 @@ Currently building premium user interfaces and software systems, focusing on cle
     const canvas = document.getElementById("heroCanvas");
     if (canvas) {
         const ctx = canvas.getContext("2d");
-        
+
         let particles = [];
         let mouse = { x: null, y: null, radius: 110 }; // Interaction radius
-        
+
         // Configuration parameters
         let particleCount = 70;
         let connectionDistance = 115;
-        
+
         // Colors mapping based on light/dark mode theme
         function getThemeColors() {
             const isLight = document.body.classList.contains("light-theme");
@@ -489,9 +489,9 @@ Currently building premium user interfaces and software systems, focusing on cle
                 purple: isLight ? "rgba(109, 40, 217," : "rgba(139, 92, 246,"
             };
         }
-        
+
         let colors = getThemeColors();
-        
+
         // Adjust Canvas size to match hero element
         const heroSection = document.getElementById("home");
         function resizeCanvas() {
@@ -502,7 +502,7 @@ Currently building premium user interfaces and software systems, focusing on cle
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
             }
-            
+
             // Adjust particle count dynamically based on width for mobile performance
             if (canvas.width < 768) {
                 particleCount = 30;
@@ -513,49 +513,49 @@ Currently building premium user interfaces and software systems, focusing on cle
             }
             initParticles();
         }
-        
+
         // Particle Class definition
         class Particle {
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                
+
                 // Slow, elegant speed vector
                 this.vx = (Math.random() - 0.5) * 0.7;
                 this.vy = (Math.random() - 0.5) * 0.7;
-                
+
                 this.radius = Math.random() * 2 + 1.2; // Radius between 1.2px and 3.2px
-                
+
                 // Assign a color group (cyan or purple)
                 this.type = Math.random() > 0.5 ? "cyan" : "purple";
             }
-            
+
             update() {
                 // Move particle
                 this.x += this.vx;
                 this.y += this.vy;
-                
+
                 // Bounce on boundaries
                 if (this.x < 0 || this.x > canvas.width) this.vx = -this.vx;
                 if (this.y < 0 || this.y > canvas.height) this.vy = -this.vy;
-                
+
                 // Cursor interaction (repulsion)
                 if (mouse.x !== null && mouse.y !== null) {
                     const dx = this.x - mouse.x;
                     const dy = this.y - mouse.y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
-                    
+
                     if (dist < mouse.radius) {
                         const force = (mouse.radius - dist) / mouse.radius;
                         const angle = Math.atan2(dy, dx);
-                        
+
                         // Push away gently
                         this.x += Math.cos(angle) * force * 1.6;
                         this.y += Math.sin(angle) * force * 1.6;
                     }
                 }
             }
-            
+
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
@@ -567,28 +567,28 @@ Currently building premium user interfaces and software systems, focusing on cle
                 ctx.shadowBlur = 0;
             }
         }
-        
+
         function initParticles() {
             particles = [];
             for (let i = 0; i < particleCount; i++) {
                 particles.push(new Particle());
             }
         }
-        
+
         function drawConnections() {
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
                     const p1 = particles[i];
                     const p2 = particles[j];
-                    
+
                     const dx = p1.x - p2.x;
                     const dy = p1.y - p2.y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
-                    
+
                     if (dist < connectionDistance) {
                         // Determine line opacity based on distance
                         const alpha = (1 - dist / connectionDistance) * 0.15;
-                        
+
                         // Color matching
                         let strokeColor;
                         if (p1.type === "cyan" && p2.type === "cyan") {
@@ -598,7 +598,7 @@ Currently building premium user interfaces and software systems, focusing on cle
                         } else {
                             strokeColor = `${colors.cyan} ${alpha * 0.5})`;
                         }
-                        
+
                         ctx.beginPath();
                         ctx.moveTo(p1.x, p1.y);
                         ctx.lineTo(p2.x, p2.y);
@@ -607,14 +607,14 @@ Currently building premium user interfaces and software systems, focusing on cle
                         ctx.stroke();
                     }
                 }
-                
+
                 // Draw connecting lines from cursor to nearby particles
                 if (mouse.x !== null && mouse.y !== null) {
                     const p = particles[i];
                     const dx = p.x - mouse.x;
                     const dy = p.y - mouse.y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
-                    
+
                     if (dist < mouse.radius) {
                         const alpha = (1 - dist / mouse.radius) * 0.22;
                         ctx.beginPath();
@@ -627,22 +627,22 @@ Currently building premium user interfaces and software systems, focusing on cle
                 }
             }
         }
-        
+
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
+
             // Update and draw particles
             particles.forEach(p => {
                 p.update();
                 p.draw();
             });
-            
+
             // Draw connecting lines
             drawConnections();
-            
+
             requestAnimationFrame(animate);
         }
-        
+
         // Track mouse position relative to hero canvas bounding rect
         if (heroSection) {
             heroSection.addEventListener("mousemove", (e) => {
@@ -650,13 +650,13 @@ Currently building premium user interfaces and software systems, focusing on cle
                 mouse.x = e.clientX - rect.left;
                 mouse.y = e.clientY - rect.top;
             });
-            
+
             heroSection.addEventListener("mouseleave", () => {
                 mouse.x = null;
                 mouse.y = null;
             });
         }
-        
+
         // Observe theme class changes on body to update colors dynamically (covers both toggle click & terminal commands)
         const themeObserver = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
@@ -666,15 +666,131 @@ Currently building premium user interfaces and software systems, focusing on cle
             });
         });
         themeObserver.observe(document.body, { attributes: true, attributeFilter: ["class"] });
-        
+
         // Initialize
         resizeCanvas();
         animate();
-        
+
         // Resize listener with debouncer
         window.addEventListener("resize", () => {
             clearTimeout(window.resizeCanvasTimeout);
             window.resizeCanvasTimeout = setTimeout(resizeCanvas, 150);
         });
     }
-});
+
+    // ── Contact Form Handling ──────────────────────────────────────────
+    const contactForm = document.getElementById("contactForm");
+    const contactStatus = document.getElementById("contactStatus");
+    const contactSubmitBtn = document.getElementById("contactSubmitBtn");
+
+    if (contactForm && contactStatus && contactSubmitBtn) {
+        contactForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            // Reset status state
+            contactStatus.className = "contact-status";
+            contactStatus.innerHTML = "";
+
+            const nameInput = document.getElementById("name");
+            const emailInput = document.getElementById("email");
+            const subjectInput = document.getElementById("subject");
+            const messageInput = document.getElementById("message");
+
+            // Reset previous validation styles
+            [nameInput, emailInput, subjectInput, messageInput].forEach(input => {
+                if (input) input.classList.remove("invalid");
+            });
+
+            // Perform client-side validation
+            let isValid = true;
+            if (!nameInput || !nameInput.value.trim()) {
+                if (nameInput) nameInput.classList.add("invalid");
+                isValid = false;
+            }
+
+            // Basic email validation regex
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailInput || !emailInput.value.trim() || !emailPattern.test(emailInput.value.trim())) {
+                if (emailInput) emailInput.classList.add("invalid");
+                isValid = false;
+            }
+            if (!subjectInput || !subjectInput.value.trim()) {
+                if (subjectInput) subjectInput.classList.add("invalid");
+                isValid = false;
+            }
+            if (!messageInput || !messageInput.value.trim()) {
+                if (messageInput) messageInput.classList.add("invalid");
+                isValid = false;
+            }
+
+            if (!isValid) {
+                showStatus("Please fill out all fields correctly.", "error");
+                return;
+            }
+
+            // Disable submit button and show loading state
+            contactSubmitBtn.disabled = true;
+            const originalBtnText = contactSubmitBtn.innerHTML;
+            contactSubmitBtn.innerHTML = "Sending... <i class='fa-solid fa-spinner fa-spin'></i>";
+            showStatus("Sending message...", "loading");
+
+            // Access token placeholder (swappable by the user)
+            const web3FormsToken = "910f5326-cda3-4580-b2c3-6ddc2629962e";
+
+            try {
+                if (web3FormsToken === "YOUR_ACCESS_KEY_HERE" || !web3FormsToken || web3FormsToken === "") {
+                    throw new Error("No Web3Forms access key configured. Falling back to local mail client.");
+                }
+
+                const response = await fetch("https://api.web3forms.com/submit", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    body: JSON.stringify({
+                        access_key: web3FormsToken,
+                        name: nameInput.value.trim(),
+                        email: emailInput.value.trim(),
+                        subject: subjectInput.value.trim(),
+                        message: messageInput.value.trim()
+                    })
+                });
+
+                const result = await response.json();
+
+                if (response.status === 200 && result.success) {
+                    showStatus("Message sent successfully! 🚀", "success");
+                    contactForm.reset();
+                } else {
+                    throw new Error(result.message || "Failed to submit using API.");
+                }
+            } catch (error) {
+                console.warn(error.message);
+
+                // Fallback to pre-filled mailto link
+                const subject = encodeURIComponent(`[Portfolio Contact] ${subjectInput.value.trim()}`);
+                const body = encodeURIComponent(
+                    `Name: ${nameInput.value.trim()}\n` +
+                    `Email: ${emailInput.value.trim()}\n\n` +
+                    `Message:\n${messageInput.value.trim()}`
+                );
+
+                showStatus("Web3Forms token missing. Opening mail client...", "loading");
+
+                setTimeout(() => {
+                    window.open(`mailto:tanish.shahdev@gmail.com?subject=${subject}&body=${body}`, "_self");
+                    showStatus("Mail client opened. Please send the email! ❤️", "success");
+                }, 1200);
+            } finally {
+                contactSubmitBtn.disabled = false;
+                contactSubmitBtn.innerHTML = originalBtnText;
+            }
+        });
+
+        function showStatus(message, type) {
+            contactStatus.innerHTML = message;
+            contactStatus.className = `contact-status show ${type}`;
+        }
+    }
+});

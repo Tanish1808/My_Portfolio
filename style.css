@@ -1395,6 +1395,57 @@ h2{
     margin-bottom: 20px;
 }
 
+/* Contact form status and custom validation styles */
+.contact-status {
+    width: 400px;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transform: translateY(-5px);
+    pointer-events: none;
+    display: none;
+}
+
+.contact-status.show {
+    display: block;
+    min-height: 45px;
+    margin: 10px 0;
+    padding: 12px;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.contact-status.loading {
+    background: rgba(0, 229, 255, 0.05) !important;
+    border: 1px solid var(--accent-cyan) !important;
+    color: var(--accent-cyan) !important;
+}
+
+.contact-status.success {
+    background: rgba(16, 185, 129, 0.05) !important;
+    border: 1px solid #10B981 !important;
+    color: #10B981 !important;
+}
+
+.contact-status.error {
+    background: rgba(239, 68, 68, 0.05) !important;
+    border: 1px solid #EF4444 !important;
+    color: #EF4444 !important;
+}
+
+.contact input.invalid,
+.contact textarea.invalid {
+    border-color: #EF4444 !important;
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.3) !important;
+}
+
 
 /* --- Scroll Animations --- */
 .fade-in {
@@ -1814,7 +1865,8 @@ h2 {
     }
 
     .contact input,
-    .contact textarea {
+    .contact textarea,
+    .contact-status {
         width: 100%;
         max-width: 480px;
         box-sizing: border-box;
