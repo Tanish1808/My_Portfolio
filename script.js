@@ -468,4 +468,213 @@ Currently building premium user interfaces and software systems, focusing on cle
                 .replace(/'/g, "&#039;");
         }
     }
+
+    // ── Interactive Canvas Particle Background ─────────────────────────
+    const canvas = document.getElementById("heroCanvas");
+    if (canvas) {
+        const ctx = canvas.getContext("2d");
+        
+        let particles = [];
+        let mouse = { x: null, y: null, radius: 110 }; // Interaction radius
+        
+        // Configuration parameters
+        let particleCount = 70;
+        let connectionDistance = 115;
+        
+        // Colors mapping based on light/dark mode theme
+        function getThemeColors() {
+            const isLight = document.body.classList.contains("light-theme");
+            return {
+                cyan: isLight ? "rgba(0, 136, 163," : "rgba(0, 229, 255,",
+                purple: isLight ? "rgba(109, 40, 217," : "rgba(139, 92, 246,"
+            };
+        }
+        
+        let colors = getThemeColors();
+        
+        // Adjust Canvas size to match hero element
+        const heroSection = document.getElementById("home");
+        function resizeCanvas() {
+            if (heroSection) {
+                canvas.width = heroSection.offsetWidth;
+                canvas.height = heroSection.offsetHeight;
+            } else {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            
+            // Adjust particle count dynamically based on width for mobile performance
+            if (canvas.width < 768) {
+                particleCount = 30;
+                connectionDistance = 80;
+            } else {
+                particleCount = 70;
+                connectionDistance = 115;
+            }
+            initParticles();
+        }
+        
+        // Particle Class definition
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                
+                // Slow, elegant speed vector
+                this.vx = (Math.random() - 0.5) * 0.7;
+                this.vy = (Math.random() - 0.5) * 0.7;
+                
+                this.radius = Math.random() * 2 + 1.2; // Radius between 1.2px and 3.2px
+                
+                // Assign a color group (cyan or purple)
+                this.type = Math.random() > 0.5 ? "cyan" : "purple";
+            }
+            
+            update() {
+                // Move particle
+                this.x += this.vx;
+                this.y += this.vy;
+                
+                // Bounce on boundaries
+                if (this.x < 0 || this.x > canvas.width) this.vx = -this.vx;
+                if (this.y < 0 || this.y > canvas.height) this.vy = -this.vy;
+                
+                // Cursor interaction (repulsion)
+                if (mouse.x !== null && mouse.y !== null) {
+                    const dx = this.x - mouse.x;
+                    const dy = this.y - mouse.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (dist < mouse.radius) {
+                        const force = (mouse.radius - dist) / mouse.radius;
+                        const angle = Math.atan2(dy, dx);
+                        
+                        // Push away gently
+                        this.x += Math.cos(angle) * force * 1.6;
+                        this.y += Math.sin(angle) * force * 1.6;
+                    }
+                }
+            }
+            
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.type === "cyan" ? `${colors.cyan} 0.65)` : `${colors.purple} 0.6)`;
+                ctx.shadowBlur = this.radius * 1.5;
+                ctx.shadowColor = this.type === "cyan" ? "rgba(0, 229, 255, 0.3)" : "rgba(139, 92, 246, 0.2)";
+                ctx.fill();
+                // Reset shadow properties to avoid performance degradation during lines draw
+                ctx.shadowBlur = 0;
+            }
+        }
+        
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+        
+        function drawConnections() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const p1 = particles[i];
+                    const p2 = particles[j];
+                    
+                    const dx = p1.x - p2.x;
+                    const dy = p1.y - p2.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (dist < connectionDistance) {
+                        // Determine line opacity based on distance
+                        const alpha = (1 - dist / connectionDistance) * 0.15;
+                        
+                        // Color matching
+                        let strokeColor;
+                        if (p1.type === "cyan" && p2.type === "cyan") {
+                            strokeColor = `${colors.cyan} ${alpha})`;
+                        } else if (p1.type === "purple" && p2.type === "purple") {
+                            strokeColor = `${colors.purple} ${alpha})`;
+                        } else {
+                            strokeColor = `${colors.cyan} ${alpha * 0.5})`;
+                        }
+                        
+                        ctx.beginPath();
+                        ctx.moveTo(p1.x, p1.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.strokeStyle = strokeColor;
+                        ctx.lineWidth = 0.8;
+                        ctx.stroke();
+                    }
+                }
+                
+                // Draw connecting lines from cursor to nearby particles
+                if (mouse.x !== null && mouse.y !== null) {
+                    const p = particles[i];
+                    const dx = p.x - mouse.x;
+                    const dy = p.y - mouse.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (dist < mouse.radius) {
+                        const alpha = (1 - dist / mouse.radius) * 0.22;
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(mouse.x, mouse.y);
+                        ctx.strokeStyle = p.type === "cyan" ? `${colors.cyan} ${alpha})` : `${colors.purple} ${alpha})`;
+                        ctx.lineWidth = 1.0;
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+        
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Update and draw particles
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            
+            // Draw connecting lines
+            drawConnections();
+            
+            requestAnimationFrame(animate);
+        }
+        
+        // Track mouse position relative to hero canvas bounding rect
+        if (heroSection) {
+            heroSection.addEventListener("mousemove", (e) => {
+                const rect = canvas.getBoundingClientRect();
+                mouse.x = e.clientX - rect.left;
+                mouse.y = e.clientY - rect.top;
+            });
+            
+            heroSection.addEventListener("mouseleave", () => {
+                mouse.x = null;
+                mouse.y = null;
+            });
+        }
+        
+        // Observe theme class changes on body to update colors dynamically (covers both toggle click & terminal commands)
+        const themeObserver = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.attributeName === "class") {
+                    colors = getThemeColors();
+                }
+            });
+        });
+        themeObserver.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+        
+        // Initialize
+        resizeCanvas();
+        animate();
+        
+        // Resize listener with debouncer
+        window.addEventListener("resize", () => {
+            clearTimeout(window.resizeCanvasTimeout);
+            window.resizeCanvasTimeout = setTimeout(resizeCanvas, 150);
+        });
+    }
 });
