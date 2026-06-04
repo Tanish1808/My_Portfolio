@@ -370,34 +370,56 @@ body.light-theme .theme-toggle-btn i {
   border-radius: 3px;
 }
 
-.ascii-banner {
+.neofetch-banner {
   font-family: 'Fira Code', 'Courier New', Courier, monospace;
-  font-size: 0.65rem;
-  line-height: 1.0;
-  color: var(--accent-cyan);
+  font-size: 0.78rem;
+  line-height: 1.25;
   white-space: pre;
-  margin-bottom: 15px;
-  text-shadow: 0 0 5px rgba(0, 229, 255, 0.3);
-  letter-spacing: 0px;
+  margin-bottom: 18px;
+  color: var(--text-primary);
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+  padding-bottom: 15px;
 }
 
-@media (max-width: 768px) {
-  .ascii-banner {
-    font-size: 0.58rem;
-  }
+.neofetch-logo {
+  color: var(--accent-cyan);
+  text-shadow: 0 0 5px rgba(0, 229, 255, 0.3);
+  font-weight: bold;
+}
+
+.neofetch-user {
+  color: var(--accent-purple);
+  font-weight: bold;
+  text-shadow: 0 0 5px rgba(139, 92, 246, 0.2);
+}
+
+.neofetch-label {
+  color: var(--accent-cyan);
+}
+
+.neofetch-val {
+  color: var(--text-secondary);
+}
+
+.neofetch-status {
+  color: #10B981;
+  font-weight: bold;
 }
 
 @media (max-width: 480px) {
-  .ascii-banner {
-    font-size: 0.45rem;
+  .neofetch-banner {
+    font-size: 0.65rem;
+    line-height: 1.2;
   }
 }
 
 @media (max-width: 360px) {
-  .ascii-banner {
-    font-size: 0.4rem;
+  .neofetch-banner {
+    font-size: 0.58rem;
+    line-height: 1.2;
   }
 }
+
 
 
 .terminal-welcome {
