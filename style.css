@@ -370,6 +370,16 @@ body.light-theme .theme-toggle-btn i {
   border-radius: 3px;
 }
 
+.ascii-banner {
+  font-family: 'Fira Code', 'Courier New', Courier, monospace;
+  font-size: 0.72rem;
+  line-height: 1.1;
+  color: var(--accent-cyan);
+  white-space: pre;
+  margin-bottom: 15px;
+  text-shadow: 0 0 5px rgba(0, 229, 255, 0.3);
+}
+
 .terminal-welcome {
   color: var(--text-muted);
   font-size: 0.8rem;
