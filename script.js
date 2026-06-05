@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Add .fade-in class to elements we want to animate, then observe them
     const animatedElements = document.querySelectorAll(
-        ".hero-box .stat-item, .about-me, .edu-card, .skills-card > div, .project, .cert-card, .contact input, .contact textarea"
+        ".hero-box .stat-item, .about-me, .edu-card, .skills-card > div, .projects-dashboard, .cert-card, .contact input, .contact textarea"
     );
     animatedElements.forEach(el => {
         el.classList.add("fade-in");
@@ -837,81 +837,83 @@ Currently building premium user interfaces and software systems, focusing on cle
         }
     };
 
-    const projectModal = document.getElementById("projectModal");
-    const modalCloseBtn = document.getElementById("modalCloseBtn");
-    const modalOverlay = document.getElementById("modalOverlay");
-    
-    // Modal Details Elements
-    const modalImg = document.getElementById("modalProjectImg");
-    const modalTitle = document.getElementById("modalProjectTitle");
-    const modalTags = document.getElementById("modalProjectTags");
-    const modalDesc = document.getElementById("modalProjectDesc");
-    const modalFeatures = document.getElementById("modalProjectFeatures");
-    const modalCodeBtn = document.getElementById("modalProjectCodeBtn");
+    // ── Projects Dashboard Logic ───────────────────────────────────────
+    const sidebarItems = document.querySelectorAll(".sidebar-item");
+    const displayPanel = document.querySelector(".projects-display");
+    const displayImg = document.getElementById("displayImg");
+    const displayTitle = document.getElementById("displayTitle");
+    const displayTags = document.getElementById("displayTags");
+    const displayDesc = document.getElementById("displayDesc");
+    const displayFeatures = document.getElementById("displayFeatures");
+    const displayCodeBtn = document.getElementById("displayCodeBtn");
 
-    if (projectModal && modalCloseBtn && modalOverlay) {
-        // Select all project cards
-        const projectCards = document.querySelectorAll(".project");
+    if (sidebarItems.length > 0 && displayPanel) {
+        sidebarItems.forEach(item => {
+            item.addEventListener("click", () => {
+                // If already active, do nothing
+                if (item.classList.contains("active")) return;
 
-        projectCards.forEach(card => {
-            card.addEventListener("click", () => {
-                const projectId = card.getAttribute("data-project-id");
+                const projectId = item.getAttribute("data-project");
                 const data = projectsData[projectId];
 
                 if (data) {
-                    openModal(data);
+                    // Remove active class from all items
+                    sidebarItems.forEach(sib => {
+                        sib.classList.remove("active");
+                        // Also reset the transform inline styles from 3D tilt
+                        sib.style.transform = "";
+                        sib.style.transition = "";
+                    });
+
+                    // Add active class to clicked item
+                    item.classList.add("active");
+
+                    // Trigger fade out / slide down transition on display panel
+                    displayPanel.classList.add("updating");
+
+                    // Wait for transition duration (350ms) to update content
+                    setTimeout(() => {
+                        // Update media content
+                        if (displayImg) {
+                            displayImg.src = data.image;
+                            displayImg.alt = `${data.title} Screenshot`;
+                        }
+
+                        // Update text details
+                        if (displayTitle) displayTitle.textContent = data.title;
+                        if (displayDesc) displayDesc.textContent = data.description;
+
+                        // Update tags
+                        if (displayTags) {
+                            displayTags.innerHTML = "";
+                            data.tech.forEach(techName => {
+                                const span = document.createElement("span");
+                                span.textContent = techName;
+                                displayTags.appendChild(span);
+                            });
+                        }
+
+                        // Update features
+                        if (displayFeatures) {
+                            displayFeatures.innerHTML = "";
+                            data.features.forEach(feat => {
+                                const li = document.createElement("li");
+                                li.textContent = feat;
+                                displayFeatures.appendChild(li);
+                            });
+                        }
+
+                        // Update code link
+                        if (displayCodeBtn) {
+                            displayCodeBtn.href = data.github;
+                        }
+
+                        // Transition back in: remove "updating" class
+                        displayPanel.classList.remove("updating");
+                    }, 350);
                 }
             });
         });
-
-        // Close button click
-        modalCloseBtn.addEventListener("click", closeModal);
-
-        // Overlay backdrop click
-        modalOverlay.addEventListener("click", closeModal);
-
-        // Escape key close
-        document.addEventListener("keydown", (e) => {
-            if (e.key === "Escape" && projectModal.classList.contains("active")) {
-                closeModal();
-            }
-        });
-
-        function openModal(data) {
-            // Populate Modal Content
-            modalImg.src = data.image;
-            modalImg.alt = `${data.title} Screenshot`;
-            modalTitle.textContent = data.title;
-            modalDesc.textContent = data.description;
-            modalCodeBtn.href = data.github;
-
-            // Populate tags
-            modalTags.innerHTML = "";
-            data.tech.forEach(techName => {
-                const span = document.createElement("span");
-                span.textContent = techName;
-                modalTags.appendChild(span);
-            });
-
-            // Populate features
-            modalFeatures.innerHTML = "";
-            data.features.forEach(feat => {
-                const li = document.createElement("li");
-                li.textContent = feat;
-                modalFeatures.appendChild(li);
-            });
-
-            // Show Modal and disable background scrolling
-            projectModal.classList.add("active");
-            projectModal.setAttribute("aria-hidden", "false");
-            document.body.classList.add("modal-open");
-        }
-
-        function closeModal() {
-            projectModal.classList.remove("active");
-            projectModal.setAttribute("aria-hidden", "true");
-            document.body.classList.remove("modal-open");
-        }
     }
 
     // ── Certifications Detail Modal Logic ──────────────────────────────
@@ -979,7 +981,7 @@ Currently building premium user interfaces and software systems, focusing on cle
     }
 
     // ── 3D Hover Tilt Effect ───────────────────────────────────────────
-    const tiltElements = document.querySelectorAll(".project, .cert-card, .edu-card");
+    const tiltElements = document.querySelectorAll(".sidebar-item, .cert-card, .edu-card");
 
     tiltElements.forEach(card => {
         card.addEventListener("mousemove", (e) => {
