@@ -913,4 +913,68 @@ Currently building premium user interfaces and software systems, focusing on cle
             document.body.classList.remove("modal-open");
         }
     }
+
+    // ── Certifications Detail Modal Logic ──────────────────────────────
+    const certModal = document.getElementById("certModal");
+    const certModalCloseBtn = document.getElementById("certModalCloseBtn");
+    const certModalOverlay = document.getElementById("certModalOverlay");
+    const certModalTitle = document.getElementById("certModalTitle");
+    const certModalIframe = document.getElementById("certModalIframe");
+
+    if (certModal && certModalCloseBtn && certModalOverlay && certModalIframe) {
+        // Select all cert cards View Certificate buttons
+        const certViewButtons = document.querySelectorAll(".cert-card .view-btn");
+
+        certViewButtons.forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                const pdfUrl = btn.getAttribute("href");
+                
+                // If it is a real PDF (does not start with '#' or is empty)
+                if (pdfUrl && pdfUrl !== "#" && pdfUrl !== "") {
+                    e.preventDefault(); // Intercept browser navigation
+                    
+                    // Find the certificate card title
+                    const card = btn.closest(".cert-card");
+                    const titleEl = card ? card.querySelector("h3") : null;
+                    const certTitle = titleEl ? titleEl.textContent.trim() : "Certification";
+                    
+                    openCertModal(pdfUrl, certTitle);
+                }
+            });
+        });
+
+        // Close button click
+        certModalCloseBtn.addEventListener("click", closeCertModal);
+
+        // Overlay backdrop click
+        certModalOverlay.addEventListener("click", closeCertModal);
+
+        // Escape key close
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && certModal.classList.contains("active")) {
+                closeCertModal();
+            }
+        });
+
+        function openCertModal(url, title) {
+            certModalTitle.textContent = title;
+            certModalIframe.src = url;
+            
+            // Show Modal and disable background scrolling
+            certModal.classList.add("active");
+            certModal.setAttribute("aria-hidden", "false");
+            document.body.classList.add("modal-open");
+        }
+
+        function closeCertModal() {
+            certModal.classList.remove("active");
+            certModal.setAttribute("aria-hidden", "true");
+            document.body.classList.remove("modal-open");
+            
+            // Clear iframe src after transition to stop PDF loading/audio in background
+            setTimeout(() => {
+                certModalIframe.src = "";
+            }, 400);
+        }
+    }
 });

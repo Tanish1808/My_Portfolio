@@ -1875,6 +1875,71 @@ body.modal-open {
     color: #00E5FF;
 }
 
+/* Certification Detail Modal Container */
+.cert-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.cert-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.cert-modal.active .cert-modal-wrapper {
+    transform: scale(1);
+}
+
+.cert-modal-wrapper {
+    width: 92%;
+    max-width: 950px;
+    height: 85vh;
+    background: var(--bg-card);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid var(--border-card);
+    border-top: 1px solid var(--border-card-top-left);
+    border-left: 1px solid var(--border-card-top-left);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(0, 229, 255, 0.15);
+    border-radius: 20px;
+    position: relative;
+    z-index: 2600;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: scale(0.9);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.cert-modal-header {
+    padding: 25px 35px 15px;
+    border-bottom: 1px solid var(--border-card);
+}
+
+.cert-modal-body {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: #000;
+}
+
+.cert-modal-body iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
 /* ============================================================
    TABLET (max 1024px) — gentle adjustments
    ============================================================ */
@@ -2141,6 +2206,17 @@ body.modal-open {
     .modal-close-btn {
         top: 10px;
         right: 10px;
+    }
+
+    /* ── Certification Modal Mobile Overrides ── */
+    .cert-modal-wrapper {
+        height: 80vh;
+        width: 95%;
+        border-radius: 16px;
+    }
+    
+    .cert-modal-header {
+        padding: 20px 20px 10px;
     }
 
     .main {
