@@ -977,4 +977,34 @@ Currently building premium user interfaces and software systems, focusing on cle
             }, 400);
         }
     }
+
+    // ── 3D Hover Tilt Effect ───────────────────────────────────────────
+    const tiltElements = document.querySelectorAll(".project, .cert-card, .edu-card");
+
+    tiltElements.forEach(card => {
+        card.addEventListener("mousemove", (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            // Maximum tilt angle (in degrees)
+            const maxTilt = 8;
+            
+            const rotateY = ((x - centerX) / centerX) * maxTilt;
+            const rotateX = ((centerY - y) / centerY) * maxTilt;
+            
+            // Apply perspective, 3D rotations, and scale
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            card.style.transition = "transform 0.08s ease, box-shadow 0.08s ease, border-color 0.08s ease";
+        });
+
+        card.addEventListener("mouseleave", () => {
+            // Smoothly ease back to flat state on mouse exit
+            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+            card.style.transition = "transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.5s cubic-bezier(0.25, 1, 0.5, 1)";
+        });
+    });
 });

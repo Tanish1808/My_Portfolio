@@ -847,6 +847,8 @@ h5{
     border: 1px solid rgba(255,255,255,0.1);
     margin-bottom: 20px;
     margin-top: 20px;
+    transform-style: preserve-3d;
+    will-change: transform;
 }
 
 .edu-logo {
@@ -888,7 +890,6 @@ h5{
 .edu-card:hover {
     background: rgba(255, 255, 255, 0.1);
     box-shadow: 0 0 12px rgba(27, 77, 212, 0.5);
-    transform: translateY(-6px);
     transition: 0.3s ease;
 }
 
@@ -968,6 +969,8 @@ h5{
     flex-direction: column;
     align-items: center; 
     justify-content: space-between;
+    transform-style: preserve-3d;
+    will-change: transform;
 }
 
 .project-logo img {
@@ -999,7 +1002,6 @@ display: flex;
 }
 
 .project:hover {
-    transform: translateY(-8px) scale(1.02);
     box-shadow: var(--shadow-card-hover);
     border-color: var(--accent-purple);
 }
@@ -1249,10 +1251,11 @@ display: flex;
                   background-color 0.4s ease, 
                   border-color 0.4s ease;
       position: relative;
+      transform-style: preserve-3d;
+      will-change: transform;
     }
 
     .cert-card:hover {
-      transform: translateY(-8px) scale(1.02);
       box-shadow: var(--shadow-card-hover);
       border-color: var(--accent-purple);
     }
