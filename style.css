@@ -1429,6 +1429,20 @@ h5{
       color: #000;
     }
 
+    .cert-status-msg {
+      font-size: 0.82rem;
+      color: #ff5252 !important;
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .cert-status-msg i {
+      font-size: 0.9rem;
+    }
+
     /* 3D Certification Badge Styles */
     .cert-card {
       transform-style: preserve-3d;
