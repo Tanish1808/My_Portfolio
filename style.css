@@ -1429,6 +1429,154 @@ h5{
       color: #000;
     }
 
+    /* 3D Certification Badge Styles */
+    .cert-card {
+      transform-style: preserve-3d;
+      position: relative;
+    }
+
+    .cert-content {
+      transform: translateZ(20px);
+      transform-style: preserve-3d;
+      position: relative;
+      z-index: 2;
+    }
+
+    .cert-content h3 {
+      transform: translateZ(10px);
+      margin-right: 55px;
+    }
+
+    .cert-content .issuer,
+    .cert-content .date,
+    .cert-content .tags {
+      transform: translateZ(10px);
+    }
+
+    .cert-content .view-btn {
+      transform: translateZ(15px);
+    }
+
+    .cert-badge {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      transform: translateZ(45px);
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+      transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+      animation: badgeFloat 3.5s infinite ease-in-out;
+      will-change: transform, box-shadow;
+    }
+
+    .cert-card:hover .cert-badge {
+      transform: translateZ(60px) scale(1.08);
+      animation: badgeFloatHover 2s infinite ease-in-out;
+    }
+
+    /* Individual Badge Glow Themes */
+    .badge-java {
+      color: #F89820;
+      border-color: rgba(248, 152, 32, 0.3);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), 0 0 15px rgba(248, 152, 32, 0.15), inset 0 0 8px rgba(248, 152, 32, 0.1);
+      --badge-glow: rgba(248, 152, 32, 0.45);
+      --badge-glow-inner: rgba(248, 152, 32, 0.2);
+    }
+    .cert-card:hover .badge-java {
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), 0 0 25px var(--badge-glow), inset 0 0 12px var(--badge-glow-inner);
+    }
+
+    .badge-cubes {
+      color: #6EC6FF;
+      border-color: rgba(110, 198, 255, 0.3);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), 0 0 15px rgba(110, 198, 255, 0.15), inset 0 0 8px rgba(110, 198, 255, 0.1);
+      --badge-glow: rgba(110, 198, 255, 0.45);
+      --badge-glow-inner: rgba(110, 198, 255, 0.2);
+    }
+    .cert-card:hover .badge-cubes {
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), 0 0 25px var(--badge-glow), inset 0 0 12px var(--badge-glow-inner);
+    }
+
+    .badge-web {
+      color: #FFB300;
+      border-color: rgba(255, 179, 0, 0.3);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), 0 0 15px rgba(255, 179, 0, 0.15), inset 0 0 8px rgba(255, 179, 0, 0.1);
+      --badge-glow: rgba(255, 179, 0, 0.45);
+      --badge-glow-inner: rgba(255, 179, 0, 0.2);
+    }
+    .cert-card:hover .badge-web {
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), 0 0 25px var(--badge-glow), inset 0 0 12px var(--badge-glow-inner);
+    }
+
+    .badge-hackovate {
+      color: #FF5252;
+      border-color: rgba(255, 82, 82, 0.3);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), 0 0 15px rgba(255, 82, 82, 0.15), inset 0 0 8px rgba(255, 82, 82, 0.1);
+      --badge-glow: rgba(255, 82, 82, 0.45);
+      --badge-glow-inner: rgba(255, 82, 82, 0.2);
+    }
+    .cert-card:hover .badge-hackovate {
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), 0 0 25px var(--badge-glow), inset 0 0 12px var(--badge-glow-inner);
+    }
+
+    .badge-techsprint {
+      color: #FFD700;
+      border-color: rgba(255, 215, 0, 0.3);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), 0 0 15px rgba(255, 215, 0, 0.15), inset 0 0 8px rgba(255, 215, 0, 0.1);
+      --badge-glow: rgba(255, 215, 0, 0.45);
+      --badge-glow-inner: rgba(255, 215, 0, 0.2);
+    }
+    .cert-card:hover .badge-techsprint {
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), 0 0 25px var(--badge-glow), inset 0 0 12px var(--badge-glow-inner);
+    }
+
+    .badge-lakshya {
+      color: #FFB300;
+      border-color: rgba(255, 179, 0, 0.3);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), 0 0 15px rgba(255, 179, 0, 0.15), inset 0 0 8px rgba(255, 179, 0, 0.1);
+      --badge-glow: rgba(255, 179, 0, 0.45);
+      --badge-glow-inner: rgba(255, 179, 0, 0.2);
+    }
+    .cert-card:hover .badge-lakshya {
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), 0 0 25px var(--badge-glow), inset 0 0 12px var(--badge-glow-inner);
+    }
+
+    /* Bobbing Float Animations in Z Space */
+    @keyframes badgeFloat {
+      0% {
+        transform: translateZ(45px) translateY(0px) rotate(0deg);
+      }
+      50% {
+        transform: translateZ(53px) translateY(-4px) rotate(3deg);
+      }
+      100% {
+        transform: translateZ(45px) translateY(0px) rotate(0deg);
+      }
+    }
+
+    @keyframes badgeFloatHover {
+      0% {
+        transform: translateZ(60px) translateY(0px) rotate(0deg) scale(1.08);
+      }
+      50% {
+        transform: translateZ(72px) translateY(-6px) rotate(5deg) scale(1.08);
+      }
+      100% {
+        transform: translateZ(60px) translateY(0px) rotate(0deg) scale(1.08);
+      }
+    }
+
     /* Footer note */
     .footer-note {
       text-align: center;
