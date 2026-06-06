@@ -960,7 +960,8 @@ Currently building premium user interfaces and software systems, focusing on cle
 
         function openCertModal(url, title) {
             certModalTitle.textContent = title;
-            certModalIframe.src = url;
+            // Append PDF view parameters to fit the page horizontally and hide navigation panes
+            certModalIframe.src = url + "#toolbar=0&navpanes=0&view=FitH";
             
             // Show Modal and disable background scrolling
             certModal.classList.add("active");
