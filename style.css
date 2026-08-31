@@ -496,30 +496,23 @@ body.light-theme .theme-toggle-btn i {
   color: #00E5FF;
 }
 
-.hero-role {
-  font-size: 1.4rem;
-  margin: 5px 0 15px 0;
-}
-
-.hero-skills {
-  font-size: 1rem;
-  opacity: 0.85;
-  margin-bottom: 20px;
-}
-
 /* Typewriter — handled by JavaScript */
 .flash-line {
   display: inline-block;
+  max-width: 100%;
+  min-height: 2.2rem;
 }
 
 .hero-role {
-  font-size: 1.4rem;
+  font-size: clamp(1.15rem, 2.2vw, 1.4rem);
   font-weight: 600;
   margin: 5px 0 15px 0;
   border-right: 3px solid #00E5FF;
-  white-space: nowrap;
-  overflow: hidden;
   display: inline-block;
+  max-width: 100%;
+  white-space: normal;
+  word-break: break-word;
+  overflow: visible;
   animation: blink-caret 0.75s step-end infinite;
 }
 
@@ -2340,10 +2333,12 @@ body.modal-open {
     }
 
     .hero-role {
-        font-size: 1.1rem;
+        font-size: clamp(0.95rem, 4vw, 1.15rem);
         white-space: normal;
         overflow: visible;
         text-align: center;
+        max-width: 100%;
+        word-break: break-word;
     }
 
     .buttons {
