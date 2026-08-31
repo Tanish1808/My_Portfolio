@@ -28,7 +28,7 @@
       <li><a href="#skills" class="nav-link">Skills</a></li>
       <li><a href="#projects" class="nav-link">Projects</a></li>
       <li><a href="#certification" class="nav-link">Certification</a></li>
-      <li><a href="assets/resume.pdf" class="nav-link" target="_blank">Resume</a></li>
+      <li><a href="assets/resume.pdf" class="nav-link" id="resumeNavLink">Resume</a></li>
       <li><a href="#contact" class="nav-link">Contact</a></li>
     </ul>
 
@@ -518,6 +518,24 @@
             </a>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESUME DETAIL MODAL -->
+  <div id="resumeModal" class="cert-modal resume-modal" aria-hidden="true" role="dialog">
+    <div class="modal-overlay" id="resumeModalOverlay"></div>
+    <div class="modal-wrapper cert-modal-wrapper resume-modal-wrapper">
+      <button class="modal-close-btn" id="resumeModalCloseBtn" aria-label="Close modal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="cert-modal-header resume-modal-header">
+        <h2 id="resumeModalTitle" class="modal-project-title">Tanish Shah — Resume</h2>
+        <a id="resumeDownloadBtn" href="assets/resume.pdf" download="Tanish_Shah_Resume.pdf" class="modal-action-btn resume-download-btn" target="_blank" style="display: none;">
+          <i class="fa-solid fa-download"></i> Download PDF
+        </a>
+      </div>
+      <div class="cert-modal-body" id="resumeModalBody">
       </div>
     </div>
   </div>
