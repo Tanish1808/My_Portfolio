@@ -24,17 +24,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // ── Typewriter Effect (Continuous Loop) ───────────────────────────
     const roleEl = document.querySelector(".hero-role");
-    const phrase = "IT Student | Coder | Problem Solver";
+    const phrases = [
+        "IT Student | Coder | Problem Solver"
+    ];
+    let phraseIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
 
     function typeWriter() {
+        if (!roleEl) return;
+        const currentPhrase = phrases[phraseIndex];
+
         if (!isDeleting) {
             // Typing forward
-            roleEl.textContent = phrase.slice(0, charIndex + 1);
+            roleEl.textContent = currentPhrase.slice(0, charIndex + 1);
             charIndex++;
 
-            if (charIndex === phrase.length) {
+            if (charIndex === currentPhrase.length) {
                 // Finished typing → pause 1.5s then start deleting
                 isDeleting = true;
                 setTimeout(typeWriter, 1500);
@@ -43,12 +49,13 @@ document.addEventListener("DOMContentLoaded", () => {
             setTimeout(typeWriter, 80);
         } else {
             // Deleting backward
-            roleEl.textContent = phrase.slice(0, charIndex - 1);
+            roleEl.textContent = currentPhrase.slice(0, charIndex - 1);
             charIndex--;
 
             if (charIndex === 0) {
                 // Finished deleting → tiny pause then retype
                 isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
                 setTimeout(typeWriter, 400);
                 return;
             }
