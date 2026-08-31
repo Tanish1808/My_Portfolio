@@ -988,6 +988,95 @@ Currently building premium user interfaces and software systems, focusing on cle
         }
     }
 
+    // ── Resume Modal Logic ─────────────────────────────────────────────
+    // Note: Once 'assets/resume.pdf' is placed in the 'assets/' directory,
+    // clicking 'Resume' will automatically embed the PDF viewer and show
+    // the 'Download PDF' button — no code modifications required.
+    const resumeLink = document.getElementById("resumeNavLink");
+    const resumeModal = document.getElementById("resumeModal");
+    const resumeModalCloseBtn = document.getElementById("resumeModalCloseBtn");
+    const resumeModalOverlay = document.getElementById("resumeModalOverlay");
+    const resumeModalBody = document.getElementById("resumeModalBody");
+    const resumeDownloadBtn = document.getElementById("resumeDownloadBtn");
+
+    if (resumeLink && resumeModal && resumeModalCloseBtn && resumeModalOverlay && resumeModalBody) {
+        resumeLink.addEventListener("click", (e) => {
+            e.preventDefault();
+            openResumeModal();
+        });
+
+        resumeModalCloseBtn.addEventListener("click", closeResumeModal);
+        resumeModalOverlay.addEventListener("click", closeResumeModal);
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && resumeModal.classList.contains("active")) {
+                closeResumeModal();
+            }
+        });
+
+        async function openResumeModal() {
+            // Show loading placeholder while verifying PDF availability
+            resumeModalBody.innerHTML = `
+                <div class="resume-placeholder-card">
+                    <div class="resume-placeholder-icon">
+                        <i class="fa-solid fa-spinner fa-spin"></i>
+                    </div>
+                    <h3>Loading Resume...</h3>
+                </div>
+            `;
+            resumeModal.classList.add("active");
+            resumeModal.setAttribute("aria-hidden", "false");
+            document.body.classList.add("modal-open");
+
+            try {
+                const res = await fetch("assets/resume.pdf", { method: "HEAD" });
+                if (res.ok) {
+                    // PDF exists -> Render iframe viewer and reveal download button
+                    resumeModalBody.innerHTML = `<iframe id="resumeIframe" src="assets/resume.pdf#toolbar=0&navpanes=0&view=FitH" frameborder="0" width="100%" height="100%"></iframe>`;
+                    if (resumeDownloadBtn) resumeDownloadBtn.style.display = "inline-flex";
+                } else {
+                    throw new Error("Resume not found");
+                }
+            } catch {
+                // PDF is missing -> Show sleek glassmorphic Coming Soon card
+                if (resumeDownloadBtn) resumeDownloadBtn.style.display = "none";
+                resumeModalBody.innerHTML = `
+                    <div class="resume-placeholder-card">
+                        <div class="resume-placeholder-icon">
+                            <i class="fa-solid fa-file-pdf"></i>
+                        </div>
+                        <h3>Resume Coming Soon</h3>
+                        <p>I'm currently updating my resume with recent academic achievements and projects. Feel free to explore my showcased projects or get in touch directly!</p>
+                        <div class="resume-placeholder-highlights">
+                            <span>🎓 B.Tech IT (LJ University)</span>
+                            <span>💻 Java & Web Developer</span>
+                            <span>🚀 Seeking Internship</span>
+                        </div>
+                        <a href="#contact" class="resume-contact-shortcut" id="resumeContactBtn">
+                            <span>Let's Connect</span> <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                `;
+                const contactBtn = document.getElementById("resumeContactBtn");
+                if (contactBtn) {
+                    contactBtn.addEventListener("click", () => {
+                        closeResumeModal();
+                    });
+                }
+            }
+        }
+
+        function closeResumeModal() {
+            resumeModal.classList.remove("active");
+            resumeModal.setAttribute("aria-hidden", "true");
+            document.body.classList.remove("modal-open");
+
+            setTimeout(() => {
+                resumeModalBody.innerHTML = "";
+            }, 400);
+        }
+    }
+
     // ── 3D Hover Tilt Effect ───────────────────────────────────────────
     const tiltElements = document.querySelectorAll(".sidebar-item, .cert-card, .edu-card");
 
