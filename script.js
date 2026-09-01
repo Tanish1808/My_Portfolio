@@ -107,28 +107,55 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Intersection Observer for Fade-In Animations
+    // ── Intersection Observer for Smooth Staggered Scroll Animations ──
     const observerOptions = {
-        threshold: 0.1,
-        rootMargin: "0px 0px -50px 0px"
+        threshold: 0.12,
+        rootMargin: "0px 0px -40px 0px"
     };
 
-    const observer = new IntersectionObserver((entries) => {
+    const scrollObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add("visible");
-                observer.unobserve(entry.target);
+                scrollObserver.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
-    // Add .fade-in class to elements we want to animate, then observe them
-    const animatedElements = document.querySelectorAll(
-        ".hero-box .stat-item, .about-me, .edu-card, .bento-tile, .projects-dashboard, .cert-card, .contact input, .contact textarea"
+    // 1. Sibling Element Groups (Staggered Reveals with dynamic CSS transition-delay)
+    const staggerGroups = [
+        // Hero Section: Quick Stat Items (4 items in 2x2 grid)
+        { selector: ".hero-box .stat-item", staggerMs: 90, maxDelay: 600 },
+        // About Section: Education Cards (3 cards in vertical sequence)
+        { selector: "#about .edu-card", staggerMs: 110, maxDelay: 600 },
+        // Skills Section: Bento Mastery Tiles (4 grid tiles)
+        { selector: ".skills-bento-wall .bento-tile", staggerMs: 80, maxDelay: 600 },
+        // Projects Section: Sidebar Project Selector Items (4 project items)
+        { selector: ".projects-list .project-item", staggerMs: 90, maxDelay: 600 },
+        // Contact Section: Telemetry Info Cards (4 telemetry cards in left panel)
+        { selector: ".telemetry-grid .telemetry-card", staggerMs: 90, maxDelay: 600 }
+    ];
+
+    staggerGroups.forEach(group => {
+        const elements = document.querySelectorAll(group.selector);
+        elements.forEach((el, index) => {
+            el.classList.add("fade-in");
+            const delay = Math.min(index * group.staggerMs, group.maxDelay);
+            el.style.transitionDelay = `${delay}ms`;
+            scrollObserver.observe(el);
+        });
+    });
+
+    // 2. Standalone Single Elements (Instant Reveal with 0ms Delay)
+    const singleElements = document.querySelectorAll(
+        ".about-me > h2, .about-me > p, .about-me > h5, .skills-category-selector, .skills-code-workspace, .projects-dashboard, .cert-deck-console, .contact-info-panel, .contact-form-card"
     );
-    animatedElements.forEach(el => {
-        el.classList.add("fade-in");
-        observer.observe(el);
+    singleElements.forEach(el => {
+        if (!el.classList.contains("fade-in")) {
+            el.classList.add("fade-in");
+            el.style.transitionDelay = "0ms";
+            scrollObserver.observe(el);
+        }
     });
 
     // ── Skills Bento Wall Category Filter ────────────────────────────────
