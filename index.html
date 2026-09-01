@@ -619,140 +619,344 @@ public class Developer {
     </div>
   </section>
 
-  <!-- CERTIFICATION SECTION -->
+  <!-- CERTIFICATION SECTION: HOLOGRAPHIC CREDENTIAL DECK & SPOTLIGHT STAGE -->
   <section id="certification" style="padding: 60px 20px;">
-    <div class="container" style="padding: 0;">
+    <div class="container" style="padding: 0; max-width: 1080px; margin: 0 auto;">
 
-      <div class="page-header" style="margin-bottom: 40px;">
-        <h1 style="color: #6EC6FF; font-size: 3.5rem; text-align: center;">Certifications</h1>
-        <p style="text-align: center;">These certifications represent my continuous effort to learn, improve, and build
-          strong technical foundations.</p>
+      <div class="page-header" style="margin-bottom: 30px;">
+        <h1 class="main">Certifications &amp; Accreditations</h1>
+        <p class="speech">Interactive accreditation deck of verified coursework, technical specializations, and hackathon accomplishments.</p>
       </div>
 
-      <div class="category">
-        <h2 style="color: white; font-size: 2rem;">Programming</h2>
-        <div class="cert-grid">
-          <div class="cert-card">
-            <div class="cert-badge badge-java">
-              <i class="fab fa-java"></i>
-            </div>
-            <div class="cert-content">
-              <h3>Introduction to Java</h3>
-              <div class="issuer">Coursera Platform</div>
-              <div class="date">Issued: 2024</div>
-              <div class="tags">
-                <span class="tag">Loops in Java</span>
-                <span class="tag">Basic Concepts of Java</span>
-              </div>
-              <a href="assets/certificates/Coursera Introduction To Java Certificate.pdf" class="view-btn"
-                target="_blank" style="margin-top: 15px;">View Certificate</a>
-            </div>
+      <!-- Credential Spotlight Console -->
+      <div class="cert-deck-console" id="certDeckConsole">
+        
+        <!-- Console Control Header -->
+        <div class="deck-controls-header">
+          <div class="deck-counter-badge">
+            <span class="pulse-beacon"></span>
+            <span id="deckCounterText">CREDENTIAL 01 / 07</span>
           </div>
-          <div class="cert-card">
-            <div class="cert-badge badge-cubes">
-              <i class="fas fa-cubes"></i>
-            </div>
-            <div class="cert-content">
-              <h3>Inheritance and Data Structure in Java</h3>
-              <div class="issuer">Coursera Platform</div>
-              <div class="date">Issued: 2025</div>
-              <div class="tags">
-                <span class="tag">Data Structure</span>
-                <span class="tag">OOPS Concepts</span>
-              </div>
-              <a href="assets/certificates/Inheritance and Data Structure in Java.pdf" class="view-btn" target="_blank"
-                style="margin-top: 15px;">View Certificate</a>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="category">
-        <h2 style="color: white; font-size: 2rem;">Web Development</h2>
-        <div class="cert-grid">
-          <div class="cert-card">
-            <div class="cert-badge badge-web">
-              <i class="fab fa-html5"></i>
-            </div>
-            <div class="cert-content">
-              <h3>Introduction to HTML, CSS, & JavaScript</h3>
-              <div class="issuer">Coursera Platform</div>
-              <div class="date">Issued: 2025</div>
-              <div class="tags">
-                <span class="tag">HTML</span>
-                <span class="tag">CSS</span>
-                <span class="tag">JavaScript</span>
-              </div>
-              <a href="assets/certificates/Introduction to HTML, CSS, & JavaScript.pdf" class="view-btn" target="_blank"
-                style="margin-top: 15px;">View Certificate</a>
-            </div>
+          <div class="deck-category-filters">
+            <button class="deck-filter-btn active" data-filter="all">All</button>
+            <button class="deck-filter-btn" data-filter="programming">Programming</button>
+            <button class="deck-filter-btn" data-filter="web">Web Dev</button>
+            <button class="deck-filter-btn" data-filter="ml">Machine Learning</button>
+            <button class="deck-filter-btn" data-filter="hackathons">Hackathons</button>
           </div>
-        </div>
-      </div>
 
-      <div class="category">
-        <h2 style="color: white; font-size: 2rem;">Machine Learning</h2>
-        <div class="cert-grid">
-          <div class="cert-card">
-            <div class="cert-badge badge-ml">
-              <i class="fas fa-chart-line"></i>
-            </div>
-            <div class="cert-content">
-              <h3>Exploratory Data Analysis for Machine Learning</h3>
-              <div class="issuer">Coursera Platform</div>
-              <div class="date">Issued: 2026</div>
-              <div class="tags">
-                <span class="tag">Data Visualization</span>
-                <span class="tag">Data Cleaning</span>
-                <span class="tag">Statistical Analysis</span>
-              </div>
-              <a href="assets/certificates/Exploratory Data Analysis for Machine Learning.pdf" class="view-btn"
-                target="_blank" style="margin-top: 15px;">View Certificate</a>
-            </div>
+          <div class="deck-nav-arrows">
+            <button class="deck-arrow-btn" id="deckPrevBtn" aria-label="Previous Certificate"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="deck-arrow-btn" id="deckNextBtn" aria-label="Next Certificate"><i class="fa-solid fa-chevron-right"></i></button>
           </div>
         </div>
-      </div>
 
-      <div class="category">
-        <h2 style="color: white; font-size: 2rem;">Hackathons</h2>
-        <div class="cert-grid">
-          <div class="cert-card">
-            <div class="cert-badge badge-hackovate">
-              <i class="fas fa-award"></i>
+        <!-- 3D Card Stage Track -->
+        <div class="deck-stage-wrapper">
+          <div class="deck-stage-track" id="deckStageTrack">
+            
+            <!-- Card 1: Java Intro -->
+            <div class="deck-card active" data-index="0" data-category="programming">
+              <div class="deck-card-glow"></div>
+              <div class="deck-card-header">
+                <div class="deck-crest crest-java">
+                  <i class="devicon-java-plain colored"></i>
+                </div>
+                <div class="deck-status-wrap">
+                  <span class="deck-badge badge-verified"><i class="fa-solid fa-circle-check"></i> Verified Coursework</span>
+                  <span class="deck-year">2024</span>
+                </div>
+              </div>
+              <div class="deck-card-body">
+                <h3 class="deck-title">Introduction to Java</h3>
+                <div class="deck-issuer">
+                  <i class="fa-solid fa-building-columns"></i>
+                  <span>Coursera • LearnQuest</span>
+                </div>
+                <p class="deck-desc">Foundational programming constructs, control flow, loops, methods, syntax rules, and Java virtual machine execution logic.</p>
+                <div class="deck-tags">
+                  <span>Java Core</span>
+                  <span>Control Flow</span>
+                  <span>Loops &amp; Logic</span>
+                  <span>Algorithms</span>
+                </div>
+              </div>
+              <div class="deck-card-footer">
+                <div class="deck-hash">
+                  <span class="hash-tag">ID:</span>
+                  <span class="hash-code">COURSERA-JAVA-24</span>
+                </div>
+                <a href="assets/certificates/Coursera Introduction To Java Certificate.pdf" class="deck-action-btn" target="_blank">
+                  <span>View Certificate</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
             </div>
-            <div class="cert-content">
-              <h3>Hackovate - LJ</h3>
-              <div class="issuer">LJ University</div>
-              <div class="date">Issued : 2025</div>
-              <a href="assets/certificates/LJ_Hackovate.pdf" class="view-btn" target="_blank"
-                style="margin-top: 15px;">View Certificate</a>
+
+            <!-- Card 2: Java Data Structures -->
+            <div class="deck-card" data-index="1" data-category="programming">
+              <div class="deck-card-glow"></div>
+              <div class="deck-card-header">
+                <div class="deck-crest crest-java">
+                  <i class="devicon-java-plain colored"></i>
+                </div>
+                <div class="deck-status-wrap">
+                  <span class="deck-badge badge-verified"><i class="fa-solid fa-circle-check"></i> Verified Specialization</span>
+                  <span class="deck-year">2025</span>
+                </div>
+              </div>
+              <div class="deck-card-body">
+                <h3 class="deck-title">Inheritance &amp; Data Structures in Java</h3>
+                <div class="deck-issuer">
+                  <i class="fa-solid fa-building-columns"></i>
+                  <span>Coursera • LearnQuest</span>
+                </div>
+                <p class="deck-desc">Object-oriented paradigms, class inheritance hierarchies, interfaces, abstract classes, polymorphism, and memory management.</p>
+                <div class="deck-tags">
+                  <span>Data Structures</span>
+                  <span>Inheritance</span>
+                  <span>Polymorphism</span>
+                  <span>OOP Architecture</span>
+                </div>
+              </div>
+              <div class="deck-card-footer">
+                <div class="deck-hash">
+                  <span class="hash-tag">ID:</span>
+                  <span class="hash-code">COURSERA-DS-25</span>
+                </div>
+                <a href="assets/certificates/Inheritance and Data Structure in Java.pdf" class="deck-action-btn" target="_blank">
+                  <span>View Certificate</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
             </div>
-          </div>
-          <div class="cert-card">
-            <div class="cert-badge badge-techsprint">
-              <i class="fas fa-trophy"></i>
+
+            <!-- Card 3: HTML, CSS, JS -->
+            <div class="deck-card" data-index="2" data-category="web">
+              <div class="deck-card-glow"></div>
+              <div class="deck-card-header">
+                <div class="deck-crest crest-js">
+                  <i class="devicon-javascript-plain colored"></i>
+                </div>
+                <div class="deck-status-wrap">
+                  <span class="deck-badge badge-verified"><i class="fa-solid fa-circle-check"></i> Verified Specialization</span>
+                  <span class="deck-year">2025</span>
+                </div>
+              </div>
+              <div class="deck-card-body">
+                <h3 class="deck-title">Introduction to HTML, CSS, &amp; JavaScript</h3>
+                <div class="deck-issuer">
+                  <i class="fa-solid fa-building-columns"></i>
+                  <span>Coursera • IBM</span>
+                </div>
+                <p class="deck-desc">Modern semantic markup, responsive layout styling with Flexbox &amp; Grid, mobile-first design, and interactive frontend DOM scripts.</p>
+                <div class="deck-tags">
+                  <span>HTML5</span>
+                  <span>CSS3</span>
+                  <span>JavaScript</span>
+                  <span>Responsive UI</span>
+                </div>
+              </div>
+              <div class="deck-card-footer">
+                <div class="deck-hash">
+                  <span class="hash-tag">ID:</span>
+                  <span class="hash-code">COURSERA-WEB-25</span>
+                </div>
+                <a href="assets/certificates/Introduction to HTML, CSS, & JavaScript.pdf" class="deck-action-btn" target="_blank">
+                  <span>View Certificate</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
             </div>
-            <div class="cert-content">
-              <h3>LDCE X Techsprint</h3>
-              <div class="issuer">Google Developer Group</div>
-              <div class="date">Issued : 2025</div>
-              <a href="assets/certificates/LDCE X TechSprint_Participation.pdf" class="view-btn" target="_blank"
-                style="margin-top: 15px;">View Certificate</a>
+
+            <!-- Card 4: EDA Machine Learning -->
+            <div class="deck-card" data-index="3" data-category="ml">
+              <div class="deck-card-glow"></div>
+              <div class="deck-card-header">
+                <div class="deck-crest crest-python">
+                  <i class="devicon-python-plain colored"></i>
+                </div>
+                <div class="deck-status-wrap">
+                  <span class="deck-badge badge-verified"><i class="fa-solid fa-circle-check"></i> Verified Specialization</span>
+                  <span class="deck-year">2026</span>
+                </div>
+              </div>
+              <div class="deck-card-body">
+                <h3 class="deck-title">Exploratory Data Analysis for Machine Learning</h3>
+                <div class="deck-issuer">
+                  <i class="fa-solid fa-building-columns"></i>
+                  <span>Coursera • IBM</span>
+                </div>
+                <p class="deck-desc">Feature engineering pipelines, missing data imputation, multivariate distributions, outlier detection, and statistical visualization.</p>
+                <div class="deck-tags">
+                  <span>Data Cleaning</span>
+                  <span>EDA</span>
+                  <span>Statistics</span>
+                  <span>Python</span>
+                </div>
+              </div>
+              <div class="deck-card-footer">
+                <div class="deck-hash">
+                  <span class="hash-tag">ID:</span>
+                  <span class="hash-code">IBM-ML-EDA-26</span>
+                </div>
+                <a href="assets/certificates/Exploratory Data Analysis for Machine Learning.pdf" class="deck-action-btn" target="_blank">
+                  <span>View Certificate</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
             </div>
-          </div>
-          <div class="cert-card">
-            <div class="cert-badge badge-lakshya">
-              <i class="fas fa-laptop-code"></i>
+
+            <!-- Card 5: LJ Hackovate -->
+            <div class="deck-card" data-index="4" data-category="hackathons">
+              <div class="deck-card-glow"></div>
+              <div class="deck-card-header">
+                <div class="deck-crest crest-gold">
+                  <i class="fa-solid fa-award"></i>
+                </div>
+                <div class="deck-status-wrap">
+                  <span class="deck-badge badge-trophy"><i class="fa-solid fa-trophy"></i> 36h Hackathon</span>
+                  <span class="deck-year">2025</span>
+                </div>
+              </div>
+              <div class="deck-card-body">
+                <h3 class="deck-title">Hackovate — National Hackathon</h3>
+                <div class="deck-issuer">
+                  <i class="fa-solid fa-university"></i>
+                  <span>LJ University</span>
+                </div>
+                <p class="deck-desc">Competitive 36-hour hackathon delivering functional prototypes, rapid debugging, team collaboration, and real-time defense.</p>
+                <div class="deck-tags">
+                  <span>Prototyping</span>
+                  <span>Teamwork</span>
+                  <span>Innovation</span>
+                  <span>Full-Stack</span>
+                </div>
+              </div>
+              <div class="deck-card-footer">
+                <div class="deck-hash">
+                  <span class="hash-tag">ID:</span>
+                  <span class="hash-code">HACKOVATE-LJ-25</span>
+                </div>
+                <a href="assets/certificates/LJ_Hackovate.pdf" class="deck-action-btn" target="_blank">
+                  <span>View Certificate</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
             </div>
-            <div class="cert-content">
-              <h3>Lakshya 2.0 - TechFest LDCE 2026</h3>
-              <div class="issuer">LD College of Engineering</div>
-              <div class="date">Issued : 2026</div>
-              <a href="assets/certificates/Lakshya 2.0 Hackathon Participation .pdf" class="view-btn" target="_blank"
-                style="margin-top: 15px;">View Certificate</a>
+
+            <!-- Card 6: LDCE X TechSprint -->
+            <div class="deck-card" data-index="5" data-category="hackathons">
+              <div class="deck-card-glow"></div>
+              <div class="deck-card-header">
+                <div class="deck-crest crest-cyan">
+                  <i class="fa-solid fa-laptop-code"></i>
+                </div>
+                <div class="deck-status-wrap">
+                  <span class="deck-badge badge-trophy"><i class="fa-solid fa-trophy"></i> GDG Event</span>
+                  <span class="deck-year">2025</span>
+                </div>
+              </div>
+              <div class="deck-card-body">
+                <h3 class="deck-title">LDCE × TechSprint Participation</h3>
+                <div class="deck-issuer">
+                  <i class="fa-solid fa-code-branch"></i>
+                  <span>Google Developer Groups (GDG)</span>
+                </div>
+                <p class="deck-desc">Intensive developer hackathon focused on modern developer ecosystems, cloud architectures, and collaborative software sprints.</p>
+                <div class="deck-tags">
+                  <span>GDG Sprint</span>
+                  <span>Cloud Tools</span>
+                  <span>Collaboration</span>
+                  <span>Software Dev</span>
+                </div>
+              </div>
+              <div class="deck-card-footer">
+                <div class="deck-hash">
+                  <span class="hash-tag">ID:</span>
+                  <span class="hash-code">GDG-TECHSPRINT-25</span>
+                </div>
+                <a href="assets/certificates/LDCE X TechSprint_Participation.pdf" class="deck-action-btn" target="_blank">
+                  <span>View Certificate</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
             </div>
+
+            <!-- Card 7: Lakshya 2.0 -->
+            <div class="deck-card" data-index="6" data-category="hackathons">
+              <div class="deck-card-glow"></div>
+              <div class="deck-card-header">
+                <div class="deck-crest crest-purple">
+                  <i class="fa-solid fa-medal"></i>
+                </div>
+                <div class="deck-status-wrap">
+                  <span class="deck-badge badge-trophy"><i class="fa-solid fa-trophy"></i> Flagship TechFest</span>
+                  <span class="deck-year">2026</span>
+                </div>
+              </div>
+              <div class="deck-card-body">
+                <h3 class="deck-title">Lakshya 2.0 — TechFest LDCE</h3>
+                <div class="deck-issuer">
+                  <i class="fa-solid fa-university"></i>
+                  <span>LD College of Engineering</span>
+                </div>
+                <p class="deck-desc">Annual flagship TechFest hackathon and engineering competition focusing on high-impact technology solutions.</p>
+                <div class="deck-tags">
+                  <span>System Design</span>
+                  <span>Engineering</span>
+                  <span>Hackathon</span>
+                  <span>Problem Solving</span>
+                </div>
+              </div>
+              <div class="deck-card-footer">
+                <div class="deck-hash">
+                  <span class="hash-tag">ID:</span>
+                  <span class="hash-code">LDCE-LAKSHYA-26</span>
+                </div>
+                <a href="assets/certificates/Lakshya 2.0 Hackathon Participation .pdf" class="deck-action-btn" target="_blank">
+                  <span>View Certificate</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
+            </div>
+
           </div>
         </div>
+
+        <!-- Micro-Capsule Indicator Strip -->
+        <div class="deck-nav-strip" id="deckNavStrip">
+          <button class="deck-capsule active" data-index="0">
+            <i class="devicon-java-plain"></i>
+            <span>Java</span>
+          </button>
+          <button class="deck-capsule" data-index="1">
+            <i class="devicon-java-plain"></i>
+            <span>Data Structures</span>
+          </button>
+          <button class="deck-capsule" data-index="2">
+            <i class="devicon-javascript-plain"></i>
+            <span>Web Dev</span>
+          </button>
+          <button class="deck-capsule" data-index="3">
+            <i class="devicon-python-plain"></i>
+            <span>ML &amp; EDA</span>
+          </button>
+          <button class="deck-capsule" data-index="4">
+            <i class="fa-solid fa-award"></i>
+            <span>LJ Hackovate</span>
+          </button>
+          <button class="deck-capsule" data-index="5">
+            <i class="fa-solid fa-laptop-code"></i>
+            <span>GDG Sprint</span>
+          </button>
+          <button class="deck-capsule" data-index="6">
+            <i class="fa-solid fa-medal"></i>
+            <span>Lakshya 2.0</span>
+          </button>
+        </div>
+
       </div>
     </div>
   </section>

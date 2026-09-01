@@ -1036,24 +1036,21 @@ Currently building premium user interfaces and software systems, focusing on cle
     const certModalIframe = document.getElementById("certModalIframe");
 
     if (certModal && certModalCloseBtn && certModalOverlay && certModalIframe) {
-        // Select all cert cards View Certificate buttons
-        const certViewButtons = document.querySelectorAll(".cert-card .view-btn");
+        const handleCertOpen = (pdfUrl, card) => {
+            if (pdfUrl && pdfUrl !== "#" && pdfUrl !== "") {
+                const titleEl = card ? card.querySelector(".deck-title") : null;
+                const certTitle = titleEl ? titleEl.textContent.trim() : "Accreditation";
+                openCertModal(pdfUrl, certTitle);
+            }
+        };
 
-        certViewButtons.forEach(btn => {
+        const actionButtons = document.querySelectorAll(".deck-card .deck-action-btn");
+        actionButtons.forEach(btn => {
             btn.addEventListener("click", (e) => {
+                e.preventDefault();
+                e.stopPropagation();
                 const pdfUrl = btn.getAttribute("href");
-                
-                // If it is a real PDF (does not start with '#' or is empty)
-                if (pdfUrl && pdfUrl !== "#" && pdfUrl !== "") {
-                    e.preventDefault(); // Intercept browser navigation
-                    
-                    // Find the certificate card title
-                    const card = btn.closest(".cert-card");
-                    const titleEl = card ? card.querySelector("h3") : null;
-                    const certTitle = titleEl ? titleEl.textContent.trim() : "Certification";
-                    
-                    openCertModal(pdfUrl, certTitle);
-                }
+                handleCertOpen(pdfUrl, btn.closest(".deck-card"));
             });
         });
 
@@ -1072,10 +1069,8 @@ Currently building premium user interfaces and software systems, focusing on cle
 
         function openCertModal(url, title) {
             certModalTitle.textContent = title;
-            // Append PDF view parameters to fit the page horizontally and hide navigation panes
             certModalIframe.src = url + "#toolbar=0&navpanes=0&view=FitH";
             
-            // Show Modal and disable background scrolling
             certModal.classList.add("active");
             certModal.setAttribute("aria-hidden", "false");
             document.body.classList.add("modal-open");
@@ -1086,11 +1081,151 @@ Currently building premium user interfaces and software systems, focusing on cle
             certModal.setAttribute("aria-hidden", "true");
             document.body.classList.remove("modal-open");
             
-            // Clear iframe src after transition to stop PDF loading/audio in background
             setTimeout(() => {
                 certModalIframe.src = "";
             }, 400);
         }
+    }
+
+    // ── Holographic Credential Deck Controller ────────────────────────
+    const deckCards = Array.from(document.querySelectorAll("#deckStageTrack .deck-card"));
+    const deckCapsules = Array.from(document.querySelectorAll("#deckNavStrip .deck-capsule"));
+    const deckFilterBtns = Array.from(document.querySelectorAll(".deck-category-filters .deck-filter-btn"));
+    const deckPrevBtn = document.getElementById("deckPrevBtn");
+    const deckNextBtn = document.getElementById("deckNextBtn");
+    const deckCounterText = document.getElementById("deckCounterText");
+    const deckConsole = document.getElementById("certDeckConsole");
+
+    if (deckCards.length > 0) {
+        let currentIdx = 0;
+        let currentFilter = "all";
+
+        const getVisibleCards = () => {
+            if (currentFilter === "all") return deckCards;
+            return deckCards.filter(card => card.getAttribute("data-category") === currentFilter);
+        };
+
+        const updateDeck = (newIdx) => {
+            const visible = getVisibleCards();
+            if (visible.length === 0) return;
+
+            // Clamp index
+            if (newIdx < 0) newIdx = visible.length - 1;
+            if (newIdx >= visible.length) newIdx = 0;
+            currentIdx = newIdx;
+
+            const activeCard = visible[currentIdx];
+            const activeCardIdx = parseInt(activeCard.getAttribute("data-index"), 10);
+
+            // Update Cards State
+            deckCards.forEach(card => {
+                card.classList.remove("active", "prev", "next");
+                const cardCat = card.getAttribute("data-category");
+                if (currentFilter !== "all" && cardCat !== currentFilter) {
+                    card.style.display = "none";
+                } else {
+                    card.style.display = "block";
+                }
+            });
+
+            activeCard.classList.add("active");
+
+            // Update Counter
+            if (deckCounterText) {
+                const curStr = String(currentIdx + 1).padStart(2, "0");
+                const totStr = String(visible.length).padStart(2, "0");
+                deckCounterText.textContent = `CREDENTIAL ${curStr} / ${totStr}`;
+            }
+
+            // Update Capsules
+            deckCapsules.forEach(cap => {
+                const capIdx = parseInt(cap.getAttribute("data-index"), 10);
+                if (capIdx === activeCardIdx) {
+                    cap.classList.add("active");
+                } else {
+                    cap.classList.remove("active");
+                }
+            });
+        };
+
+        // Navigation arrow triggers
+        if (deckPrevBtn) {
+            deckPrevBtn.addEventListener("click", () => updateDeck(currentIdx - 1));
+        }
+        if (deckNextBtn) {
+            deckNextBtn.addEventListener("click", () => updateDeck(currentIdx + 1));
+        }
+
+        // Capsule strip triggers
+        deckCapsules.forEach(capsule => {
+            capsule.addEventListener("click", () => {
+                const targetIdx = parseInt(capsule.getAttribute("data-index"), 10);
+                const targetCard = deckCards.find(c => parseInt(c.getAttribute("data-index"), 10) === targetIdx);
+                
+                // If filter is active and this card belongs to different category, switch filter to all
+                if (targetCard && currentFilter !== "all" && targetCard.getAttribute("data-category") !== currentFilter) {
+                    currentFilter = "all";
+                    deckFilterBtns.forEach(b => b.classList.toggle("active", b.getAttribute("data-filter") === "all"));
+                }
+
+                const visible = getVisibleCards();
+                const newPos = visible.indexOf(targetCard);
+                if (newPos !== -1) {
+                    updateDeck(newPos);
+                }
+            });
+        });
+
+        // Filter tab triggers
+        deckFilterBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                deckFilterBtns.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                currentFilter = btn.getAttribute("data-filter");
+                updateDeck(0);
+            });
+        });
+
+        // Keyboard arrow navigation when hovering over or focused inside certDeckConsole
+        document.addEventListener("keydown", (e) => {
+            if (document.body.classList.contains("modal-open")) return;
+            const rect = deckConsole ? deckConsole.getBoundingClientRect() : null;
+            const inViewport = rect && rect.top < window.innerHeight && rect.bottom > 0;
+
+            if (inViewport) {
+                if (e.key === "ArrowLeft") {
+                    updateDeck(currentIdx - 1);
+                } else if (e.key === "ArrowRight") {
+                    updateDeck(currentIdx + 1);
+                }
+            }
+        });
+
+        // Mobile touch swipe gestures on stage
+        const stageTrack = document.getElementById("deckStageTrack");
+        if (stageTrack) {
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+            stageTrack.addEventListener("touchstart", (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+
+            stageTrack.addEventListener("touchend", (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                const diffX = touchStartX - touchEndX;
+                if (Math.abs(diffX) > 45) {
+                    if (diffX > 0) {
+                        updateDeck(currentIdx + 1); // Swipe left -> Next
+                    } else {
+                        updateDeck(currentIdx - 1); // Swipe right -> Prev
+                    }
+                }
+            }, { passive: true });
+        }
+
+        // Initialize First Card
+        updateDeck(0);
     }
 
     // ── Resume Modal Logic ─────────────────────────────────────────────

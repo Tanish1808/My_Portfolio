@@ -2140,325 +2140,413 @@ body.light-theme .bento-capsule {
 
 /* --- certification.css --- */
 
-#certification {
-  border-top: 1px solid transparent;
-  border-image: linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.15) 50%, transparent 100%) 1;
+/* ============================================================
+   HOLOGRAPHIC CREDENTIAL DECK & SPOTLIGHT STAGE
+   ============================================================ */
+
+.cert-deck-console {
+  position: relative;
+  max-width: 920px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-body.light-theme #certification {
-  border-image: linear-gradient(90deg, transparent 0%, rgba(109, 40, 217, 0.15) 50%, transparent 100%) 1;
+/* Console Control Header */
+.deck-controls-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 20px;
+  border-radius: 18px;
+  background: rgba(11, 15, 25, 0.75);
+  border: 1px solid var(--border-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
 }
 
-    .container {
-      max-width: 1100px;
-      margin: auto;
-      padding: 60px 20px;
-    }
+body.light-theme .deck-controls-header {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(15, 23, 42, 0.08);
+}
 
-    /* Header */
-    .page-header {
-      text-align: center;
-      margin-bottom: 60px;
-    }
+.deck-counter-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  background: rgba(0, 229, 255, 0.08);
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 229, 255, 0.2);
+}
 
-    .page-header h1 {
-      font-size: 42px;
-      font-weight: 600;
-    }
+.pulse-beacon {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-cyan);
+  box-shadow: 0 0 10px var(--accent-cyan-glow);
+  animation: beaconPulse 1.8s infinite;
+}
 
-    .page-header p {
-      margin-top: 10px;
-      font-size: 17px;
-      color: var(--text-secondary);
-    }
+@keyframes beaconPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
 
-    /* Category */
-    .category {
-      margin-bottom: 50px;
-    }
+.deck-category-filters {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
 
-    .category h2 {
-      font-size: 26px;
-      margin-bottom: 25px;
-      border-left: 4px solid #00e5ff;
-      padding-left: 12px;
-      font-size: 1.8rem;
-    }
+.deck-filter-btn {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-card);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
 
-    /* Cards Grid */
-    .cert-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 25px;
-    }
+.deck-filter-btn:hover {
+  color: var(--text-primary);
+  border-color: rgba(0, 229, 255, 0.4);
+}
 
-    /* Certificate Card */
-    .cert-card {
-      background: var(--bg-card);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--border-card);
-      border-top: 1px solid var(--border-card-top-left);
-      border-left: 1px solid var(--border-card-top-left);
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: var(--shadow-card);
-      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
-                  box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
-                  background-color 0.4s ease, 
-                  border-color 0.4s ease;
-      position: relative;
-      transform-style: preserve-3d;
-      will-change: transform;
-    }
+.deck-filter-btn.active {
+  background: var(--accent-cyan);
+  color: #0b0f19;
+  font-weight: 700;
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 12px var(--accent-cyan-glow);
+}
 
-    .cert-card:hover {
-      box-shadow: var(--shadow-card-hover);
-      border-color: var(--accent-purple);
-    }
+body.light-theme .deck-filter-btn.active {
+  background: #0284c7;
+  color: #ffffff;
+  border-color: #0284c7;
+}
 
-    .cert-card h3 {
-      font-size: 1.4rem;
-      font-weight: 500;
-      margin-bottom: 6px;
-    }
+.deck-nav-arrows {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 
-    .issuer {
-      font-size: 16px;
-      color: var(--text-secondary);
-      margin-bottom: 8px;
-      font-weight: 600;
-    }
+.deck-arrow-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-card);
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  transition: all 0.25s ease;
+}
 
-    .date {
-      font-size: 15px;
-      color: var(--text-secondary);
-      margin-bottom: 12px;
-      font-weight: 600;
-    }
+.deck-arrow-btn:hover {
+  border-color: var(--accent-cyan);
+  background: rgba(0, 229, 255, 0.12);
+  color: var(--accent-cyan);
+  transform: scale(1.06);
+  box-shadow: 0 0 12px var(--accent-cyan-glow);
+}
 
-    /* Tags */
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 15px;
-    }
+/* 3D Stage Wrapper */
+.deck-stage-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+}
 
-    .tag {
-      padding: 6px 14px;
-      border-radius: 20px;
-      background: rgba(0, 229, 255, 0.05);
-      color: var(--accent-cyan);
-      font-size: 0.85rem;
-      font-weight: 600;
-      border: 1px solid rgba(0, 229, 255, 0.15);
-      display: inline-block;
-      transition: all 0.3s ease;
-    }
+.deck-stage-track {
+  position: relative;
+  width: 100%;
+  min-height: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    .tag:hover {
-      background: rgba(0, 229, 255, 0.15);
-      transform: translateY(-2px);
-    }
+/* Individual Deck Card */
+.deck-card {
+  position: absolute;
+  width: 100%;
+  max-width: 660px;
+  background: var(--bg-card);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border-card);
+  border-top: 1px solid var(--border-card-top-left);
+  border-left: 1px solid var(--border-card-top-left);
+  border-radius: 22px;
+  padding: 26px 30px;
+  box-shadow: var(--shadow-card);
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.88) translateY(30px) rotateX(10deg);
+  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1), 
+              opacity 0.45s ease, 
+              border-color 0.35s ease, 
+              box-shadow 0.45s ease;
+  will-change: transform, opacity;
+  z-index: 1;
+}
 
-    /* Button */
-    .view-btn {
-      display: inline-block;
-      text-decoration: none;
-      font-size: 14px;
-      padding: 8px 16px;
-      border-radius: 25px;
-      color: #fff;
-      border: 1px solid #00e5ff;
-      transition: 0.3s;
-    }
+.deck-card.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1) translateY(0) rotateX(0deg);
+  z-index: 5;
+  border-color: var(--accent-cyan);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5), 0 0 35px var(--accent-cyan-glow);
+}
 
-    .view-btn:hover {
-      background: #00e5ff;
-      color: #000;
-    }
+body.light-theme .deck-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(15, 23, 42, 0.08);
+}
 
-    .cert-status-msg {
-      font-size: 0.82rem;
-      color: #ff5252 !important;
-      margin-top: 15px;
-      display: flex;
-      align-items: center;
-      font-weight: 500;
-      line-height: 1.4;
-    }
+/* Card Header */
+.deck-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
 
-    .cert-status-msg i {
-      font-size: 0.9rem;
-    }
+.deck-crest {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-card);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
 
-    /* 3D Certification Badge Styles */
-    .cert-card {
-      transform-style: preserve-3d;
-      position: relative;
-    }
+.crest-java { color: #f89820; border-color: rgba(248, 152, 32, 0.3); background: rgba(248, 152, 32, 0.08); }
+.crest-js { color: #f7df1e; border-color: rgba(247, 223, 30, 0.3); background: rgba(247, 223, 30, 0.08); }
+.crest-python { color: #3776ab; border-color: rgba(55, 118, 171, 0.3); background: rgba(55, 118, 171, 0.08); }
+.crest-gold { color: #f59e0b; border-color: rgba(245, 158, 11, 0.3); background: rgba(245, 158, 11, 0.08); }
+.crest-cyan { color: #00E5FF; border-color: rgba(0, 229, 255, 0.3); background: rgba(0, 229, 255, 0.08); }
+.crest-purple { color: #c084fc; border-color: rgba(192, 132, 252, 0.3); background: rgba(192, 132, 252, 0.08); }
 
-    .cert-content {
-      transform: translateZ(20px);
-      transform-style: preserve-3d;
-      position: relative;
-      z-index: 2;
-    }
+.deck-status-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 
-    .cert-content h3 {
-      transform: translateZ(10px);
-      margin-right: 55px;
-    }
+.deck-badge {
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
 
-    .cert-content .issuer,
-    .cert-content .date,
-    .cert-content .tags {
-      transform: translateZ(10px);
-    }
+.badge-trophy {
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  color: #fbbf24;
+}
 
-    .cert-content .view-btn {
-      transform: translateZ(15px);
-    }
+.badge-verified {
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #34d399;
+}
 
-    .cert-badge {
-      position: absolute;
-      top: 24px;
-      right: 24px;
-      width: 55px;
-      height: 55px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.6rem;
-      transform: translateZ(45px);
-      z-index: 10;
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-      transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-      animation: badgeFloat 3.5s infinite ease-in-out;
-      will-change: transform, box-shadow;
-    }
+.deck-year {
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-muted);
+}
 
-    .cert-card:hover .cert-badge {
-      transform: translateZ(60px) scale(1.08);
-      animation: badgeFloatHover 2s infinite ease-in-out;
-    }
+/* Card Body */
+.deck-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.35;
+  margin: 10px 0 4px;
+}
 
-    /* Individual Badge Glow Themes */
-    .badge-java {
-      color: #F89820;
-      border-color: rgba(248, 152, 32, 0.3);
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), 0 0 15px rgba(248, 152, 32, 0.15), inset 0 0 8px rgba(248, 152, 32, 0.1);
-      --badge-glow: rgba(248, 152, 32, 0.45);
-      --badge-glow-inner: rgba(248, 152, 32, 0.2);
-    }
-    .cert-card:hover .badge-java {
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), 0 0 25px var(--badge-glow), inset 0 0 12px var(--badge-glow-inner);
-    }
+.deck-issuer {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--accent-cyan);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 8px;
+}
 
-    .badge-cubes {
-      color: #6EC6FF;
-      border-color: rgba(110, 198, 255, 0.3);
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), 0 0 15px rgba(110, 198, 255, 0.15), inset 0 0 8px rgba(110, 198, 255, 0.1);
-      --badge-glow: rgba(110, 198, 255, 0.45);
-      --badge-glow-inner: rgba(110, 198, 255, 0.2);
-    }
-    .cert-card:hover .badge-cubes {
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), 0 0 25px var(--badge-glow), inset 0 0 12px var(--badge-glow-inner);
-    }
+.deck-desc {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin-bottom: 14px;
+}
 
-    .badge-web {
-      color: #FFB300;
-      border-color: rgba(255, 179, 0, 0.3);
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), 0 0 15px rgba(255, 179, 0, 0.15), inset 0 0 8px rgba(255, 179, 0, 0.1);
-      --badge-glow: rgba(255, 179, 0, 0.45);
-      --badge-glow-inner: rgba(255, 179, 0, 0.2);
-    }
-    .cert-card:hover .badge-web {
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), 0 0 25px var(--badge-glow), inset 0 0 12px var(--badge-glow-inner);
-    }
+.deck-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
 
-    .badge-ml {
-      color: #E040FB;
-      border-color: rgba(224, 64, 251, 0.3);
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), 0 0 15px rgba(224, 64, 251, 0.15), inset 0 0 8px rgba(224, 64, 251, 0.1);
-      --badge-glow: rgba(224, 64, 251, 0.45);
-      --badge-glow-inner: rgba(224, 64, 251, 0.2);
-    }
-    .cert-card:hover .badge-ml {
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), 0 0 25px var(--badge-glow), inset 0 0 12px var(--badge-glow-inner);
-    }
+.deck-tags span {
+  font-size: 0.74rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 12px;
+  background: rgba(0, 229, 255, 0.05);
+  color: var(--accent-cyan);
+  border: 1px solid rgba(0, 229, 255, 0.15);
+}
 
-    .badge-hackovate {
-      color: #FF5252;
-      border-color: rgba(255, 82, 82, 0.3);
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), 0 0 15px rgba(255, 82, 82, 0.15), inset 0 0 8px rgba(255, 82, 82, 0.1);
-      --badge-glow: rgba(255, 82, 82, 0.45);
-      --badge-glow-inner: rgba(255, 82, 82, 0.2);
-    }
-    .cert-card:hover .badge-hackovate {
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), 0 0 25px var(--badge-glow), inset 0 0 12px var(--badge-glow-inner);
-    }
+/* Card Footer */
+.deck-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
 
-    .badge-techsprint {
-      color: #FFD700;
-      border-color: rgba(255, 215, 0, 0.3);
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), 0 0 15px rgba(255, 215, 0, 0.15), inset 0 0 8px rgba(255, 215, 0, 0.1);
-      --badge-glow: rgba(255, 215, 0, 0.45);
-      --badge-glow-inner: rgba(255, 215, 0, 0.2);
-    }
-    .cert-card:hover .badge-techsprint {
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), 0 0 25px var(--badge-glow), inset 0 0 12px var(--badge-glow-inner);
-    }
+.deck-hash {
+  font-family: monospace;
+  font-size: 0.74rem;
+  color: var(--text-muted);
+}
 
-    .badge-lakshya {
-      color: #FFB300;
-      border-color: rgba(255, 179, 0, 0.3);
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), 0 0 15px rgba(255, 179, 0, 0.15), inset 0 0 8px rgba(255, 179, 0, 0.1);
-      --badge-glow: rgba(255, 179, 0, 0.45);
-      --badge-glow-inner: rgba(255, 179, 0, 0.2);
-    }
-    .cert-card:hover .badge-lakshya {
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), 0 0 25px var(--badge-glow), inset 0 0 12px var(--badge-glow-inner);
-    }
+.hash-tag {
+  color: var(--accent-cyan);
+  font-weight: 700;
+}
 
-    /* Bobbing Float Animations in Z Space */
-    @keyframes badgeFloat {
-      0% {
-        transform: translateZ(45px) translateY(0px) rotate(0deg);
-      }
-      50% {
-        transform: translateZ(53px) translateY(-4px) rotate(3deg);
-      }
-      100% {
-        transform: translateZ(45px) translateY(0px) rotate(0deg);
-      }
-    }
+.deck-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 18px;
+  border-radius: 12px;
+  font-size: 0.86rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-purple) 100%);
+  color: #0b0f19;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(0, 229, 255, 0.25);
+  transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+}
 
-    @keyframes badgeFloatHover {
-      0% {
-        transform: translateZ(60px) translateY(0px) rotate(0deg) scale(1.08);
-      }
-      50% {
-        transform: translateZ(72px) translateY(-6px) rotate(5deg) scale(1.08);
-      }
-      100% {
-        transform: translateZ(60px) translateY(0px) rotate(0deg) scale(1.08);
-      }
-    }
+.deck-action-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 25px var(--accent-cyan-glow);
+  color: #0b0f19;
+}
 
-    /* Footer note */
-    .footer-note {
-      text-align: center;
-      margin-top: 60px;
-      font-size : 1.3rem;
-      color: var(--text-secondary);
-    }
+body.light-theme .deck-action-btn {
+  color: #ffffff;
+}
+
+/* Micro-Capsule Indicator Strip */
+.deck-nav-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 8px 10px 0;
+}
+
+.deck-capsule {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  border-radius: 20px;
+  background: rgba(11, 15, 25, 0.7);
+  border: 1px solid var(--border-card);
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.25s ease;
+}
+
+.deck-capsule:hover {
+  border-color: rgba(0, 229, 255, 0.4);
+  color: var(--text-primary);
+  transform: translateY(-2px);
+}
+
+.deck-capsule.active {
+  background: linear-gradient(135deg, rgba(0, 229, 255, 0.18), rgba(139, 92, 246, 0.18));
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+  box-shadow: 0 0 12px var(--accent-cyan-glow);
+  font-weight: 700;
+}
+
+body.light-theme .deck-capsule {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(15, 23, 42, 0.08);
+}
+
+@media (max-width: 768px) {
+  .deck-controls-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .deck-category-filters {
+    justify-content: center;
+  }
+  
+  .deck-nav-arrows {
+    justify-content: center;
+  }
+  
+  .deck-card {
+    padding: 20px;
+  }
+}
 
 
 /* --- contact.css --- */
