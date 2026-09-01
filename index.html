@@ -11,6 +11,7 @@
     integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
 </head>
 
 <body>
@@ -196,63 +197,355 @@
     </div>
   </section>
 
-  <!-- SKILLS SECTION -->
+  <!-- SKILLS SECTION: BENTO GRID MASTERY WALL -->
   <section id="skills" style="padding: 60px 20px;">
-    <h3 class="main">Skills Introduction</h3>
-    <div class="skills-card">
-      <div class="lan">
-        <h2>Programming Languages</h2>
-        <ul>
-          <li>JAVA</li>
-          <li>Python</li>
-          <li>.NET</li>
-        </ul>
+    <h2 class="main">Skills &amp; Technologies</h2>
+    <p class="speech">Core Competencies, Full-Stack Frameworks, Databases &amp; Engineering Principles</p>
+
+    <!-- Skills Category Filter Bar -->
+    <div class="skills-filter-bar">
+      <button class="skills-filter-btn active" data-filter="all">
+        <i class="fa-solid fa-layer-group"></i> All Stacks
+      </button>
+      <button class="skills-filter-btn" data-filter="languages">
+        <i class="fa-solid fa-code"></i> Languages
+      </button>
+      <button class="skills-filter-btn" data-filter="web">
+        <i class="fa-solid fa-globe"></i> Web &amp; Frontend
+      </button>
+      <button class="skills-filter-btn" data-filter="backend">
+        <i class="fa-solid fa-database"></i> Databases &amp; Backend
+      </button>
+      <button class="skills-filter-btn" data-filter="core">
+        <i class="fa-solid fa-brain"></i> Core &amp; Soft Skills
+      </button>
+    </div>
+
+    <!-- Full-Coverage Bento Wall Grid -->
+    <div class="skills-bento-wall">
+      
+      <!-- 1. Featured Hero Tile: Split 2-Column Layout (Languages + Live IDE Console) -->
+      <div class="bento-tile bento-tile-hero" data-category="languages">
+        <div class="hero-split-grid">
+          
+          <!-- Left Column: Language Stacks -->
+          <div class="hero-left-col">
+            <div class="bento-tile-meta">
+              <span class="bento-badge-pulse"><span class="bento-pulse-dot"></span> Core Languages</span>
+              <h3 class="bento-tile-title"><i class="fa-solid fa-code icon-cyan"></i> Programming Languages</h3>
+            </div>
+            <p class="bento-tile-desc">Deep object-oriented software engineering, data structures, and algorithmic logic across enterprise &amp; scripting runtimes.</p>
+
+            <div class="hero-lang-cards">
+              <div class="bento-capsule">
+                <div class="capsule-icon-box">
+                  <i class="devicon-java-plain colored"></i>
+                </div>
+                <div class="capsule-info">
+                  <div class="capsule-header-line">
+                    <span class="capsule-name">JAVA</span>
+                    <span class="capsule-tag tag-cyan">Primary Anchor</span>
+                  </div>
+                  <span class="capsule-sub">Object-Oriented Architecture, Multithreading &amp; DSA</span>
+                </div>
+              </div>
+
+              <div class="bento-capsule">
+                <div class="capsule-icon-box">
+                  <i class="devicon-python-plain colored"></i>
+                </div>
+                <div class="capsule-info">
+                  <div class="capsule-header-line">
+                    <span class="capsule-name">Python</span>
+                    <span class="capsule-tag tag-amber">Logic &amp; Scripts</span>
+                  </div>
+                  <span class="capsule-sub">Automation, Data Pipelines &amp; Algorithmic Scripts</span>
+                </div>
+              </div>
+
+              <div class="bento-capsule">
+                <div class="capsule-icon-box">
+                  <i class="devicon-dot-net-plain colored"></i>
+                </div>
+                <div class="capsule-info">
+                  <div class="capsule-header-line">
+                    <span class="capsule-name">.NET</span>
+                    <span class="capsule-tag tag-purple">Enterprise Dev</span>
+                  </div>
+                  <span class="capsule-sub">C# Application Frameworks &amp; Structured Backend</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Interactive Code IDE Console -->
+          <div class="hero-right-col">
+            <div class="bento-snippet-container">
+              <div class="snippet-header">
+                <div class="snippet-tabs">
+                  <button class="snippet-tab active" data-lang="java"><i class="devicon-java-plain colored"></i> Java (OOP)</button>
+                  <button class="snippet-tab" data-lang="python"><i class="devicon-python-plain colored"></i> Python (Pipeline)</button>
+                  <button class="snippet-tab" data-lang="sql"><i class="devicon-postgresql-plain colored"></i> SQL (Relational)</button>
+                </div>
+                <span class="snippet-badge"><i class="fa-solid fa-terminal"></i> Live IDE</span>
+              </div>
+              <div class="snippet-body">
+                <pre><code id="snippetCode" class="language-java">// Core Object-Oriented Architecture
+public class Developer {
+    private final String name = "Tanish";
+    private final String[] stacks = {"Java", "React", "PostgreSQL"};
+
+    public void buildApplication() {
+        System.out.println("Architecting scalable & robust software solutions.");
+    }
+}</code></pre>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
-      <div class="web">
-        <h2>Web Technologies</h2>
-        <ul>
-          <li>HTML</li>
-          <li>CSS</li>
-          <li>JavaScript</li>
-          <li>React JS</li>
-        </ul>
+
+      <!-- 2. Modern Web & Frontend Ecosystem -->
+      <div class="bento-tile bento-tile-web" data-category="web">
+        <div class="bento-tile-top">
+          <div class="bento-tile-meta">
+            <span class="bento-badge badge-purple"><i class="fa-solid fa-layer-group"></i> Frontend Stack</span>
+            <h3 class="bento-tile-title"><i class="fa-solid fa-globe icon-purple"></i> Web &amp; Frontend</h3>
+          </div>
+          <span class="bento-stat-chip">6 Technologies</span>
+        </div>
+        <p class="bento-tile-desc">Developing responsive, dynamic web applications with modern component modularity and sleek interactive glassmorphism.</p>
+        
+        <div class="bento-capsules-grid bento-grid-2">
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="devicon-react-original colored"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">React JS</span>
+              <span class="capsule-sub">Hooks, State Management &amp; SPAs</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="devicon-javascript-plain colored"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">JavaScript</span>
+              <span class="capsule-sub">ES6+, Asynchronous &amp; DOM Engine</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="devicon-html5-plain colored"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">HTML5</span>
+              <span class="capsule-sub">Semantic Web &amp; Accessibility</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="devicon-css3-plain colored"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">CSS3</span>
+              <span class="capsule-sub">Glassmorphism, Flex/Grid &amp; 3D</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="devicon-tailwindcss-original colored"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">Tailwind CSS</span>
+              <span class="capsule-sub">Utility Design Tokens &amp; Dark Mode</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="devicon-bootstrap-plain colored"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">Bootstrap</span>
+              <span class="capsule-sub">Grid Architecture &amp; Rapid UI</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="db">
-        <h2>Databases & Technologies</h2>
-        <ul>
-          <li>PostgresSQL</li>
-          <li>MySQL</li>
-          <li>MongoDB</li>
-          <li>Git</li>
-        </ul>
+
+      <!-- 3. Databases, Backend & Infrastructure -->
+      <div class="bento-tile bento-tile-backend" data-category="backend">
+        <div class="bento-tile-top">
+          <div class="bento-tile-meta">
+            <span class="bento-badge badge-emerald"><i class="fa-solid fa-server"></i> Backend &amp; Data</span>
+            <h3 class="bento-tile-title"><i class="fa-solid fa-database icon-emerald"></i> Databases &amp; Backend</h3>
+          </div>
+          <span class="bento-stat-chip">6 Technologies</span>
+        </div>
+        <p class="bento-tile-desc">Engineering robust relational data schemas, NoSQL document collections, RESTful services, and Git version control.</p>
+        
+        <div class="bento-capsules-grid bento-grid-2">
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="devicon-postgresql-plain colored"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">PostgreSQL</span>
+              <span class="capsule-sub">Relational DBMS, Indexes &amp; ACID</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="devicon-mysql-original colored"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">MySQL</span>
+              <span class="capsule-sub">SQL Optimization &amp; Schema Design</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="devicon-mongodb-plain colored"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">MongoDB</span>
+              <span class="capsule-sub">NoSQL Documents &amp; Aggregations</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="devicon-nodejs-plain colored"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">Node JS</span>
+              <span class="capsule-sub">Asynchronous Backend Runtime</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="devicon-express-original"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">Express JS</span>
+              <span class="capsule-sub">RESTful API Endpoints &amp; Routing</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="devicon-git-plain colored"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">Git</span>
+              <span class="capsule-sub">Version Control &amp; GitHub Actions</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="tools">
-        <h2>Frameworks & Tools</h2>
-        <ul>
-          <li>Node JS</li>
-          <li>Express JS</li>
-          <li>Bootstrap</li>
-          <li>Tailwind CSS</li>
-        </ul>
+
+      <!-- 4. Strong Suites & Engineering Principles -->
+      <div class="bento-tile bento-tile-core" data-category="core">
+        <div class="bento-tile-top">
+          <div class="bento-tile-meta">
+            <span class="bento-badge badge-pink"><i class="fa-solid fa-lightbulb"></i> Core Disciplines</span>
+            <h3 class="bento-tile-title"><i class="fa-solid fa-brain icon-pink"></i> Strong Suites</h3>
+          </div>
+          <span class="bento-stat-chip">4 Areas</span>
+        </div>
+        <p class="bento-tile-desc">Methodological engineering foundations emphasizing computational complexity, structured logic, and clean design patterns.</p>
+
+        <div class="bento-capsules-grid bento-grid-2">
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="fa-solid fa-diagram-project icon-cyan"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">Data Structures</span>
+              <span class="capsule-sub">Trees, Graphs, HashMaps &amp; Logic</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="fa-solid fa-lightbulb icon-amber"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">Problem Solving</span>
+              <span class="capsule-sub">Edge-case Debugging &amp; Optimization</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="fa-solid fa-palette icon-pink"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">UI/UX Design</span>
+              <span class="capsule-sub">Modern Aesthetics &amp; Dark Theme</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="fa-solid fa-arrows-spin icon-purple"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">Agile Methods</span>
+              <span class="capsule-sub">Sprint Planning &amp; Iterative Delivery</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="others">
-        <h2>Strong Suites</h2>
-        <ul>
-          <li>Data Structures & Algorithms</li>
-          <li>Problem Solving</li>
-          <li>UI/UX Design</li>
-          <li>Agile Methodologies</li>
-        </ul>
+
+      <!-- 5. Soft Skills & Collaboration -->
+      <div class="bento-tile bento-tile-soft" data-category="core">
+        <div class="bento-tile-top">
+          <div class="bento-tile-meta">
+            <span class="bento-badge badge-blue"><i class="fa-solid fa-users"></i> Professional Skills</span>
+            <h3 class="bento-tile-title"><i class="fa-solid fa-handshake icon-blue"></i> Soft Skills</h3>
+          </div>
+          <span class="bento-stat-chip">4 Strengths</span>
+        </div>
+        <p class="bento-tile-desc">Effective communicator and collaborative team player committed to clear documentation, active listening, and punctual delivery.</p>
+
+        <div class="bento-capsules-grid bento-grid-2">
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="fa-solid fa-comments icon-cyan"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">Communication</span>
+              <span class="capsule-sub">Clear Technical Documentation</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="fa-solid fa-users icon-purple"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">Teamwork</span>
+              <span class="capsule-sub">Cross-functional Pairing &amp; Code Review</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="fa-solid fa-puzzle-piece icon-amber"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">Adaptability</span>
+              <span class="capsule-sub">Fast Framework &amp; Tool Adoption</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="fa-solid fa-clock icon-emerald"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">Time Management</span>
+              <span class="capsule-sub">Disciplined Milestone Delivery</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="softskills">
-        <h2>Soft Skills</h2>
-        <ul>
-          <li>Effective Communication</li>
-          <li>Team Collaboration</li>
-          <li>Adaptability</li>
-          <li>Time Management</li>
-        </ul>
-      </div>
+
     </div>
   </section>
 
@@ -526,7 +819,9 @@
     </div>
   </div>
 
-  <button id="backToTop" aria-label="Back to top">↑</button>
+  <button id="backToTop" aria-label="Back to top" title="Back to Top">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
 
   <script src="script.js"></script>
 </body>
