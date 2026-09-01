@@ -757,26 +757,143 @@ public class Developer {
     </div>
   </section>
 
-  <!-- CONTACT SECTION -->
+  <!-- CONTACT SECTION: CYBER COLLABORATION HUB -->
   <section id="contact" style="padding: 60px 20px;">
-    <h2>Let's Connect and Collaborate ❤️</h2>
-    <p class="greetings">Whether it's a New Project, a Collaboration, or just a hi ― I'd Love to hear from you!</p>
+    <h2 class="main">Let's Connect &amp; Collaborate ❤️</h2>
+    <p class="speech">Have an exciting idea, an internship opportunity, or just want to discuss tech? Drop a message or connect directly.</p>
 
-    <div class="social-icons" style="margin: 30px 0; justify-content: center;">
-      <a href="https://github.com/Tanish1808" target="_blank"><i class='bx bxl-github'></i></a>
-      <a href="https://www.linkedin.com/in/tanish-shah-703489349/" target="_blank"><i class='bx bxl-linkedin'></i></a>
-      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=tanish.shahdev@gmail.com" target="_blank"><i
-          class='bx bxs-envelope'></i></a>
+    <div class="contact-hub-container">
+      
+      <!-- 1. Left Column: Holographic Developer Telemetry & Quick Connect -->
+      <div class="contact-info-panel">
+        
+        <!-- Live Status Pill -->
+        <div class="contact-status-badge">
+          <span class="status-pulse-dot"></span>
+          <span>Available for Internships &amp; Projects</span>
+        </div>
+
+        <h3 class="contact-panel-title">Let's Build Something Impactful Together</h3>
+        <p class="contact-panel-desc">
+          I'm currently seeking software development internships and creative collaborations. Whether you need full-stack development, database architecture, or want to discuss a project, my inbox is open!
+        </p>
+
+        <!-- Quick Telemetry Cards -->
+        <div class="contact-telemetry-grid">
+          
+          <!-- Email Telemetry Card with One-Click Copy -->
+          <div class="telemetry-card" id="copyEmailCard">
+            <div class="telemetry-icon-box icon-cyan-glow">
+              <i class="fa-solid fa-envelope"></i>
+            </div>
+            <div class="telemetry-info">
+              <span class="telemetry-label">Direct Email</span>
+              <span class="telemetry-val" id="emailValText">tanish.shahdev@gmail.com</span>
+            </div>
+            <button type="button" class="telemetry-copy-btn" id="copyEmailBtn" title="Copy Email Address" aria-label="Copy Email">
+              <i class="fa-regular fa-copy" id="copyIcon"></i>
+              <span class="copy-tooltip" id="copyTooltip">Copy</span>
+            </button>
+          </div>
+
+          <!-- Location Telemetry Card -->
+          <div class="telemetry-card">
+            <div class="telemetry-icon-box icon-purple-glow">
+              <i class="fa-solid fa-location-dot"></i>
+            </div>
+            <div class="telemetry-info">
+              <span class="telemetry-label">Current Location</span>
+              <span class="telemetry-val">Ahmedabad, Gujarat, India</span>
+            </div>
+            <span class="telemetry-chip">IST (UTC+5:30)</span>
+          </div>
+
+          <!-- Response Guarantee Card -->
+          <div class="telemetry-card">
+            <div class="telemetry-icon-box icon-emerald-glow">
+              <i class="fa-solid fa-bolt"></i>
+            </div>
+            <div class="telemetry-info">
+              <span class="telemetry-label">Response Guarantee</span>
+              <span class="telemetry-val">Within 24 Hours</span>
+            </div>
+            <span class="telemetry-chip chip-live">Guaranteed</span>
+          </div>
+
+        </div>
+
+        <!-- Social Network Command Cards -->
+        <div class="contact-social-grid">
+          <a href="https://github.com/Tanish1808" target="_blank" class="contact-social-card card-github">
+            <i class="fa-brands fa-github"></i>
+            <div class="social-card-text">
+              <span class="social-name">GitHub</span>
+              <span class="social-sub">Explore Open-Source Code</span>
+            </div>
+            <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+          </a>
+
+          <a href="https://www.linkedin.com/in/tanish-shah-703489349/" target="_blank" class="contact-social-card card-linkedin">
+            <i class="fa-brands fa-linkedin-in"></i>
+            <div class="social-card-text">
+              <span class="social-name">LinkedIn</span>
+              <span class="social-sub">Professional Network</span>
+            </div>
+            <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- 2. Right Column: Glassmorphic Interactive Contact Console -->
+      <div class="contact-form-panel">
+        
+        <div class="console-header">
+          <div class="console-dots">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
+          <span class="console-title"><i class="fa-solid fa-paper-plane"></i> Direct Message Dispatch</span>
+        </div>
+
+        <form id="contactForm" class="contact-form-inner" novalidate>
+          <div class="form-row-2">
+            <div class="contact-input-wrapper">
+              <i class="fa-solid fa-user input-icon"></i>
+              <input type="text" name="name" id="name" placeholder="Your Name" required autocomplete="name">
+            </div>
+            
+            <div class="contact-input-wrapper">
+              <i class="fa-solid fa-envelope input-icon"></i>
+              <input type="email" name="email" id="email" placeholder="Your Email" required autocomplete="email">
+            </div>
+          </div>
+          
+          <div class="contact-input-wrapper">
+            <i class="fa-solid fa-tag input-icon"></i>
+            <input type="text" name="subject" id="subject" placeholder="Subject / Project Inquiry" required>
+          </div>
+          
+          <div class="contact-input-wrapper textarea-wrapper">
+            <i class="fa-solid fa-message input-icon"></i>
+            <textarea name="message" id="message" cols="10" rows="6" placeholder="Tell me about your project, opportunity, or message..." required></textarea>
+          </div>
+
+          <div id="contactStatus" class="contact-status"></div>
+          
+          <button type="submit" id="contactSubmitBtn" class="cyber-submit-btn">
+            <span class="btn-glow-layer"></span>
+            <span class="btn-content">
+              <span>Send Message</span>
+              <i class="fa-solid fa-paper-plane"></i>
+            </span>
+          </button>
+        </form>
+
+      </div>
+
     </div>
-
-    <form id="contactForm" class="contact" novalidate>
-      <input type="text" name="name" id="name" placeholder="Your Name" required>
-      <input type="email" name="email" id="email" placeholder="Your Email" required>
-      <input type="text" name="subject" id="subject" placeholder="Subject" required>
-      <textarea name="message" id="message" cols="10" rows="7" placeholder="Your Message" required></textarea>
-      <div id="contactStatus" class="contact-status"></div>
-      <button type="submit" id="contactSubmitBtn">Send Message 🚀</button>
-    </form>
   </section>
 
   <!-- FOOTER -->
