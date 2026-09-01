@@ -876,6 +876,36 @@ Currently building premium user interfaces and software systems, focusing on cle
         }
     }
 
+    // ── One-Click Email Copy Telemetry Handler ─────────────────────────
+    const copyEmailBtn = document.getElementById("copyEmailBtn");
+    const copyEmailCard = document.getElementById("copyEmailCard");
+    const copyTooltip = document.getElementById("copyTooltip");
+    const copyIcon = document.getElementById("copyIcon");
+
+    if (copyEmailBtn && copyTooltip) {
+        const copyEmailAction = (e) => {
+            if (e) e.stopPropagation();
+            const emailText = "tanish.shahdev@gmail.com";
+            navigator.clipboard.writeText(emailText).then(() => {
+                copyTooltip.textContent = "Copied! 🎉";
+                if (copyIcon) copyIcon.className = "fa-solid fa-check";
+                copyEmailBtn.style.background = "var(--accent-cyan)";
+                copyEmailBtn.style.color = "#0b0f19";
+
+                setTimeout(() => {
+                    copyTooltip.textContent = "Copy";
+                    if (copyIcon) copyIcon.className = "fa-regular fa-copy";
+                    copyEmailBtn.style.background = "";
+                    copyEmailBtn.style.color = "";
+                }, 2000);
+            }).catch(() => {
+                copyTooltip.textContent = "Copied!";
+            });
+        };
+
+        copyEmailBtn.addEventListener("click", copyEmailAction);
+    }
+
     // ── Projects Detail Modal Logic ────────────────────────────────────
     const projectsData = {
         bus: {
