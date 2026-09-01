@@ -71,21 +71,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Back to top button logic
     const backToTop = document.getElementById("backToTop");
-    window.addEventListener("scroll", () => {
-        if (window.scrollY > 300) {
-            backToTop.style.display = "block";
-            backToTop.style.opacity = "1";
-        } else {
-            backToTop.style.opacity = "0";
-            setTimeout(() => {
-                if (window.scrollY <= 300) backToTop.style.display = "none";
-            }, 300);
-        }
-    });
+    if (backToTop) {
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 250) {
+                backToTop.classList.add("show");
+            } else {
+                backToTop.classList.remove("show");
+            }
+        });
 
-    backToTop.addEventListener("click", () => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    });
+        backToTop.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+    }
 
     // Scroll Spy for Navbar Links
     const sections = document.querySelectorAll("section");
@@ -126,12 +124,89 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Add .fade-in class to elements we want to animate, then observe them
     const animatedElements = document.querySelectorAll(
-        ".hero-box .stat-item, .about-me, .edu-card, .skills-card > div, .projects-dashboard, .cert-card, .contact input, .contact textarea"
+        ".hero-box .stat-item, .about-me, .edu-card, .bento-tile, .projects-dashboard, .cert-card, .contact input, .contact textarea"
     );
     animatedElements.forEach(el => {
         el.classList.add("fade-in");
         observer.observe(el);
     });
+
+    // ── Skills Bento Wall Category Filter ────────────────────────────────
+    const skillFilterBtns = document.querySelectorAll(".skills-filter-btn");
+    const bentoTiles = document.querySelectorAll(".bento-tile");
+    const bentoWall = document.querySelector(".skills-bento-wall");
+
+    if (skillFilterBtns.length > 0 && bentoWall) {
+        skillFilterBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                skillFilterBtns.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                const filter = btn.getAttribute("data-filter");
+
+                let visibleCount = 0;
+                bentoTiles.forEach(tile => {
+                    const matches = (filter === "all" || tile.getAttribute("data-category") === filter);
+                    if (matches) {
+                        visibleCount++;
+                        tile.style.display = "flex";
+                        tile.style.opacity = "1";
+                        tile.style.transform = "translateY(0)";
+                    } else {
+                        tile.style.display = "none";
+                        tile.style.opacity = "0";
+                    }
+                });
+
+                if (visibleCount === 1) {
+                    bentoWall.classList.add("is-single-card");
+                } else {
+                    bentoWall.classList.remove("is-single-card");
+                }
+            });
+        });
+    }
+
+    // ── Bento Interactive Code Snippet Tabs ─────────────────────────────
+    const snippetTabs = document.querySelectorAll(".snippet-tab");
+    const snippetCode = document.getElementById("snippetCode");
+
+    const codeSnippets = {
+        java: `// Core Object-Oriented Architecture
+public class Developer {
+    private final String name = "Tanish";
+    private final String[] stacks = {"Java", "React", "PostgreSQL"};
+
+    public void buildApplication() {
+        System.out.println("Architecting scalable & robust software solutions.");
+    }
+}`,
+        python: `# Automation & Algorithmic Logic
+def optimize_pipeline(dataset: list[dict]) -> dict:
+    """Analyze and aggregate system telemetry in real time."""
+    processed = [item for item in dataset if item.get("status") == "ACTIVE"]
+    return {"total_records": len(processed), "status": "OPTIMIZED"}`,
+        sql: `-- Relational Schema & Performance Query
+SELECT u.id, u.username, COUNT(p.id) AS total_projects
+FROM users u
+INNER JOIN projects p ON u.id = p.owner_id
+WHERE p.status = 'ACTIVE'
+GROUP BY u.id, u.username
+ORDER BY total_projects DESC;`
+    };
+
+    if (snippetTabs.length > 0 && snippetCode) {
+        snippetTabs.forEach(tab => {
+            tab.addEventListener("click", () => {
+                snippetTabs.forEach(t => t.classList.remove("active"));
+                tab.classList.add("active");
+                const lang = tab.getAttribute("data-lang");
+                if (codeSnippets[lang]) {
+                    snippetCode.textContent = codeSnippets[lang];
+                    snippetCode.className = `language-${lang}`;
+                }
+            });
+        });
+    }
 
     // ── Hamburger Menu Toggle ──────────────────────────────────────────
     const menuToggle = document.getElementById("menuToggle");
