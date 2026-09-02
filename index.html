@@ -574,45 +574,106 @@ public class Developer {
           <i class="fa-solid fa-graduation-cap"></i>
           <div class="sidebar-info">
             <h4>Course Management</h4>
-            <span>SEM-II | Java & DBMS</span>
+            <span>SEM-II | Java &amp; DBMS</span>
+          </div>
+        </div>
+        <div class="sidebar-item" data-project="ticket">
+          <i class="fa-solid fa-ticket"></i>
+          <div class="sidebar-info">
+            <h4>Ticket Tally (ITSM)</h4>
+            <span>Python &amp; PostgreSQL</span>
+          </div>
+        </div>
+
+        <div class="sidebar-section-divider">
+          <span><i class="fa-solid fa-bolt"></i> LIVE API EXTENSION</span>
+        </div>
+
+        <div class="sidebar-item sidebar-live-git" data-project="live-git" id="sidebarLiveGitItem">
+          <div class="sidebar-live-icon-box">
+            <i class="fa-solid fa-code-branch"></i>
+            <span class="live-status-ping"></span>
+          </div>
+          <div class="sidebar-info">
+            <h4>Live Git Graph</h4>
+            <span class="live-git-pill">REST Stream // @Tanish1808</span>
           </div>
         </div>
       </div>
 
       <!-- Right Panel: Display Screen -->
       <div class="projects-display">
-        <div class="display-media">
-          <img id="displayImg" src="assets/bus_reservation.png" alt="Bus Seat Reservation System Screenshot"
-            loading="lazy">
+        <!-- 1. Standard Project Inspection View -->
+        <div class="project-standard-view" id="projectStandardView">
+          <div class="display-media">
+            <img id="displayImg" src="assets/bus_reservation.png" alt="Bus Seat Reservation System Screenshot"
+              loading="lazy">
+          </div>
+          <div class="display-details">
+            <h3 id="displayTitle">Bus Seat Reservation System (SEM-I)</h3>
+            <div id="displayTags" class="display-tags">
+              <span>Core Java</span>
+              <span>Conditional Statements</span>
+              <span>Arrays</span>
+            </div>
+            <p id="displayDesc">This project automates the bus ticket booking process by providing real-time seat
+              availability and secure reservations. It enhances user convenience while helping operators efficiently
+              manage schedules, routes, and passenger data.</p>
+
+            <div class="display-features">
+              <h5>Key Features &amp; Highlights</h5>
+              <ul id="displayFeatures">
+                <li>Real-time visual seat allocation matrix</li>
+                <li>Automated check-ins and ticket generation</li>
+                <li>Validation system preventing double bookings</li>
+                <li>Console UI designed with structured formatting</li>
+              </ul>
+            </div>
+
+            <div class="display-actions">
+              <a id="displayCodeBtn"
+                href="https://github.com/Tanish1808/Bus_Management_System/blob/main/src/BusSeatReservationSystem.java"
+                target="_blank" class="modal-action-btn">
+                <i class="fab fa-github"></i> View Code <i class="fas fa-external-link-alt"
+                  style="font-size: 0.8rem; margin-left: 4px;"></i>
+              </a>
+            </div>
+          </div>
         </div>
-        <div class="display-details">
-          <h3 id="displayTitle">Bus Seat Reservation System (SEM-I)</h3>
-          <div id="displayTags" class="display-tags">
-            <span>Core Java</span>
-            <span>Conditional Statements</span>
-            <span>Arrays</span>
-          </div>
-          <p id="displayDesc">This project automates the bus ticket booking process by providing real-time seat
-            availability and secure reservations. It enhances user convenience while helping operators efficiently
-            manage schedules, routes, and passenger data.</p>
 
-          <div class="display-features">
-            <h5>Key Features & Highlights</h5>
-            <ul id="displayFeatures">
-              <li>Real-time visual seat allocation matrix</li>
-              <li>Automated check-ins and ticket generation</li>
-              <li>Validation system preventing double bookings</li>
-              <li>Console UI designed with structured formatting</li>
-            </ul>
+        <!-- 2. Live Git Graph Visualizer View -->
+        <div class="project-git-graph-view" id="projectGitGraphView" style="display: none;">
+          <div class="git-graph-chrome-bar">
+            <div class="git-graph-title-wrap">
+              <span class="git-graph-icon-tag"><i class="fa-solid fa-code-commit"></i> Git Graph Extension</span>
+              <span class="git-graph-path">github.com/Tanish1808/* (Live API)</span>
+            </div>
+            <div class="git-graph-actions">
+              <span class="git-live-badge"><span class="git-live-dot"></span> <span id="gitSyncState">SYNCHRONIZED</span></span>
+              <button class="git-refresh-icon-btn" id="gitRefreshBtn" title="Sync with GitHub REST API" aria-label="Refresh Git Stream">
+                <i class="fa-solid fa-arrows-rotate"></i>
+              </button>
+            </div>
           </div>
 
-          <div class="display-actions">
-            <a id="displayCodeBtn"
-              href="https://github.com/Tanish1808/Bus_Management_System/blob/main/src/BusSeatReservationSystem.java"
-              target="_blank" class="modal-action-btn">
-              <i class="fab fa-github"></i> View Code <i class="fas fa-external-link-alt"
-                style="font-size: 0.8rem; margin-left: 4px;"></i>
-            </a>
+          <div class="git-commit-tree-stream" id="gitCommitTree">
+            <!-- Dynamically populated with live GitHub commit tree by script.js -->
+          </div>
+        </div>
+
+        <!-- VS Code Bottom Status Bar -->
+        <div class="ide-status-bar">
+          <div class="status-bar-left">
+            <span class="status-item branch"><i class="fa-solid fa-code-branch"></i> <span id="ideBranchText">main*</span></span>
+            <span class="status-item sync"><i class="fa-solid fa-arrows-rotate"></i> <span>0↓ 1↑</span></span>
+            <span class="status-item live"><span class="ide-live-pip"></span> LIVE REST API</span>
+          </div>
+          <div class="status-bar-right">
+            <span class="status-item repos" id="ideRepoCountBar"><i class="fa-brands fa-github"></i> <span id="ideRepoCountText">5 Public Repos</span></span>
+            <span class="status-item latency" id="ideLatencyText">UTF-8 · 24ms</span>
+            <button class="status-item git-toggle-btn" id="ideGitGraphToggleBtn" title="Toggle Live Git Graph View">
+              <i class="fa-solid fa-code-commit"></i> <span id="ideToggleLabel">View Git Graph</span>
+            </button>
           </div>
         </div>
       </div>
