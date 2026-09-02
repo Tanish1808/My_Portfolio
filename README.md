@@ -120,7 +120,7 @@ Then visit **`http://localhost:8000`** in your browser.
 - **Portfolio**: [tanish1808.github.io/portfolio](https://tanish1808.github.io/portfolio/)
 - **GitHub**: [@Tanish1808](https://github.com/Tanish1808)
 - **LinkedIn**: [Tanish Shah](https://www.linkedin.com/in/tanish-shah-703489349/)
-- **Email**: [tanish.shahdev@gmail.com](mailto:tanish.shahdev@gmail.com)
+- **Email**: [tanishshah1808@gmail.com](mailto:tanishshah1808@gmail.com)
 - **Location**: India
 
 ---
