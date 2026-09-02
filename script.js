@@ -303,7 +303,7 @@ Currently building premium user interfaces and software systems, focusing on cle
   2. <span class="terminal-command-info">Hostel Management System (SEM-I)</span> — OOPs-based administration portal for room management & payments.
   3. <span class="terminal-command-info">Course Management System (SEM-II)</span> — Institutional platform for digital course enrollment, grading & DB structures.`,
             contact: () => `Let's connect!
-  - Email    : <a href="mailto:tanish.shahdev@gmail.com" target="_blank" style="color: var(--accent-cyan);">tanish.shahdev@gmail.com</a>
+  - Email    : <a href="mailto:tanishshah1808@gmail.com" target="_blank" style="color: var(--accent-cyan);">tanishshah1808@gmail.com</a>
   - GitHub   : <a href="https://github.com/Tanish1808" target="_blank" style="color: var(--accent-cyan);">github.com/Tanish1808</a>
   - LinkedIn : <a href="https://www.linkedin.com/in/tanish-shah-703489349/" target="_blank" style="color: var(--accent-cyan);">tanish-shah-703489349</a>`,
             "cat developer.json": () => `<span class="bracket">{</span>
@@ -888,7 +888,7 @@ Currently building premium user interfaces and software systems, focusing on cle
                 showStatus("Web3Forms token missing. Opening mail client...", "loading");
 
                 setTimeout(() => {
-                    window.open(`mailto:tanish.shahdev@gmail.com?subject=${subject}&body=${body}`, "_self");
+                    window.open(`mailto:tanishshah1808@gmail.com?subject=${subject}&body=${body}`, "_self");
                     showStatus("Mail client opened. Please send the email! ❤️", "success");
                 }, 1200);
             } finally {
@@ -912,7 +912,7 @@ Currently building premium user interfaces and software systems, focusing on cle
     if (copyEmailBtn && copyTooltip) {
         const copyEmailAction = (e) => {
             if (e) e.stopPropagation();
-            const emailText = "tanish.shahdev@gmail.com";
+            const emailText = "tanishshah1808@gmail.com";
             navigator.clipboard.writeText(emailText).then(() => {
                 copyTooltip.textContent = "Copied! 🎉";
                 if (copyIcon) copyIcon.className = "fa-solid fa-check";
