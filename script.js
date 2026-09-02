@@ -933,7 +933,7 @@ Currently building premium user interfaces and software systems, focusing on cle
         copyEmailBtn.addEventListener("click", copyEmailAction);
     }
 
-    // ── Projects Detail Modal Logic ────────────────────────────────────
+    // ── Projects Detail & Live Git Graph Logic ────────────────────────
     const projectsData = {
         bus: {
             title: "Bus Seat Reservation System (SEM-I)",
@@ -973,12 +973,35 @@ Currently building premium user interfaces and software systems, focusing on cle
             ],
             image: "assets/course_management.png",
             github: "https://github.com/Tanish1808/Course_Management_System/tree/main/src"
+        },
+        ticket: {
+            title: "Trial Ticket Tally (ITSM Platform)",
+            description: "Enterprise-grade IT Service Management and Incident Orchestration system with SLA tracking, RBAC, WebSockets, ReportLab PDF generation, and Neon PostgreSQL database.",
+            tech: ["Python", "Flask", "SQLAlchemy", "PostgreSQL", "Docker", "WebSockets"],
+            features: [
+                "Real-time incident lifecycle state machine & SLA timer alerts",
+                "Role-based Access Control (Admin, Engineer, User)",
+                "Automated PDF ticket & resolution dispatch via ReportLab",
+                "Dockerized micro-architecture with sub-50ms query latency"
+            ],
+            image: "assets/bus_reservation.png",
+            github: "https://github.com/Tanish1808/Trial_Ticket_Tally"
         }
     };
 
-    // ── Projects Dashboard Logic ───────────────────────────────────────
+    // ── Projects Dashboard & Live Git Graph Controller ─────────────────
     const sidebarItems = document.querySelectorAll(".sidebar-item");
     const displayPanel = document.querySelector(".projects-display");
+    const projectStandardView = document.getElementById("projectStandardView");
+    const projectGitGraphView = document.getElementById("projectGitGraphView");
+    const gitCommitTree = document.getElementById("gitCommitTree");
+    const gitRefreshBtn = document.getElementById("gitRefreshBtn");
+    const gitSyncState = document.getElementById("gitSyncState");
+    const ideGitGraphToggleBtn = document.getElementById("ideGitGraphToggleBtn");
+    const ideToggleLabel = document.getElementById("ideToggleLabel");
+    const ideRepoCountText = document.getElementById("ideRepoCountText");
+    const ideLatencyText = document.getElementById("ideLatencyText");
+    const ideBranchText = document.getElementById("ideBranchText");
     const displayImg = document.getElementById("displayImg");
     const displayTitle = document.getElementById("displayTitle");
     const displayTags = document.getElementById("displayTags");
@@ -986,74 +1009,296 @@ Currently building premium user interfaces and software systems, focusing on cle
     const displayFeatures = document.getElementById("displayFeatures");
     const displayCodeBtn = document.getElementById("displayCodeBtn");
 
+    const GH_USERNAME = "Tanish1808";
+    const GH_CACHE_KEY = `gh_git_graph_${GH_USERNAME}`;
+    const GH_CACHE_TTL = 15 * 60 * 1000; // 15 minutes TTL
+
+    // Format relative timestamp
+    const formatGitTimeAgo = (dateStr) => {
+        if (!dateStr) return "Active";
+        const now = new Date();
+        const past = new Date(dateStr);
+        const diffSec = Math.floor((now - past) / 1000);
+        if (diffSec < 3600) return `${Math.max(1, Math.floor(diffSec / 60))}m ago`;
+        if (diffSec < 86400) return `${Math.floor(diffSec / 3600)}h ago`;
+        if (diffSec < 2592000) return `${Math.floor(diffSec / 86400)}d ago`;
+        return past.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+    };
+
+    // DevIcon language resolver
+    const getGitLangBadge = (lang) => {
+        if (!lang) return `<i class="fa-solid fa-code" style="color: var(--accent-cyan);"></i> <span>Code</span>`;
+        const lower = lang.toLowerCase();
+        if (lower === "python") return `<i class="devicon-python-plain colored"></i> <span>Python</span>`;
+        if (lower === "java") return `<i class="devicon-java-plain colored"></i> <span>Java</span>`;
+        if (lower === "javascript") return `<i class="devicon-javascript-plain colored"></i> <span>JavaScript</span>`;
+        if (lower === "typescript") return `<i class="devicon-typescript-plain colored"></i> <span>TypeScript</span>`;
+        if (lower === "html") return `<i class="devicon-html5-plain colored"></i> <span>HTML</span>`;
+        return `<i class="fa-solid fa-code" style="color: var(--accent-purple);"></i> <span>${lang}</span>`;
+    };
+
+    // Render Git Commit Tree Nodes
+    const renderGitGraphTree = (user, repos, latencyMs = 24) => {
+        if (ideRepoCountText && user && typeof user.public_repos !== "undefined") {
+            ideRepoCountText.textContent = `${user.public_repos} Public Repos`;
+        }
+        if (ideLatencyText) {
+            ideLatencyText.textContent = `UTF-8 · ${latencyMs}ms`;
+        }
+        if (gitSyncState) {
+            gitSyncState.textContent = "SYNCHRONIZED";
+        }
+
+        if (!gitCommitTree) return;
+
+        const colorClasses = ["dot-green", "dot-cyan", "dot-purple", "dot-amber"];
+
+        if (repos && repos.length > 0) {
+            gitCommitTree.innerHTML = repos.slice(0, 5).map((repo, idx) => {
+                const dotColor = colorClasses[idx % colorClasses.length];
+                const hash = repo.node_id ? repo.node_id.slice(-7) : `#${Math.floor(Math.random()*16777215).toString(16).slice(0,6)}`;
+                const branch = repo.default_branch || "main";
+                const timeAgo = formatGitTimeAgo(repo.pushed_at || repo.updated_at);
+                const desc = repo.description || "Public open-source repository & software module by @Tanish1808.";
+                const langBadge = getGitLangBadge(repo.language);
+                const isLast = idx === repos.length - 1 || idx === 4;
+
+                return `
+                    <div class="git-tree-node">
+                        <div class="node-branch-line-col">
+                            <span class="node-branch-track" style="${isLast ? 'bottom: 50%;' : ''}"></span>
+                            <span class="node-commit-dot ${dotColor}"></span>
+                        </div>
+                        <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="node-commit-card">
+                            <div class="node-card-head">
+                                <div class="node-head-left">
+                                    <span class="node-hash-tag">${hash}</span>
+                                    <span class="node-branch-badge">${branch}</span>
+                                    <h4 class="node-repo-title">${repo.name}</h4>
+                                </div>
+                                <span class="node-time-badge">${timeAgo}</span>
+                            </div>
+                            <p class="node-commit-msg">${desc}</p>
+                            <div class="node-card-foot">
+                                <span class="node-lang-tag">${langBadge}</span>
+                                <span class="node-view-link"><span>Inspect Code</span> <i class="fa-solid fa-arrow-right"></i></span>
+                            </div>
+                        </a>
+                    </div>
+                `;
+            }).join("");
+        } else {
+            renderGitFallbackTree();
+        }
+    };
+
+    // Fallback Git Tree for Offline or Rate-Limited States
+    const renderGitFallbackTree = () => {
+        if (gitSyncState) gitSyncState.textContent = "OFFLINE SNAPSHOT";
+        if (ideLatencyText) ideLatencyText.textContent = "UTF-8 · CACHED";
+        if (!gitCommitTree) return;
+
+        const fallbackRepos = [
+            { name: "Trial_Ticket_Tally", hash: "#8f1b2c", branch: "main", lang: "Python", time: "Recent", url: "https://github.com/Tanish1808/Trial_Ticket_Tally", desc: "Enterprise-grade IT Service Management (ITSM) incident orchestration platform with SLA tracking & Neon PostgreSQL." },
+            { name: "Course_Management_System", hash: "#4a9e3d", branch: "main", lang: "Java", time: "Verified", url: "https://github.com/Tanish1808/Course_Management_System", desc: "Academic course allocation and student enrollment architecture built with object-oriented Java & DBMS concepts." },
+            { name: "Bus_Management_System", hash: "#2c77e1", branch: "main", lang: "Java", time: "Verified", url: "https://github.com/Tanish1808/Bus_Management_System", desc: "Real-time transit scheduling and automated ticketing transaction core with multithreading." },
+            { name: "My_Portfolio", hash: "#011c349", branch: "dev", lang: "JavaScript", time: "Active", url: "https://github.com/Tanish1808/My_Portfolio", desc: "Interactive personal developer portfolio featuring mock terminal, VS Code Git Graph, and 3D credential deck." }
+        ];
+
+        const colorClasses = ["dot-green", "dot-cyan", "dot-purple", "dot-amber"];
+
+        gitCommitTree.innerHTML = fallbackRepos.map((repo, idx) => {
+            const dotColor = colorClasses[idx % colorClasses.length];
+            const langBadge = getGitLangBadge(repo.lang);
+            const isLast = idx === fallbackRepos.length - 1;
+
+            return `
+                <div class="git-tree-node">
+                    <div class="node-branch-line-col">
+                        <span class="node-branch-track" style="${isLast ? 'bottom: 50%;' : ''}"></span>
+                        <span class="node-commit-dot ${dotColor}"></span>
+                    </div>
+                    <a href="${repo.url}" target="_blank" rel="noopener noreferrer" class="node-commit-card">
+                        <div class="node-card-head">
+                            <div class="node-head-left">
+                                <span class="node-hash-tag">${repo.hash}</span>
+                                <span class="node-branch-badge">${repo.branch}</span>
+                                <h4 class="node-repo-title">${repo.name}</h4>
+                            </div>
+                            <span class="node-time-badge">${repo.time}</span>
+                        </div>
+                        <p class="node-commit-msg">${repo.desc}</p>
+                        <div class="node-card-foot">
+                            <span class="node-lang-tag">${langBadge}</span>
+                            <span class="node-view-link"><span>Inspect Code</span> <i class="fa-solid fa-arrow-right"></i></span>
+                        </div>
+                    </a>
+                </div>
+            `;
+        }).join("");
+    };
+
+    // Fetch Live GitHub Telemetry with Session Cache
+    const fetchLiveGitStream = async (forceRefresh = false) => {
+        if (!forceRefresh) {
+            try {
+                const cachedRaw = sessionStorage.getItem(GH_CACHE_KEY);
+                if (cachedRaw) {
+                    const cached = JSON.parse(cachedRaw);
+                    if (Date.now() - cached.timestamp < GH_CACHE_TTL) {
+                        renderGitGraphTree(cached.user, cached.repos, cached.latency || 22);
+                        return;
+                    }
+                }
+            } catch (e) {
+                // Ignore storage read error
+            }
+        }
+
+        if (gitSyncState) gitSyncState.textContent = "SYNCING...";
+        const startTime = performance.now();
+
+        try {
+            const [userRes, reposRes] = await Promise.all([
+                fetch(`https://api.github.com/users/${GH_USERNAME}`, { headers: { "Accept": "application/vnd.github.v3+json" } }),
+                fetch(`https://api.github.com/users/${GH_USERNAME}/repos?sort=updated&per_page=6`, { headers: { "Accept": "application/vnd.github.v3+json" } })
+            ]);
+
+            const latencyMs = Math.round(performance.now() - startTime);
+
+            if (!userRes.ok || !reposRes.ok) {
+                renderGitFallbackTree();
+                return;
+            }
+
+            const userData = await userRes.json();
+            const reposData = await reposRes.json();
+
+            try {
+                sessionStorage.setItem(GH_CACHE_KEY, JSON.stringify({
+                    user: userData,
+                    repos: reposData,
+                    latency: latencyMs,
+                    timestamp: Date.now()
+                }));
+            } catch (e) {}
+
+            renderGitGraphTree(userData, reposData, latencyMs);
+        } catch (err) {
+            renderGitFallbackTree();
+        }
+    };
+
+    // Switch View Helper Function
+    const switchToView = (viewType) => {
+        if (!projectStandardView || !projectGitGraphView || !displayPanel) return;
+
+        displayPanel.classList.add("updating");
+        setTimeout(() => {
+            if (viewType === "live-git") {
+                projectStandardView.style.display = "none";
+                projectGitGraphView.style.display = "flex";
+                if (ideToggleLabel) ideToggleLabel.textContent = "View Project";
+                if (ideBranchText) ideBranchText.textContent = "remote/live*";
+                fetchLiveGitStream();
+            } else {
+                projectStandardView.style.display = "flex";
+                projectGitGraphView.style.display = "none";
+                if (ideToggleLabel) ideToggleLabel.textContent = "View Git Graph";
+                if (ideBranchText) ideBranchText.textContent = "main*";
+            }
+            displayPanel.classList.remove("updating");
+        }, 220);
+    };
+
+    // Event listener for Sidebar clicks
     if (sidebarItems.length > 0 && displayPanel) {
         sidebarItems.forEach(item => {
             item.addEventListener("click", () => {
-                // If already active, do nothing
                 if (item.classList.contains("active")) return;
 
                 const projectId = item.getAttribute("data-project");
-                const data = projectsData[projectId];
 
-                if (data) {
-                    // Remove active class from all items
-                    sidebarItems.forEach(sib => {
-                        sib.classList.remove("active");
-                        // Also reset the transform inline styles from 3D tilt
-                        sib.style.transform = "";
-                        sib.style.transition = "";
-                    });
+                // Clear active state across all sidebar items
+                sidebarItems.forEach(sib => {
+                    sib.classList.remove("active");
+                    sib.style.transform = "";
+                    sib.style.transition = "";
+                });
 
-                    // Add active class to clicked item
-                    item.classList.add("active");
+                item.classList.add("active");
 
-                    // Trigger fade out / slide down transition on display panel
-                    displayPanel.classList.add("updating");
-
-                    // Wait for transition duration (350ms) to update content
-                    setTimeout(() => {
-                        // Update media content
-                        if (displayImg) {
-                            displayImg.src = data.image;
-                            displayImg.alt = `${data.title} Screenshot`;
-                        }
-
-                        // Update text details
-                        if (displayTitle) displayTitle.textContent = data.title;
-                        if (displayDesc) displayDesc.textContent = data.description;
-
-                        // Update tags
-                        if (displayTags) {
-                            displayTags.innerHTML = "";
-                            data.tech.forEach(techName => {
-                                const span = document.createElement("span");
-                                span.textContent = techName;
-                                displayTags.appendChild(span);
-                            });
-                        }
-
-                        // Update features
-                        if (displayFeatures) {
-                            displayFeatures.innerHTML = "";
-                            data.features.forEach(feat => {
-                                const li = document.createElement("li");
-                                li.textContent = feat;
-                                displayFeatures.appendChild(li);
-                            });
-                        }
-
-                        // Update code link
-                        if (displayCodeBtn) {
-                            displayCodeBtn.href = data.github;
-                        }
-
-                        // Transition back in: remove "updating" class
-                        displayPanel.classList.remove("updating");
-                    }, 350);
+                if (projectId === "live-git") {
+                    switchToView("live-git");
+                } else {
+                    const data = projectsData[projectId];
+                    if (data) {
+                        switchToView("standard");
+                        setTimeout(() => {
+                            if (displayImg) {
+                                displayImg.src = data.image;
+                                displayImg.alt = `${data.title} Screenshot`;
+                            }
+                            if (displayTitle) displayTitle.textContent = data.title;
+                            if (displayDesc) displayDesc.textContent = data.description;
+                            if (displayTags) {
+                                displayTags.innerHTML = "";
+                                data.tech.forEach(techName => {
+                                    const span = document.createElement("span");
+                                    span.textContent = techName;
+                                    displayTags.appendChild(span);
+                                });
+                            }
+                            if (displayFeatures) {
+                                displayFeatures.innerHTML = "";
+                                data.features.forEach(feat => {
+                                    const li = document.createElement("li");
+                                    li.textContent = feat;
+                                    displayFeatures.appendChild(li);
+                                });
+                            }
+                            if (displayCodeBtn) {
+                                displayCodeBtn.href = data.github;
+                            }
+                        }, 220);
+                    }
                 }
             });
         });
     }
+
+    // Toggle button on bottom status bar
+    if (ideGitGraphToggleBtn) {
+        ideGitGraphToggleBtn.addEventListener("click", () => {
+            const isGitViewActive = projectGitGraphView && projectGitGraphView.style.display !== "none";
+            if (isGitViewActive) {
+                // Switch back to first project (bus)
+                const firstItem = document.querySelector('.sidebar-item[data-project="bus"]');
+                if (firstItem) firstItem.click();
+            } else {
+                // Switch to live-git
+                const gitItem = document.querySelector('.sidebar-item[data-project="live-git"]');
+                if (gitItem) gitItem.click();
+            }
+        });
+    }
+
+    // Manual Refresh button in Git Graph view
+    if (gitRefreshBtn) {
+        gitRefreshBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            gitRefreshBtn.style.transform = "rotate(360deg)";
+            gitRefreshBtn.style.transition = "transform 0.5s ease";
+            fetchLiveGitStream(true);
+            setTimeout(() => {
+                gitRefreshBtn.style.transform = "";
+                gitRefreshBtn.style.transition = "";
+            }, 500);
+        });
+    }
+
+    // Initial background prefetch for status bar metrics
+    fetchLiveGitStream();
 
     // ── Certifications Detail Modal Logic ──────────────────────────────
     const certModal = document.getElementById("certModal");
