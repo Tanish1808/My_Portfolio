@@ -945,6 +945,12 @@ Currently building premium user interfaces and software systems, focusing on cle
                 "Validation system preventing double bookings",
                 "Console UI designed with structured formatting"
             ],
+            metrics: [
+                "Entities: 12+ Bus Routes, 40-Seat Visual Matrices & Passenger Records",
+                "Core Logic: 5 Modular Java Classes / 450+ Lines of Clean Code",
+                "Impact: Eliminated manual paper ticketing with zero double-booking lock",
+                "Complexity: Real-time 2D array state sync & coordinate reservation algorithms"
+            ],
             image: "assets/bus_reservation.png",
             github: "https://github.com/Tanish1808/Bus_Management_System/blob/main/src/BusSeatReservationSystem.java"
         },
@@ -957,6 +963,12 @@ Currently building premium user interfaces and software systems, focusing on cle
                 "Student registration directory with check-in details",
                 "Centralized payment history logger",
                 "Structured request/complaints management workflow"
+            ],
+            metrics: [
+                "Entities: 50+ Room Inventories, 200+ Student Profiles & Transaction Ledgers",
+                "Core Logic: 8 Modular Java Classes / 650+ Lines of Clean Code",
+                "Impact: Automated room allocations, student check-ins & fee audit workflows",
+                "Complexity: Dynamic occupancy calculation & relational record integrity validation"
             ],
             image: "assets/hostel_management.png",
             github: "https://github.com/Tanish1808/Hostel_Management_System/blob/main/src/HostelManagementSystem.java"
@@ -971,6 +983,12 @@ Currently building premium user interfaces and software systems, focusing on cle
                 "Grading spreadsheet calculator",
                 "Performance visualization metrics for academic reporting"
             ],
+            metrics: [
+                "Entities: 15+ Relational Tables (Courses, Students, Faculty, Prerequisites, Grades)",
+                "Core Logic: 10+ Java Service Handlers / 800+ Lines with Relational DBMS Queries",
+                "Impact: Digitalized academic course allocation & automated GPA calculation pipelines",
+                "Complexity: Multi-tier prerequisite graph validation & transactional enrollment locking"
+            ],
             image: "assets/course_management.png",
             github: "https://github.com/Tanish1808/Course_Management_System/tree/main/src"
         },
@@ -983,6 +1001,12 @@ Currently building premium user interfaces and software systems, focusing on cle
                 "Role-based Access Control (Admin, Engineer, User)",
                 "Automated PDF ticket & resolution dispatch via ReportLab",
                 "Dockerized micro-architecture with sub-50ms query latency"
+            ],
+            metrics: [
+                "Entities: 18+ PostgreSQL Relational Schemas (Tickets, SLA Policies, RBAC, Audit Logs)",
+                "Core Logic: 14 Python Backend Modules / 1,400+ Lines with Async Handlers",
+                "Impact: Automated incident triage with sub-50ms query response & dynamic PDF generation",
+                "Complexity: Real-time WebSocket event broadcasting & role-based lifecycle state machine"
             ],
             image: "assets/bus_reservation.png",
             github: "https://github.com/Tanish1808/Trial_Ticket_Tally"
@@ -1007,6 +1031,7 @@ Currently building premium user interfaces and software systems, focusing on cle
     const displayTags = document.getElementById("displayTags");
     const displayDesc = document.getElementById("displayDesc");
     const displayFeatures = document.getElementById("displayFeatures");
+    const displayMetrics = document.getElementById("displayMetrics");
     const displayCodeBtn = document.getElementById("displayCodeBtn");
 
     const GH_USERNAME = "Tanish1808";
@@ -1256,6 +1281,73 @@ Currently building premium user interfaces and software systems, focusing on cle
                                     li.textContent = feat;
                                     displayFeatures.appendChild(li);
                                 });
+                            }
+                            if (displayMetrics) {
+                                displayMetrics.innerHTML = "";
+                                if (data.metrics && data.metrics.length > 0) {
+                                    const getMetricMeta = (label, idx) => {
+                                        const l = label.toLowerCase();
+                                        if (l.includes("entities") || l.includes("model") || l.includes("scale") || l.includes("table")) {
+                                            return { icon: "fa-solid fa-cubes-stacked", colorClass: "metric-cyan" };
+                                        }
+                                        if (l.includes("logic") || l.includes("core") || l.includes("code") || l.includes("class")) {
+                                            return { icon: "fa-solid fa-code-branch", colorClass: "metric-purple" };
+                                        }
+                                        if (l.includes("problem") || l.includes("solved") || l.includes("impact") || l.includes("outcome")) {
+                                            return { icon: "fa-solid fa-bullseye", colorClass: "metric-emerald" };
+                                        }
+                                        if (l.includes("complexity") || l.includes("algo") || l.includes("state") || l.includes("validation")) {
+                                            return { icon: "fa-solid fa-microchip", colorClass: "metric-amber" };
+                                        }
+                                        const fallbacks = [
+                                            { icon: "fa-solid fa-cubes-stacked", colorClass: "metric-cyan" },
+                                            { icon: "fa-solid fa-code-branch", colorClass: "metric-purple" },
+                                            { icon: "fa-solid fa-bullseye", colorClass: "metric-emerald" },
+                                            { icon: "fa-solid fa-microchip", colorClass: "metric-amber" }
+                                        ];
+                                        return fallbacks[idx % fallbacks.length];
+                                    };
+
+                                    data.metrics.forEach((metricItem, idx) => {
+                                        let labelText = "Metric";
+                                        let valText = metricItem;
+
+                                        if (typeof metricItem === "string" && metricItem.includes(":")) {
+                                            const parts = metricItem.split(":");
+                                            labelText = parts[0].trim();
+                                            valText = parts.slice(1).join(":").trim();
+                                        } else if (typeof metricItem === "object" && metricItem.label) {
+                                            labelText = metricItem.label;
+                                            valText = metricItem.value;
+                                        }
+
+                                        const meta = getMetricMeta(labelText, idx);
+                                        const row = document.createElement("div");
+                                        row.className = `metric-row ${meta.colorClass}`;
+
+                                        const leadDiv = document.createElement("div");
+                                        leadDiv.className = "metric-row-lead";
+
+                                        const iconBox = document.createElement("span");
+                                        iconBox.className = "metric-icon-box";
+                                        iconBox.innerHTML = `<i class="${meta.icon}"></i>`;
+
+                                        const labelSpan = document.createElement("span");
+                                        labelSpan.className = "metric-label";
+                                        labelSpan.textContent = labelText;
+
+                                        leadDiv.appendChild(iconBox);
+                                        leadDiv.appendChild(labelSpan);
+
+                                        const valSpan = document.createElement("span");
+                                        valSpan.className = "metric-val";
+                                        valSpan.textContent = valText;
+
+                                        row.appendChild(leadDiv);
+                                        row.appendChild(valSpan);
+                                        displayMetrics.appendChild(row);
+                                    });
+                                }
                             }
                             if (displayCodeBtn) {
                                 displayCodeBtn.href = data.github;
