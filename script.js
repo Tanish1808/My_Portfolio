@@ -993,23 +993,42 @@ Currently building premium user interfaces and software systems, focusing on cle
             github: "https://github.com/Tanish1808/Course_Management_System/tree/main/src"
         },
         ticket: {
-            title: "Trial Ticket Tally (ITSM Platform)",
-            description: "Enterprise-grade IT Service Management and Incident Orchestration system with SLA tracking, RBAC, WebSockets, ReportLab PDF generation, and Neon PostgreSQL database.",
-            tech: ["Python", "Flask", "SQLAlchemy", "PostgreSQL", "Docker", "WebSockets"],
+            title: "Ticket Tally – Smart IT Ticket Management System",
+            description: "An internal IT support ticket management system developed for creating, assigning, tracking, and resolving support requests with automated lifecycle workflows.",
+            tech: ["Flask", "PostgreSQL", "JavaScript", "JWT"],
             features: [
-                "Real-time incident lifecycle state machine & SLA timer alerts",
-                "Role-based Access Control (Admin, Engineer, User)",
-                "Automated PDF ticket & resolution dispatch via ReportLab",
-                "Dockerized micro-architecture with sub-50ms query latency"
+                "Priority Queue-based ticket prioritization system to efficiently handle high-priority support requests",
+                "Role-based dashboards for Employees, IT Staff, and Administrators with secure JWT authentication",
+                "Integrated email notifications, SLA tracking, and automated PDF ticket generation",
+                "Automated end-to-end support ticket lifecycle tracking and resolution workflows"
             ],
             metrics: [
-                "Entities: 18+ PostgreSQL Relational Schemas (Tickets, SLA Policies, RBAC, Audit Logs)",
-                "Core Logic: 14 Python Backend Modules / 1,400+ Lines with Async Handlers",
-                "Impact: Automated incident triage with sub-50ms query response & dynamic PDF generation",
-                "Complexity: Real-time WebSocket event broadcasting & role-based lifecycle state machine"
+                "Entities: PostgreSQL Relational Schemas (Tickets, Users, SLA Policies, Audit Logs)",
+                "Core Logic: Priority Queue algorithms & JWT-authenticated Flask API routes",
+                "Impact: Streamlines IT support triage with real-time SLA compliance tracking",
+                "Complexity: Priority Queue dispatch algorithms & role-based dashboard access control"
             ],
-            image: "assets/bus_reservation.png",
+            image: "assets/ticket_tally.png",
             github: "https://github.com/Tanish1808/Trial_Ticket_Tally"
+        },
+        civiclens: {
+            title: "Civic Lens – AI-Powered Civic Issue Reporting Platform",
+            description: "An AI-powered civic issue reporting platform that enables citizens to report infrastructure problems using geotagged photos and track their resolution through a public transparency dashboard.",
+            tech: ["React", "Django", "DRF", "FastAPI", "PyTorch", "MongoDB"],
+            features: [
+                "ML pipeline using PyTorch and FastAPI to automatically classify issue category and severity with manual review queue",
+                "Two-stage duplicate detection using MongoDB 2dsphere geospatial queries, perceptual hashing, and CNN embedding similarity",
+                "Community-driven ticket verification, JWT-based authentication with RBAC, and RESTful APIs",
+                "Admin analytics dashboard for real-time municipal KPIs, issue trends, and ticket management"
+            ],
+            metrics: [
+                "Entities: MongoDB 2dsphere Geospatial Collections & PyTorch CNN Embedding Vectors",
+                "Core Logic: FastAPI ML inference pipeline & Django REST Framework backend APIs",
+                "Impact: Eliminates duplicate municipal reports & transparently accelerates civic resolution",
+                "Complexity: Two-stage duplicate detection via perceptual hashing + CNN feature embeddings"
+            ],
+            image: "assets/civic_lens_placeholder.png",
+            github: "https://github.com/Tanish1808/civic-lens"
         }
     };
 
