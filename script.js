@@ -1729,4 +1729,84 @@ Currently building premium user interfaces and software systems, focusing on cle
             card.style.transition = "transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.5s cubic-bezier(0.25, 1, 0.5, 1)";
         });
     });
+
+    // ── Skills Bento Wall Filter & Live IDE Snippet Controller ──────────
+    const skillsFilterBtns = document.querySelectorAll(".skills-filter-btn");
+    const bentoTiles = document.querySelectorAll(".bento-tile");
+    const bentoWall = document.querySelector(".skills-bento-wall");
+
+    if (skillsFilterBtns.length > 0 && bentoTiles.length > 0) {
+        skillsFilterBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                skillsFilterBtns.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                const filter = btn.getAttribute("data-filter");
+
+                let visibleCount = 0;
+                bentoTiles.forEach(tile => {
+                    const cat = tile.getAttribute("data-category");
+                    if (filter === "all" || cat === filter) {
+                        tile.style.display = "flex";
+                        visibleCount++;
+                    } else {
+                        tile.style.display = "none";
+                    }
+                });
+
+                if (bentoWall) {
+                    if (visibleCount === 1) {
+                        bentoWall.classList.add("is-single-card");
+                    } else {
+                        bentoWall.classList.remove("is-single-card");
+                    }
+                }
+            });
+        });
+    }
+
+    // Live IDE Snippet Tabs
+    const snippetTabs = document.querySelectorAll(".snippet-tab");
+    const snippetCode = document.getElementById("snippetCode");
+
+    if (snippetTabs.length > 0 && snippetCode) {
+        const snippets = {
+            java: `// Core Object-Oriented Architecture
+public class Developer {
+    private final String name = "Tanish";
+    private final String[] stacks = {"Java", "React", "PostgreSQL", "Flask", "PyTorch"};
+
+    public void buildApplication() {
+        System.out.println("Architecting scalable & robust software solutions.");
+    }
+}`,
+            python: `# Async ML & REST Pipeline
+from fastapi import FastAPI
+import torch
+
+app = FastAPI(title="Civic Lens API")
+
+@app.get("/classify")
+async def classify_issue(image_tensor: torch.Tensor):
+    return {"status": "classified", "severity": "High"}`,
+            sql: `-- Relational Schema & SLA Query
+SELECT t.ticket_id, t.subject, t.priority, s.sla_status
+FROM it_tickets t
+JOIN sla_policies s ON t.policy_id = s.id
+WHERE t.status = 'OPEN'
+ORDER BY t.priority_weight DESC;`
+        };
+
+        snippetTabs.forEach(tab => {
+            tab.addEventListener("click", () => {
+                snippetTabs.forEach(t => t.classList.remove("active"));
+                tab.classList.add("active");
+                const lang = tab.getAttribute("data-lang");
+                if (snippets[lang]) {
+                    snippetCode.textContent = snippets[lang];
+                    snippetCode.className = `language-${lang}`;
+                }
+            });
+        });
+    }
 });
+
