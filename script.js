@@ -285,7 +285,8 @@ ORDER BY t.priority_weight DESC;`
   - <span class="terminal-command-info">about</span>    : Learn more about Tanish Shah
   - <span class="terminal-command-info">skills</span>   : Print coding languages and tech stack
   - <span class="terminal-command-info">projects</span> : View major portfolio projects
-  - <span class="terminal-command-info">contact</span>  : Show email and social profiles
+  - <span class="terminal-command-info">resume</span>   : View &amp; open official resume in new tab
+  - <span class="terminal-command-info">contact</span>  : Scroll to contact form &amp; view profiles
   - <span class="terminal-command-info">theme</span>    : Toggle Light/Dark mode of the site
   - <span class="terminal-command-info">clear</span>    : Clear the console screen
   - <span class="terminal-command-info">cat developer.json</span> : Output raw developer info
@@ -308,10 +309,38 @@ Currently building premium user interfaces and software systems, focusing on cle
   3. <span class="terminal-command-info">Course Management System (SEM-II)</span> — Relational DBMS course catalog, prerequisites & GPA calc.
   4. <span class="terminal-command-info">Ticket Tally (ITSM Platform)</span> — Priority Queue triage, JWT auth, SLA tracking & Flask/PostgreSQL.
   5. <span class="terminal-command-info">Civic Lens (AI Platform)</span> — PyTorch ML classification, geospatial duplicate detection & React.`,
-            contact: () => `Let's connect!
+            resume: () => {
+                fetch("assets/resume.pdf", { method: "HEAD" })
+                    .then(res => {
+                        if (res.ok) {
+                            window.open("assets/resume.pdf", "_blank");
+                        } else {
+                            const fallbackDiv = document.createElement("div");
+                            fallbackDiv.className = "terminal-output";
+                            fallbackDiv.innerHTML = `<span class="terminal-command-error">Notice:</span> Resume document currently being updated. Please check back shortly!`;
+                            terminalHistory.appendChild(fallbackDiv);
+                            if (terminalBody) terminalBody.scrollTop = terminalBody.scrollHeight;
+                        }
+                    })
+                    .catch(() => {
+                        window.open("assets/resume.pdf", "_blank");
+                    });
+                return `<span class="terminal-command-success">Accessing Resume:</span> Opening <span class="terminal-command-info">assets/resume.pdf</span> in a new tab...`;
+            },
+            contact: () => {
+                const contactSection = document.getElementById("contact");
+                if (contactSection) {
+                    contactSection.scrollIntoView({ behavior: "smooth" });
+                    setTimeout(() => {
+                        const nameInput = document.getElementById("name");
+                        if (nameInput) nameInput.focus();
+                    }, 650);
+                }
+                return `<span class="terminal-command-success">Navigating to Contact Section...</span> Auto-focusing transmission form.
   - Email    : <a href="mailto:tanishshah1808@gmail.com" target="_blank" style="color: var(--accent-cyan);">tanishshah1808@gmail.com</a>
   - GitHub   : <a href="https://github.com/Tanish1808" target="_blank" style="color: var(--accent-cyan);">github.com/Tanish1808</a>
-  - LinkedIn : <a href="https://www.linkedin.com/in/tanish-shah-703489349/" target="_blank" style="color: var(--accent-cyan);">tanish-shah-703489349</a>`,
+  - LinkedIn : <a href="https://www.linkedin.com/in/tanish-shah-703489349/" target="_blank" style="color: var(--accent-cyan);">tanish-shah-703489349</a>`;
+            },
             "cat developer.json": () => `<span class="bracket">{</span>
   <div class="indent"><span class="key">"name"</span>: <span class="val">"Tanish Shah"</span>,</div>
   <div class="indent"><span class="key">"role"</span>: <span class="val">"IT Student & Coder"</span>,</div>
