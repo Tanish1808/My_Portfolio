@@ -957,7 +957,7 @@ Currently building premium user interfaces and software systems, focusing on cle
                 "Impact: Eliminated manual paper ticketing with zero double-booking lock",
                 "Complexity: Real-time 2D array state sync & coordinate reservation algorithms"
             ],
-            image: "assets/bus_reservation.png",
+            image: "assets/bus_reservation.webp",
             github: "https://github.com/Tanish1808/Bus_Management_System/blob/main/src/BusSeatReservationSystem.java"
         },
         hostel: {
@@ -976,7 +976,7 @@ Currently building premium user interfaces and software systems, focusing on cle
                 "Impact: Automated room allocations, student check-ins & fee audit workflows",
                 "Complexity: Dynamic occupancy calculation & relational record integrity validation"
             ],
-            image: "assets/hostel_management.png",
+            image: "assets/hostel_management.webp",
             github: "https://github.com/Tanish1808/Hostel_Management_System/blob/main/src/HostelManagementSystem.java"
         },
         course: {
@@ -995,7 +995,7 @@ Currently building premium user interfaces and software systems, focusing on cle
                 "Impact: Digitalized academic course allocation & automated GPA calculation pipelines",
                 "Complexity: Multi-tier prerequisite graph validation & transactional enrollment locking"
             ],
-            image: "assets/course_management.png",
+            image: "assets/course_management.webp",
             github: "https://github.com/Tanish1808/Course_Management_System/tree/main/src"
         },
         ticket: {
@@ -1014,7 +1014,7 @@ Currently building premium user interfaces and software systems, focusing on cle
                 "Impact: Streamlines IT support triage with real-time SLA compliance tracking",
                 "Complexity: Priority Queue dispatch algorithms & role-based dashboard access control"
             ],
-            image: "assets/ticket_tally.png",
+            image: "assets/ticket_tally.webp",
             github: "https://github.com/Tanish1808/Trial_Ticket_Tally"
         },
         civiclens: {
@@ -1033,7 +1033,7 @@ Currently building premium user interfaces and software systems, focusing on cle
                 "Impact: Eliminates duplicate municipal reports & transparently accelerates civic resolution",
                 "Complexity: Two-stage duplicate detection via perceptual hashing + CNN feature embeddings"
             ],
-            image: "assets/civic_lens_placeholder.png",
+            image: "assets/civic_lens_placeholder.webp",
             github: "https://github.com/Tanish1808/civic-lens"
         }
     };
