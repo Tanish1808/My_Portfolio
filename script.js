@@ -69,8 +69,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     // ── End Typewriter ─────────────────────────────────────────────────
 
-    // Back to top button logic
+    // Back to top button logic (Floating & In-Footer)
     const backToTop = document.getElementById("backToTop");
+    const footerBackToTop = document.getElementById("footerBackToTop");
+
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
     if (backToTop) {
         window.addEventListener("scroll", () => {
             if (window.scrollY > 250) {
@@ -79,10 +85,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 backToTop.classList.remove("show");
             }
         });
+        backToTop.addEventListener("click", scrollToTop);
+    }
 
-        backToTop.addEventListener("click", () => {
-            window.scrollTo({ top: 0, behavior: "smooth" });
-        });
+    if (footerBackToTop) {
+        footerBackToTop.addEventListener("click", scrollToTop);
     }
 
     // Scroll Spy for Navbar Links
@@ -133,7 +140,9 @@ document.addEventListener("DOMContentLoaded", () => {
         // Projects Section: Sidebar Project Selector Items (5 project items)
         { selector: ".projects-sidebar .sidebar-item", staggerMs: 90, maxDelay: 600 },
         // Contact Section: Telemetry Info Cards (4 telemetry cards in left panel)
-        { selector: ".contact-telemetry-panel .telemetry-card", staggerMs: 90, maxDelay: 600 }
+        { selector: ".contact-telemetry-panel .telemetry-card", staggerMs: 90, maxDelay: 600 },
+        // Footer Section: Footer Columns (3 columns)
+        { selector: ".footer-container .footer-col", staggerMs: 100, maxDelay: 600 }
     ];
 
     staggerGroups.forEach(group => {
@@ -148,7 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 2. Standalone Single Elements (Instant Reveal with 0ms Delay)
     const singleElements = document.querySelectorAll(
-        ".about-me > h2, .about-me > p, .about-me > h5, .skills-filter-bar, .skills-bento-wall, .projects-dashboard, .cert-deck-console, .contact-info-column, .contact-form-panel"
+        ".about-me > h2, .about-me > p, .about-me > h5, .skills-filter-bar, .skills-bento-wall, .projects-dashboard, .cert-deck-console, .contact-info-column, .contact-form-panel, .footer-bottom-bar"
     );
     singleElements.forEach(el => {
         if (!el.classList.contains("fade-in")) {
@@ -1765,5 +1774,40 @@ Currently building premium user interfaces and software systems, focusing on cle
             card.style.transition = "transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.5s cubic-bezier(0.25, 1, 0.5, 1)";
         });
     });
+
+    // ── Footer Interactive Cyber Theme Accent Switcher ─────────────────
+    const paletteDots = document.querySelectorAll(".palette-dot");
+    const savedAccent = localStorage.getItem("tanish_neon_accent") || "cyan";
+
+    const applyAccentTheme = (themeName) => {
+        if (themeName === "cyan") {
+            document.body.removeAttribute("data-accent");
+        } else {
+            document.body.setAttribute("data-accent", themeName);
+        }
+
+        paletteDots.forEach(dot => {
+            if (dot.getAttribute("data-theme") === themeName) {
+                dot.classList.add("active");
+            } else {
+                dot.classList.remove("active");
+            }
+        });
+
+        localStorage.setItem("tanish_neon_accent", themeName);
+    };
+
+    if (savedAccent && savedAccent !== "cyan") {
+        applyAccentTheme(savedAccent);
+    }
+
+    paletteDots.forEach(dot => {
+        dot.addEventListener("click", () => {
+            const chosenTheme = dot.getAttribute("data-theme");
+            applyAccentTheme(chosenTheme);
+        });
+    });
 });
+
+
 
