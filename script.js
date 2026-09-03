@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.clientHeight;
-            if (scrollY >= (sectionTop - sectionHeight / 3)) {
+            if (window.scrollY >= (sectionTop - sectionHeight / 3)) {
                 current = section.getAttribute("id");
             }
         });
@@ -128,12 +128,12 @@ document.addEventListener("DOMContentLoaded", () => {
         { selector: ".hero-box .stat-item", staggerMs: 90, maxDelay: 600 },
         // About Section: Education Cards (3 cards in vertical sequence)
         { selector: "#about .edu-card", staggerMs: 110, maxDelay: 600 },
-        // Skills Section: Bento Mastery Tiles (4 grid tiles)
+        // Skills Section: Bento Mastery Tiles (6 grid tiles)
         { selector: ".skills-bento-wall .bento-tile", staggerMs: 80, maxDelay: 600 },
-        // Projects Section: Sidebar Project Selector Items (4 project items)
-        { selector: ".projects-list .project-item", staggerMs: 90, maxDelay: 600 },
+        // Projects Section: Sidebar Project Selector Items (5 project items)
+        { selector: ".projects-sidebar .sidebar-item", staggerMs: 90, maxDelay: 600 },
         // Contact Section: Telemetry Info Cards (4 telemetry cards in left panel)
-        { selector: ".telemetry-grid .telemetry-card", staggerMs: 90, maxDelay: 600 }
+        { selector: ".contact-telemetry-panel .telemetry-card", staggerMs: 90, maxDelay: 600 }
     ];
 
     staggerGroups.forEach(group => {
@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 2. Standalone Single Elements (Instant Reveal with 0ms Delay)
     const singleElements = document.querySelectorAll(
-        ".about-me > h2, .about-me > p, .about-me > h5, .skills-category-selector, .skills-code-workspace, .projects-dashboard, .cert-deck-console, .contact-info-panel, .contact-form-card"
+        ".about-me > h2, .about-me > p, .about-me > h5, .skills-filter-bar, .skills-bento-wall, .projects-dashboard, .cert-deck-console, .contact-info-column, .contact-form-panel"
     );
     singleElements.forEach(el => {
         if (!el.classList.contains("fade-in")) {
@@ -201,24 +201,27 @@ document.addEventListener("DOMContentLoaded", () => {
         java: `// Core Object-Oriented Architecture
 public class Developer {
     private final String name = "Tanish";
-    private final String[] stacks = {"Java", "React", "PostgreSQL"};
+    private final String[] stacks = {"Java", "React", "PostgreSQL", "Flask", "PyTorch"};
 
     public void buildApplication() {
         System.out.println("Architecting scalable & robust software solutions.");
     }
 }`,
-        python: `# Automation & Algorithmic Logic
-def optimize_pipeline(dataset: list[dict]) -> dict:
-    """Analyze and aggregate system telemetry in real time."""
-    processed = [item for item in dataset if item.get("status") == "ACTIVE"]
-    return {"total_records": len(processed), "status": "OPTIMIZED"}`,
-        sql: `-- Relational Schema & Performance Query
-SELECT u.id, u.username, COUNT(p.id) AS total_projects
-FROM users u
-INNER JOIN projects p ON u.id = p.owner_id
-WHERE p.status = 'ACTIVE'
-GROUP BY u.id, u.username
-ORDER BY total_projects DESC;`
+        python: `# Async ML & REST Pipeline
+from fastapi import FastAPI
+import torch
+
+app = FastAPI(title="Civic Lens API")
+
+@app.get("/classify")
+async def classify_issue(image_tensor: torch.Tensor):
+    return {"status": "classified", "severity": "High"}`,
+        sql: `-- Relational Schema & SLA Query
+SELECT t.ticket_id, t.subject, t.priority, s.sla_status
+FROM it_tickets t
+JOIN sla_policies s ON t.policy_id = s.id
+WHERE t.status = 'OPEN'
+ORDER BY t.priority_weight DESC;`
     };
 
     if (snippetTabs.length > 0 && snippetCode) {
@@ -293,15 +296,18 @@ ORDER BY total_projects DESC;`
             about: () => `Tanish Shah is an enthusiastic Information Technology student, problem solver, and coder. 
 Currently building premium user interfaces and software systems, focusing on clean code, scalability, and modern web APIs.`,
             skills: () => `Core Tech Stack & Skills:
-  - Languages  : Java, Python, .NET
-  - Web Tech   : HTML5, CSS3, JavaScript, React JS
-  - Databases  : PostgreSQL, MySQL, MongoDB, Git
-  - Frameworks : Node JS, Express JS, Bootstrap, Tailwind CSS
-  - Suites     : Data Structures & Algorithms, Problem Solving, UI/UX Design`,
+  - Languages  : Java, Python, JavaScript, SQL, .NET
+  - Web & Front: HTML5, CSS3, React JS, Tailwind CSS, Bootstrap
+  - Back & ML  : Node JS, Express JS, Flask, Django, DRF, FastAPI, PyTorch
+  - Databases  : PostgreSQL, MySQL, MongoDB, Git & GitHub
+  - Dev Tools  : VS Code, Postman, pgAdmin
+  - Concepts   : Data Structures & Algorithms, Authentication, JWT, REST APIs, UI/UX Design`,
             projects: () => `Portfolio Projects:
-  1. <span class="terminal-command-info">Bus Seat Reservation System (SEM-I)</span> — Java app automating real-time seat availability & booking.
-  2. <span class="terminal-command-info">Hostel Management System (SEM-I)</span> — OOPs-based administration portal for room management & payments.
-  3. <span class="terminal-command-info">Course Management System (SEM-II)</span> — Institutional platform for digital course enrollment, grading & DB structures.`,
+  1. <span class="terminal-command-info">Bus Seat Reservation System (SEM-I)</span> — Core Java real-time booking matrix & seat locking.
+  2. <span class="terminal-command-info">Hostel Management System (SEM-I)</span> — OOPs-based room allocation, student records & payments.
+  3. <span class="terminal-command-info">Course Management System (SEM-II)</span> — Relational DBMS course catalog, prerequisites & GPA calc.
+  4. <span class="terminal-command-info">Ticket Tally (ITSM Platform)</span> — Priority Queue triage, JWT auth, SLA tracking & Flask/PostgreSQL.
+  5. <span class="terminal-command-info">Civic Lens (AI Platform)</span> — PyTorch ML classification, geospatial duplicate detection & React.`,
             contact: () => `Let's connect!
   - Email    : <a href="mailto:tanishshah1808@gmail.com" target="_blank" style="color: var(--accent-cyan);">tanishshah1808@gmail.com</a>
   - GitHub   : <a href="https://github.com/Tanish1808" target="_blank" style="color: var(--accent-cyan);">github.com/Tanish1808</a>
@@ -1140,6 +1146,7 @@ Currently building premium user interfaces and software systems, focusing on cle
     const renderGitFallbackTree = () => {
         if (gitSyncState) gitSyncState.textContent = "OFFLINE SNAPSHOT";
         if (ideLatencyText) ideLatencyText.textContent = "UTF-8 · CACHED";
+        if (ideRepoCountText) ideRepoCountText.textContent = "4 Public Repos";
         if (!gitCommitTree) return;
 
         const fallbackRepos = [
@@ -1671,7 +1678,7 @@ Currently building premium user interfaces and software systems, focusing on cle
                         <h3>Resume Coming Soon</h3>
                         <p>I'm currently updating my resume with recent academic achievements and projects. Feel free to explore my showcased projects or get in touch directly!</p>
                         <div class="resume-placeholder-highlights">
-                            <span>🎓 B.Tech IT (LJ University)</span>
+                            <span>🎓 Bachelor of Engineering in IT (LJ University)</span>
                             <span>💻 Java & Web Developer</span>
                             <span>🚀 Seeking Internship</span>
                         </div>
@@ -1729,84 +1736,5 @@ Currently building premium user interfaces and software systems, focusing on cle
             card.style.transition = "transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.5s cubic-bezier(0.25, 1, 0.5, 1)";
         });
     });
-
-    // ── Skills Bento Wall Filter & Live IDE Snippet Controller ──────────
-    const skillsFilterBtns = document.querySelectorAll(".skills-filter-btn");
-    const bentoTiles = document.querySelectorAll(".bento-tile");
-    const bentoWall = document.querySelector(".skills-bento-wall");
-
-    if (skillsFilterBtns.length > 0 && bentoTiles.length > 0) {
-        skillsFilterBtns.forEach(btn => {
-            btn.addEventListener("click", () => {
-                skillsFilterBtns.forEach(b => b.classList.remove("active"));
-                btn.classList.add("active");
-                const filter = btn.getAttribute("data-filter");
-
-                let visibleCount = 0;
-                bentoTiles.forEach(tile => {
-                    const cat = tile.getAttribute("data-category");
-                    if (filter === "all" || cat === filter) {
-                        tile.style.display = "flex";
-                        visibleCount++;
-                    } else {
-                        tile.style.display = "none";
-                    }
-                });
-
-                if (bentoWall) {
-                    if (visibleCount === 1) {
-                        bentoWall.classList.add("is-single-card");
-                    } else {
-                        bentoWall.classList.remove("is-single-card");
-                    }
-                }
-            });
-        });
-    }
-
-    // Live IDE Snippet Tabs
-    const snippetTabs = document.querySelectorAll(".snippet-tab");
-    const snippetCode = document.getElementById("snippetCode");
-
-    if (snippetTabs.length > 0 && snippetCode) {
-        const snippets = {
-            java: `// Core Object-Oriented Architecture
-public class Developer {
-    private final String name = "Tanish";
-    private final String[] stacks = {"Java", "React", "PostgreSQL", "Flask", "PyTorch"};
-
-    public void buildApplication() {
-        System.out.println("Architecting scalable & robust software solutions.");
-    }
-}`,
-            python: `# Async ML & REST Pipeline
-from fastapi import FastAPI
-import torch
-
-app = FastAPI(title="Civic Lens API")
-
-@app.get("/classify")
-async def classify_issue(image_tensor: torch.Tensor):
-    return {"status": "classified", "severity": "High"}`,
-            sql: `-- Relational Schema & SLA Query
-SELECT t.ticket_id, t.subject, t.priority, s.sla_status
-FROM it_tickets t
-JOIN sla_policies s ON t.policy_id = s.id
-WHERE t.status = 'OPEN'
-ORDER BY t.priority_weight DESC;`
-        };
-
-        snippetTabs.forEach(tab => {
-            tab.addEventListener("click", () => {
-                snippetTabs.forEach(t => t.classList.remove("active"));
-                tab.classList.add("active");
-                const lang = tab.getAttribute("data-lang");
-                if (snippets[lang]) {
-                    snippetCode.textContent = snippets[lang];
-                    snippetCode.className = `language-${lang}`;
-                }
-            });
-        });
-    }
 });
 
