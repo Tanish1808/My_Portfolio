@@ -177,39 +177,73 @@
 
       <h5>Education</h5>
 
-      <div class="edu-card">
-        <div class="edu-logo">
-          <i class="fa-solid fa-university" style="font-size: 2rem;"></i>
-        </div>
-        <div class="edu-info">
-          <h3 class="course">Bachelor of Engineering in Information Technology</h3>
-          <p class="university">LJ University (Lok Jagruti)</p>
-          <p class="year">Pursuing: 3rd Year</p>
-          <p class="duration">2024 – 2028</p>
-        </div>
-      </div>
+      <div class="edu-spotlight-wrapper">
+        <!-- 3 Interactive Selector Cards (Top Row) -->
+        <div class="edu-selector-row">
+          
+          <div class="edu-select-card active" data-edu="be" tabindex="0">
+            <div class="card-icon-bubble icon-cyan">
+              <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <div class="card-text-block">
+              <span class="card-badge badge-active"><span class="badge-radar-dot"></span> In Progress</span>
+              <h4 class="card-title">B.E. Information Technology</h4>
+              <span class="card-years">2024 &ndash; 2028</span>
+            </div>
+            <div class="card-active-indicator"></div>
+          </div>
 
-      <div class="edu-card">
-        <div class="edu-logo">
-          <i class="fa-solid fa-user-graduate" style="font-size: 2rem;"></i>
-        </div>
-        <div class="edu-info">
-          <h3 class="course">Higher Secondary Education (12<sup>th</sup> Grade)</h3>
-          <p class="university">Sheth C.N. Vidhyalaya</p>
-          <p class="year">Gujarat Board | Percentage: 90%</p>
-          <p class="duration">Completed In 2024</p>
-        </div>
-      </div>
+          <div class="edu-select-card" data-edu="hsc" tabindex="0">
+            <div class="card-icon-bubble icon-purple">
+              <i class="fa-solid fa-user-graduate"></i>
+            </div>
+            <div class="card-text-block">
+              <span class="card-badge badge-done"><i class="fa-solid fa-circle-check"></i> Completed</span>
+              <h4 class="card-title">Higher Secondary (12<sup>th</sup>)</h4>
+              <span class="card-years">Completed 2024</span>
+            </div>
+            <div class="card-active-indicator"></div>
+          </div>
 
-      <div class="edu-card">
-        <div class="edu-logo">
-          <i class="fa-solid fa-school" style="font-size: 2rem;"></i>
+          <div class="edu-select-card" data-edu="ssc" tabindex="0">
+            <div class="card-icon-bubble icon-purple">
+              <i class="fa-solid fa-school"></i>
+            </div>
+            <div class="card-text-block">
+              <span class="card-badge badge-done"><i class="fa-solid fa-circle-check"></i> Completed</span>
+              <h4 class="card-title">Secondary (10<sup>th</sup>)</h4>
+              <span class="card-years">Completed 2022</span>
+            </div>
+            <div class="card-active-indicator"></div>
+          </div>
+
         </div>
-        <div class="edu-info">
-          <h3 class="course">Secondary Education (10<sup>th</sup> Grade)</h3>
-          <p class="university">Sheth C.N. Vidhyalaya</p>
-          <p class="year">Gujarat Board | Percentage: 92%</p>
-          <p class="duration">Completed In 2022</p>
+
+        <!-- Dedicated Dynamic Live Inspection Stage (Bottom Panel) -->
+        <div class="edu-inspect-stage" id="eduInspectStage">
+          <div class="stage-left-info">
+            <div class="stage-meta-header">
+              <span class="stage-status-pill tag-active" id="stageStatusPill"><span class="badge-radar-dot"></span> Active Milestone &bull; In Progress</span>
+              <span class="stage-period-chip" id="stagePeriodChip">2024 &ndash; 2028</span>
+            </div>
+            <h3 class="stage-main-title" id="stageMainTitle">Bachelor of Engineering in Information Technology</h3>
+            <p class="stage-inst-name" id="stageInstName"><i class="fa-solid fa-building-columns"></i> LJ University (Lok Jagruti)</p>
+          </div>
+
+          <div class="stage-right-stats" id="stageRightStats">
+            <div class="stage-stat-box">
+              <span class="stat-lbl"><i class="fa-solid fa-clock"></i> Standing</span>
+              <strong class="stat-val val-cyan" id="stageStat1">Pursuing: 3rd Year</strong>
+            </div>
+            <div class="stage-stat-box">
+              <span class="stat-lbl"><i class="fa-solid fa-award"></i> Curriculum / Board</span>
+              <strong class="stat-val" id="stageStat2">Undergraduate Degree</strong>
+            </div>
+            <div class="stage-stat-box">
+              <span class="stat-lbl"><i class="fa-solid fa-location-dot"></i> Location</span>
+              <strong class="stat-val" id="stageStat3">Ahmedabad, Gujarat</strong>
+            </div>
+          </div>
         </div>
       </div>
     </div>
