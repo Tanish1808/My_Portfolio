@@ -133,8 +133,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const staggerGroups = [
         // Hero Section: Quick Stat Items (4 items in 2x2 grid)
         { selector: ".hero-box .stat-item", staggerMs: 90, maxDelay: 600 },
-        // About Section: Education Cards (3 cards in vertical sequence)
-        { selector: "#about .edu-card", staggerMs: 110, maxDelay: 600 },
+        // About Section: Education Selector Cards (3 cards in top row)
+        { selector: ".edu-selector-row .edu-select-card", staggerMs: 100, maxDelay: 600 },
         // Skills Section: Bento Mastery Tiles (6 grid tiles)
         { selector: ".skills-bento-wall .bento-tile", staggerMs: 80, maxDelay: 600 },
         // Projects Section: Sidebar Project Selector Items (5 project items)
@@ -157,7 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 2. Standalone Single Elements (Instant Reveal with 0ms Delay)
     const singleElements = document.querySelectorAll(
-        ".about-me > h2, .about-me > p, .about-me > h5, .skills-filter-bar, .skills-bento-wall, .projects-dashboard, .cert-deck-console, .contact-info-column, .contact-form-panel, .footer-bottom-bar"
+        ".about-me > h2, .about-me > p, .about-me > h5, .edu-inspect-stage, .skills-filter-bar, .skills-bento-wall, .projects-dashboard, .cert-deck-console, .contact-info-column, .contact-form-panel, .footer-bottom-bar"
     );
     singleElements.forEach(el => {
         if (!el.classList.contains("fade-in")) {
@@ -1807,6 +1807,114 @@ Currently building premium user interfaces and software systems, focusing on cle
             applyAccentTheme(chosenTheme);
         });
     });
+
+    // ── Education Spotlight Dashboard Controller ──────────────────────
+    const eduSelectCards = document.querySelectorAll(".edu-selector-row .edu-select-card");
+    const stageStatusPill = document.getElementById("stageStatusPill");
+    const stagePeriodChip = document.getElementById("stagePeriodChip");
+    const stageMainTitle = document.getElementById("stageMainTitle");
+    const stageInstName = document.getElementById("stageInstName");
+    const eduInspectStage = document.getElementById("eduInspectStage");
+
+    const eduStageData = {
+        be: {
+            status: '<span class="badge-radar-dot"></span> Active Milestone &bull; In Progress',
+            statusClass: 'tag-active',
+            period: '2024 \u2013 2028',
+            title: 'Bachelor of Engineering in Information Technology',
+            inst: '<i class="fa-solid fa-building-columns"></i> LJ University (Lok Jagruti)',
+            stat1Lbl: '<i class="fa-solid fa-clock"></i> Standing',
+            stat1Val: 'Pursuing: 3rd Year',
+            stat1Class: 'val-cyan',
+            stat2Lbl: '<i class="fa-solid fa-award"></i> Curriculum / Board',
+            stat2Val: 'Undergraduate Degree',
+            stat2Class: '',
+            stat3Lbl: '<i class="fa-solid fa-location-dot"></i> Location',
+            stat3Val: 'Ahmedabad, Gujarat'
+        },
+        hsc: {
+            status: '<i class="fa-solid fa-circle-check"></i> Completed &bull; Merit Distinction',
+            statusClass: 'tag-done',
+            period: 'Completed In 2024',
+            title: 'Higher Secondary Education (12\u1d57\u02b0 Grade)',
+            inst: '<i class="fa-solid fa-school"></i> Sheth C.N. Vidhyalaya',
+            stat1Lbl: '<i class="fa-solid fa-chart-line"></i> Percentage',
+            stat1Val: '90% Distinction',
+            stat1Class: 'val-emerald',
+            stat2Lbl: '<i class="fa-solid fa-award"></i> Examination Board',
+            stat2Val: 'Gujarat Board (GSEB)',
+            stat2Class: '',
+            stat3Lbl: '<i class="fa-solid fa-location-dot"></i> Location',
+            stat3Val: 'Ahmedabad, Gujarat'
+        },
+        ssc: {
+            status: '<i class="fa-solid fa-circle-check"></i> Completed &bull; Honors Distinction',
+            statusClass: 'tag-done',
+            period: 'Completed In 2022',
+            title: 'Secondary Education (10\u1d57\u02b0 Grade)',
+            inst: '<i class="fa-solid fa-school"></i> Sheth C.N. Vidhyalaya',
+            stat1Lbl: '<i class="fa-solid fa-chart-line"></i> Percentage',
+            stat1Val: '92% Distinction',
+            stat1Class: 'val-emerald',
+            stat2Lbl: '<i class="fa-solid fa-award"></i> Examination Board',
+            stat2Val: 'Gujarat Board (GSEB)',
+            stat2Class: '',
+            stat3Lbl: '<i class="fa-solid fa-location-dot"></i> Location',
+            stat3Val: 'Ahmedabad, Gujarat'
+        }
+    };
+
+    const updateEduStage = (key) => {
+        const item = eduStageData[key];
+        if (!item || !eduInspectStage) return;
+
+        eduSelectCards.forEach(c => {
+            if (c.getAttribute("data-edu") === key) {
+                c.classList.add("active");
+            } else {
+                c.classList.remove("active");
+            }
+        });
+
+        eduInspectStage.style.opacity = "0.35";
+        eduInspectStage.style.transform = "translateY(3px)";
+
+        setTimeout(() => {
+            if (stageStatusPill) {
+                stageStatusPill.className = `stage-status-pill ${item.statusClass}`;
+                stageStatusPill.innerHTML = item.status;
+            }
+            if (stagePeriodChip) stagePeriodChip.textContent = item.period;
+            if (stageMainTitle) stageMainTitle.textContent = item.title;
+            if (stageInstName) stageInstName.innerHTML = item.inst;
+
+            const statBoxes = document.querySelectorAll(".stage-stat-box");
+            if (statBoxes.length >= 3) {
+                statBoxes[0].querySelector(".stat-lbl").innerHTML = item.stat1Lbl;
+                statBoxes[0].querySelector(".stat-val").className = `stat-val ${item.stat1Class}`;
+                statBoxes[0].querySelector(".stat-val").textContent = item.stat1Val;
+
+                statBoxes[1].querySelector(".stat-lbl").innerHTML = item.stat2Lbl;
+                statBoxes[1].querySelector(".stat-val").className = `stat-val ${item.stat2Class}`;
+                statBoxes[1].querySelector(".stat-val").textContent = item.stat2Val;
+
+                statBoxes[2].querySelector(".stat-lbl").innerHTML = item.stat3Lbl;
+                statBoxes[2].querySelector(".stat-val").textContent = item.stat3Val;
+            }
+
+            eduInspectStage.style.opacity = "1";
+            eduInspectStage.style.transform = "translateY(0)";
+        }, 110);
+    };
+
+    if (eduSelectCards.length > 0) {
+        eduSelectCards.forEach(card => {
+            const key = card.getAttribute("data-edu");
+            card.addEventListener("mouseenter", () => updateEduStage(key));
+            card.addEventListener("focus", () => updateEduStage(key));
+            card.addEventListener("click", () => updateEduStage(key));
+        });
+    }
 });
 
 
