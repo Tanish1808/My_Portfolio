@@ -3837,16 +3837,91 @@ body.modal-open {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-right: 60px; /* Space from close button */
+    padding: 20px 65px 16px 28px; /* Safe clearance from top-right close button */
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.resume-modal-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .resume-download-btn {
-    padding: 8px 18px;
-    font-size: 0.85rem;
+    padding: 8px 16px !important;
+    font-size: 0.84rem !important;
+    font-weight: 600 !important;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 7px;
     margin: 0;
+    cursor: pointer;
+    background: rgba(139, 92, 246, 0.08) !important;
+    border: 1px solid var(--accent-purple) !important;
+    color: var(--accent-purple) !important;
+    border-radius: 20px !important;
+    text-decoration: none;
+    transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1) !important;
+    white-space: nowrap;
+}
+
+.resume-download-btn:hover {
+    background: var(--accent-purple) !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 16px var(--accent-purple-glow) !important;
+    transform: translateY(-2px);
+}
+
+.resume-download-btn:active {
+    transform: translateY(0);
+}
+
+.resume-download-btn i {
+    font-size: 0.8rem;
+    transition: transform 0.2s ease;
+}
+
+.resume-download-btn:hover i {
+    transform: translateY(1px);
+}
+
+.resume-open-tab-btn {
+    padding: 8px 16px !important;
+    font-size: 0.84rem !important;
+    font-weight: 600 !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin: 0;
+    cursor: pointer;
+    background: rgba(0, 229, 255, 0.08) !important;
+    border: 1px solid var(--accent-cyan) !important;
+    color: var(--accent-cyan) !important;
+    border-radius: 20px !important;
+    transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1) !important;
+    white-space: nowrap;
+}
+
+.resume-open-tab-btn:hover {
+    background: var(--accent-cyan) !important;
+    color: var(--btn-text) !important;
+    box-shadow: 0 0 16px var(--accent-cyan-glow) !important;
+    transform: translateY(-2px);
+}
+
+.resume-open-tab-btn:active {
+    transform: translateY(0);
+}
+
+.resume-open-tab-btn i {
+    font-size: 0.8rem;
+    transition: transform 0.2s ease;
+}
+
+.resume-open-tab-btn:hover i {
+    transform: translate(2px, -2px);
 }
 
 .cert-modal-body {
@@ -4753,5 +4828,50 @@ body.light-theme .footer-bottom-bar {
     h2 {
         font-size: 1.8rem !important;
     }
+
+    /* Resume & Cert Modal Mobile Adaptations */
+    .cert-modal-wrapper {
+        width: 95%;
+        height: 88vh;
+        border-radius: 16px;
+    }
+
+    .resume-modal-header {
+        padding: 16px 50px 12px 16px;
+        gap: 8px;
+    }
+
+    .resume-modal-header .modal-project-title {
+        font-size: 1.15rem;
+    }
+
+    .resume-modal-actions {
+        gap: 6px;
+    }
+
+    .resume-download-btn,
+    .resume-open-tab-btn {
+        padding: 6px 12px !important;
+        font-size: 0.76rem !important;
+        gap: 5px;
+    }
 }
+
+@media (max-width: 360px) {
+    .resume-modal-header {
+        padding: 14px 45px 10px 12px;
+    }
+
+    .resume-modal-header .modal-project-title {
+        font-size: 0.98rem;
+    }
+
+    .resume-download-btn,
+    .resume-open-tab-btn {
+        padding: 5px 9px !important;
+        font-size: 0.7rem !important;
+        gap: 4px;
+    }
+}
+
 
