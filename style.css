@@ -1247,44 +1247,112 @@ body.light-theme #about {
   border-image: linear-gradient(90deg, transparent 0%, rgba(109, 40, 217, 0.15) 50%, transparent 100%) 1;
 }
 
-.about-me{
-  list-style: none;
-  background: var(--bg-card);
-  color: var(--text-primary);
-  padding: 15px 25px;
-  border-radius: 12px;
-  box-shadow: var(--shadow-card);
-  display: inline-block;
-  justify-content: center;
-  font-size: 3rem;
-  font-weight: 750;
-  padding-top: 80px;
-  margin-top: 70px;
-  margin-left: 55px;
-  margin-right: 55px;
-  gap: 20px;
-}
-
-.about-me h2{
-    font-size: 3rem;
-    font-weight: 750;
-    margin-bottom: 20px;
-    color: var(--accent-purple);
-    font-weight: 600;
-    opacity: 1;
-}
-
-.about-me p{
-    font-size: 1.18rem;
+.about-me {
+    list-style: none;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    padding: 35px 35px;
+    border-radius: 16px;
+    box-shadow: var(--shadow-card);
+    display: block;
+    font-size: 1rem;
     font-weight: 400;
-    margin-top: 20px;
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1200px;
+}
+
+/* ============================================================
+   ABOUT ME INTRO — PREMIUM EDITORIAL REFINEMENT (ISOLATED)
+   ============================================================ */
+
+.about-intro-wrap {
+    max-width: 720px;
+    margin: 0 auto 40px auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* Eyebrow Label (Centered) */
+.about-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    color: var(--accent-cyan);
+    text-transform: uppercase;
+    font-family: monospace;
+    margin: 0 auto 14px auto;
+}
+
+.eyebrow-dash {
+    display: inline-block;
+    width: 20px;
+    height: 1.5px;
+    background: var(--accent-cyan);
+    opacity: 0.8;
+}
+
+/* Main Opening Headline Statement (Subdued Size) */
+.about-lead-title {
+    font-size: 1.25rem !important;
+    font-weight: 600;
+    line-height: 1.55;
+    color: var(--text-primary);
+    margin: 0 auto 16px auto;
+    text-align: center !important;
+    letter-spacing: -0.01em;
+    max-width: 680px;
+}
+
+.about-lead-title .accent-name {
+    color: var(--accent-cyan);
+    font-weight: 700;
+}
+
+/* Supporting Narrative Paragraphs (Centered & Balanced) */
+.about-narrative {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-left: none;
+    padding-left: 0;
+    margin: 0 auto;
+    text-align: center;
+    max-width: 680px;
+    align-items: center;
+}
+
+.about-narrative p {
+    font-size: 0.95rem;
+    font-weight: 400;
     line-height: 1.75;
     color: var(--text-secondary);
+    margin: 0;
+    letter-spacing: 0.008em;
+    text-align: center;
 }
 
-.about-me span{
-    color: var(--accent-cyan);
+/* Strategic, Subdued Keyword Emphasis */
+.about-narrative .about-hl {
+    color: var(--text-primary);
     font-weight: 600;
+    border-bottom: 1px solid rgba(0, 229, 255, 0.28);
+    padding-bottom: 1px;
+    transition: border-color 0.25s ease, color 0.25s ease;
+}
+
+.about-narrative .about-hl:hover {
+    color: var(--accent-cyan);
+    border-bottom-color: var(--accent-cyan);
 }
 
 .about-me h5 {
@@ -3862,12 +3930,8 @@ body.modal-open {
         margin-left: 20px;
         margin-right: 20px;
     }
-    .about-me h2,
-    .about-me p {
-        padding-left: 20px;
-    }
     .about-me h5 {
-        padding-left: 20px;
+        padding-left: 0;
     }
     .edu-logo {
         margin-left: 20px;

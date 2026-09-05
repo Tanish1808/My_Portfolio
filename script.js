@@ -157,7 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 2. Standalone Single Elements (Instant Reveal with 0ms Delay)
     const singleElements = document.querySelectorAll(
-        ".about-me > h2, .about-me > p, .about-me > h5, .edu-inspect-stage, .skills-filter-bar, .skills-bento-wall, .projects-dashboard, .cert-deck-console, .contact-info-column, .contact-form-panel, .footer-bottom-bar"
+        ".about-intro-wrap, .about-me > h5, .edu-inspect-stage, .skills-filter-bar, .skills-bento-wall, .projects-dashboard, .cert-deck-console, .contact-info-column, .contact-form-panel, .footer-bottom-bar"
     );
     singleElements.forEach(el => {
         if (!el.classList.contains("fade-in")) {
