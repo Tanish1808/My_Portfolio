@@ -5,6 +5,11 @@
     font-family: 'Poppins', sans-serif;
 }
 
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+}
+
 :root {
     /* Core Theme Variables - Dark Mode (Default) */
     --bg-body: #0B0F19;
@@ -72,8 +77,11 @@ body, .navbar, .about-me, .skills-card > div, .project, .cert-card, .contact inp
     transition: var(--theme-transition);
 }
 
-/* Navbar Container */
+/* Navbar Container (Sticky Header) */
 .navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -83,6 +91,22 @@ body, .navbar, .about-me, .skills-card > div, .project, .cert-card, .contact inp
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   border-bottom: 1px solid var(--border-card);
+  transition: background-color 0.35s ease, backdrop-filter 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease, height 0.3s ease;
+}
+
+/* Elevated Scrolled State */
+.navbar.scrolled {
+  background: rgba(11, 15, 25, 0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0, 229, 255, 0.2);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+}
+
+body.light-theme .navbar.scrolled {
+  background: rgba(241, 245, 249, 0.94);
+  border-bottom: 1px solid rgba(13, 148, 136, 0.25);
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
 }
 
 .logo p{
@@ -3943,9 +3967,15 @@ body.modal-open {
    ============================================================ */
 @media (max-width: 768px) {
 
+    html {
+        scroll-padding-top: 65px;
+    }
+
     /* ── Navbar ── */
     .navbar {
-        position: relative;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
         padding: 0 20px;
         height: 65px;
         flex-wrap: wrap;
