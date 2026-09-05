@@ -1473,9 +1473,16 @@ public class Developer {
       </button>
       <div class="cert-modal-header resume-modal-header">
         <h2 id="resumeModalTitle" class="modal-project-title">Tanish Shah — Resume</h2>
-        <a id="resumeDownloadBtn" href="assets/resume.pdf" download="Tanish_Shah_Resume.pdf" class="modal-action-btn resume-download-btn" target="_blank" style="display: none;">
-          <i class="fa-solid fa-download"></i> Download PDF
-        </a>
+        <div class="resume-modal-actions">
+          <a id="resumeDownloadBtn" href="assets/resume.pdf" download="Tanish_Shah_Resume.pdf" class="modal-action-btn resume-download-btn" target="_blank" title="Download PDF">
+            <i class="fa-solid fa-download"></i>
+            <span>Download</span>
+          </a>
+          <button id="resumeOpenTabBtn" class="modal-action-btn resume-open-tab-btn" aria-label="Open resume in new tab" title="Open in New Tab">
+            <span>Open in Tab</span>
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </button>
+        </div>
       </div>
       <div class="cert-modal-body" id="resumeModalBody">
       </div>
