@@ -1662,16 +1662,14 @@ Currently building premium user interfaces and software systems, focusing on cle
         updateDeck(0);
     }
 
-    // ── Resume Modal Logic ─────────────────────────────────────────────
-    // Note: Once 'assets/resume.pdf' is placed in the 'assets/' directory,
-    // clicking 'Resume' will automatically embed the PDF viewer and show
-    // the 'Download PDF' button — no code modifications required.
+    // ── Resume Modal Controller ─────────────────────────────────────────
     const resumeLink = document.getElementById("resumeNavLink");
     const resumeModal = document.getElementById("resumeModal");
     const resumeModalCloseBtn = document.getElementById("resumeModalCloseBtn");
     const resumeModalOverlay = document.getElementById("resumeModalOverlay");
     const resumeModalBody = document.getElementById("resumeModalBody");
     const resumeDownloadBtn = document.getElementById("resumeDownloadBtn");
+    const resumeOpenTabBtn = document.getElementById("resumeOpenTabBtn");
 
     if (resumeLink && resumeModal && resumeModalCloseBtn && resumeModalOverlay && resumeModalBody) {
         resumeLink.addEventListener("click", (e) => {
@@ -1681,6 +1679,14 @@ Currently building premium user interfaces and software systems, focusing on cle
 
         resumeModalCloseBtn.addEventListener("click", closeResumeModal);
         resumeModalOverlay.addEventListener("click", closeResumeModal);
+
+        // Open in New Tab Button: opens PDF outside the site without closing the modal
+        if (resumeOpenTabBtn) {
+            resumeOpenTabBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                window.open("assets/resume.pdf", "_blank");
+            });
+        }
 
         document.addEventListener("keydown", (e) => {
             if (e.key === "Escape" && resumeModal.classList.contains("active")) {
@@ -1705,15 +1711,17 @@ Currently building premium user interfaces and software systems, focusing on cle
             try {
                 const res = await fetch("assets/resume.pdf", { method: "HEAD" });
                 if (res.ok) {
-                    // PDF exists -> Render iframe viewer and reveal download button
-                    resumeModalBody.innerHTML = `<iframe id="resumeIframe" src="assets/resume.pdf#toolbar=0&navpanes=0&view=FitH" frameborder="0" width="100%" height="100%"></iframe>`;
+                    // PDF exists -> Render iframe viewer and reveal action buttons
+                    resumeModalBody.innerHTML = `<iframe id="resumeIframe" src="assets/resume.pdf#toolbar=0&navpanes=0&view=FitH" frameborder="0" width="100%" height="100%" title="Tanish Shah Resume"></iframe>`;
                     if (resumeDownloadBtn) resumeDownloadBtn.style.display = "inline-flex";
+                    if (resumeOpenTabBtn) resumeOpenTabBtn.style.display = "inline-flex";
                 } else {
                     throw new Error("Resume not found");
                 }
             } catch {
                 // PDF is missing -> Show sleek glassmorphic Coming Soon card
                 if (resumeDownloadBtn) resumeDownloadBtn.style.display = "none";
+                if (resumeOpenTabBtn) resumeOpenTabBtn.style.display = "none";
                 resumeModalBody.innerHTML = `
                     <div class="resume-placeholder-card">
                         <div class="resume-placeholder-icon">
