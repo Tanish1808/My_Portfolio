@@ -69,22 +69,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     // ── End Typewriter ─────────────────────────────────────────────────
 
-    // Back to top button logic (Floating & In-Footer)
+    // ── Sticky Navbar Elevation, Back to Top & ScrollSpy Listener ────
+    const navbarEl = document.querySelector(".navbar");
     const backToTop = document.getElementById("backToTop");
     const footerBackToTop = document.getElementById("footerBackToTop");
+    const sections = document.querySelectorAll("section");
+    const scrollNavLinks = document.querySelectorAll(".nav-links a");
 
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
     if (backToTop) {
-        window.addEventListener("scroll", () => {
-            if (window.scrollY > 250) {
-                backToTop.classList.add("show");
-            } else {
-                backToTop.classList.remove("show");
-            }
-        });
         backToTop.addEventListener("click", scrollToTop);
     }
 
@@ -92,16 +88,26 @@ document.addEventListener("DOMContentLoaded", () => {
         footerBackToTop.addEventListener("click", scrollToTop);
     }
 
-    // Scroll Spy for Navbar Links
-    const sections = document.querySelectorAll("section");
-    const scrollNavLinks = document.querySelectorAll(".nav-links a");
-
+    // Consolidated single scroll event listener for performance
     window.addEventListener("scroll", () => {
+        const scrollPos = window.scrollY;
+
+        // 1. Navbar elevation styling toggle (> 40px)
+        if (navbarEl) {
+            navbarEl.classList.toggle("scrolled", scrollPos > 40);
+        }
+
+        // 2. Floating Back to Top Button visibility (> 250px)
+        if (backToTop) {
+            backToTop.classList.toggle("show", scrollPos > 250);
+        }
+
+        // 3. ScrollSpy for Navbar Links
         let current = "";
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.clientHeight;
-            if (window.scrollY >= (sectionTop - sectionHeight / 3)) {
+            if (scrollPos >= (sectionTop - sectionHeight / 3)) {
                 current = section.getAttribute("id");
             }
         });
