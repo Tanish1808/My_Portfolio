@@ -360,7 +360,16 @@ Open **`http://localhost:8000`** in your browser.
 
 ---
 
+## 📄 License
+
+This repository's source code is released under the [MIT License](LICENSE).
+
+> **Note:** The MIT License applies to the software source code, architecture, and styling of this portfolio. Personal materials — including photographs, resume, and certificate documents in `assets/` — remain the intellectual property of Tanish Shah and are not covered by this license.
+
+---
+
 ## 📬 Contact & Connect
+
 
 <div align="center">
 
