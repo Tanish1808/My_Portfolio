@@ -6,11 +6,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tanish Shah | Portfolio</title>
 
+  <!-- Standard SEO Meta Tags -->
+  <meta name="description" content="Portfolio of Tanish Shah — IT Engineering Student &amp; Developer building responsive web applications, backend architectures, Java, Python, and scalable software systems.">
+  <meta name="author" content="Tanish Shah">
+
+  <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tanish1808.github.io/portfolio/">
+  <meta property="og:title" content="Tanish Shah | IT Student &amp; Developer">
+  <meta property="og:description" content="Portfolio of Tanish Shah — IT Engineering Student &amp; Developer building responsive web applications, backend architectures, Java, Python, and scalable software systems.">
+  <meta property="og:image" content="https://tanish1808.github.io/portfolio/assets/og_preview.png">
+
+  <!-- Twitter / X Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://tanish1808.github.io/portfolio/">
+  <meta name="twitter:title" content="Tanish Shah | IT Student &amp; Developer">
+  <meta name="twitter:description" content="Portfolio of Tanish Shah — IT Engineering Student &amp; Developer building responsive web applications, backend architectures, Java, Python, and scalable software systems.">
+  <meta name="twitter:image" content="https://tanish1808.github.io/portfolio/assets/og_preview.png">
+
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
 </head>
 
 <body>
@@ -28,7 +47,7 @@
       <li><a href="#skills" class="nav-link">Skills</a></li>
       <li><a href="#projects" class="nav-link">Projects</a></li>
       <li><a href="#certification" class="nav-link">Certification</a></li>
-      <li><a href="assets/resume.pdf" class="nav-link" target="_blank">Resume</a></li>
+      <li><a href="assets/resume.pdf" class="nav-link" id="resumeNavLink">Resume</a></li>
       <li><a href="#contact" class="nav-link">Contact</a></li>
     </ul>
 
@@ -127,7 +146,7 @@
           <div class="stat-item">
             <i class="fa-solid fa-envelope"></i>
             <span class="stat-label">Contact</span>
-            <span class="stat-value">tanish.shahdev@gmail.com</span>
+            <span class="stat-value">tanishshah1808@gmail.com</span>
           </div>
           <div class="stat-item">
             <i class="fa-solid fa-circle-check"></i>
@@ -144,115 +163,565 @@
   <!-- ABOUT SECTION -->
   <section id="about" style="padding: 60px 20px;">
     <div class="about-me">
-      <h2>About Me</h2>
-      <p>Hi I’m <span>Tanish Shah</span> ― a <span>Passionate & Dedicated Developer</span> currently exploring the world
-        of web and software development.
-        I enjoy building clean, user-friendly, and functional projects—from <span>Responsive Websites</span> to
-        backend systems using <span>Java, DBMS, and Data Structures.</span> I love learning
-        <span>New Technologies, Solving Real-World Problems through code,</span> and constantly improving my skills. My
-        goal is to create impactful
-        digital experiences while growing as a <span>Full-Stack Developer.</span> Outside of coding, I’m always excited
-        about
-        <span>New Ideas, Creativity, and Projects</span> that challenge me to think differently.
-      </p>
+      <!-- Premium Intro Block (Isolated & Minimal) -->
+      <div class="about-intro-wrap">
+        <div class="about-eyebrow">
+          <span class="eyebrow-dash"></span>
+          <span>About Me</span>
+          <span class="eyebrow-dash"></span>
+        </div>
+
+        <h2 class="about-lead-title">
+          I’m <span class="accent-name">Tanish Shah</span> &mdash; a passionate developer building clean, high-performance web experiences and scalable systems.
+        </h2>
+
+        <div class="about-narrative">
+          <p>
+            Currently exploring the world of <span class="about-hl">web and software development</span>, I focus on crafting intuitive, user-friendly projects—from responsive web interfaces to robust backend architectures utilizing <span class="about-hl">Java, DBMS, and Data Structures</span>.
+          </p>
+          <p>
+            I love learning new technologies, solving <span class="about-hl">real-world problems</span> through code, and constantly refining my craft. My goal is to create impactful digital experiences while evolving as a <span class="about-hl">Full-Stack Developer</span>. Outside of coding, I’m always energized by creative thinking, new ideas, and projects that challenge different perspectives.
+          </p>
+        </div>
+      </div>
 
       <h5>Education</h5>
 
-      <div class="edu-card">
-        <div class="edu-logo">
-          <i class="fa-solid fa-university" style="font-size: 2rem;"></i>
-        </div>
-        <div class="edu-info">
-          <h3 class="course">B.Tech in Information Technology</h3>
-          <p class="university">LJ University (Lok Jagruti)</p>
-          <p class="year">Pursuing: 3rd Year</p>
-          <p class="duration">2024 – 2028</p>
-        </div>
-      </div>
+      <div class="edu-spotlight-wrapper">
+        <!-- 3 Interactive Selector Cards (Top Row) -->
+        <div class="edu-selector-row">
+          
+          <div class="edu-select-card active" data-edu="be" tabindex="0">
+            <div class="card-icon-bubble icon-cyan">
+              <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <div class="card-text-block">
+              <span class="card-badge badge-active"><span class="badge-radar-dot"></span> In Progress</span>
+              <h4 class="card-title">B.E. Information Technology</h4>
+              <span class="card-years">2024 &ndash; 2028</span>
+            </div>
+            <div class="card-active-indicator"></div>
+          </div>
 
-      <div class="edu-card">
-        <div class="edu-logo">
-          <i class="fa-solid fa-user-graduate" style="font-size: 2rem;"></i>
-        </div>
-        <div class="edu-info">
-          <h3 class="course">Higher Secondary Education (12<sup>th</sup> Grade)</h3>
-          <p class="university">Sheth C.N. Vidhyalaya</p>
-          <p class="year">Gujarat Board | Percentage: 90%</p>
-          <p class="duration">Completed In 2024</p>
-        </div>
-      </div>
+          <div class="edu-select-card" data-edu="hsc" tabindex="0">
+            <div class="card-icon-bubble icon-purple">
+              <i class="fa-solid fa-user-graduate"></i>
+            </div>
+            <div class="card-text-block">
+              <span class="card-badge badge-done"><i class="fa-solid fa-circle-check"></i> Completed</span>
+              <h4 class="card-title">Higher Secondary (12<sup>th</sup>)</h4>
+              <span class="card-years">Completed 2024</span>
+            </div>
+            <div class="card-active-indicator"></div>
+          </div>
 
-      <div class="edu-card">
-        <div class="edu-logo">
-          <i class="fa-solid fa-school" style="font-size: 2rem;"></i>
+          <div class="edu-select-card" data-edu="ssc" tabindex="0">
+            <div class="card-icon-bubble icon-purple">
+              <i class="fa-solid fa-school"></i>
+            </div>
+            <div class="card-text-block">
+              <span class="card-badge badge-done"><i class="fa-solid fa-circle-check"></i> Completed</span>
+              <h4 class="card-title">Secondary (10<sup>th</sup>)</h4>
+              <span class="card-years">Completed 2022</span>
+            </div>
+            <div class="card-active-indicator"></div>
+          </div>
+
         </div>
-        <div class="edu-info">
-          <h3 class="course">Secondary Education (10<sup>th</sup> Grade)</h3>
-          <p class="university">Sheth C.N. Vidhyalaya</p>
-          <p class="year">Gujarat Board | Percentage: 92%</p>
-          <p class="duration">Completed In 2022</p>
+
+        <!-- Dedicated Dynamic Live Inspection Stage (Bottom Panel) -->
+        <div class="edu-inspect-stage" id="eduInspectStage">
+          <div class="stage-left-info">
+            <div class="stage-meta-header">
+              <span class="stage-status-pill tag-active" id="stageStatusPill"><span class="badge-radar-dot"></span> Active Milestone &bull; In Progress</span>
+              <span class="stage-period-chip" id="stagePeriodChip">2024 &ndash; 2028</span>
+            </div>
+            <h3 class="stage-main-title" id="stageMainTitle">Bachelor of Engineering in Information Technology</h3>
+            <p class="stage-inst-name" id="stageInstName"><i class="fa-solid fa-building-columns"></i> LJ University (Lok Jagruti)</p>
+          </div>
+
+          <div class="stage-right-stats" id="stageRightStats">
+            <div class="stage-stat-box">
+              <span class="stat-lbl"><i class="fa-solid fa-clock"></i> Standing</span>
+              <strong class="stat-val val-cyan" id="stageStat1">Pursuing: 3rd Year</strong>
+            </div>
+            <div class="stage-stat-box">
+              <span class="stat-lbl"><i class="fa-solid fa-award"></i> Curriculum / Board</span>
+              <strong class="stat-val" id="stageStat2">Undergraduate Degree</strong>
+            </div>
+            <div class="stage-stat-box">
+              <span class="stat-lbl"><i class="fa-solid fa-location-dot"></i> Location</span>
+              <strong class="stat-val" id="stageStat3">Ahmedabad, Gujarat</strong>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SKILLS SECTION -->
+  <!-- SKILLS SECTION: BENTO GRID MASTERY WALL -->
   <section id="skills" style="padding: 60px 20px;">
-    <h3 class="main">Skills Introduction</h3>
-    <div class="skills-card">
-      <div class="lan">
-        <h2>Programming Languages</h2>
-        <ul>
-          <li>JAVA</li>
-          <li>Python</li>
-          <li>.NET</li>
-        </ul>
+    <h2 class="main">Skills &amp; Technologies</h2>
+    <p class="speech">Core Competencies, Full-Stack Frameworks, Databases &amp; Engineering Principles</p>
+
+    <!-- Skills Category Filter Bar -->
+    <div class="skills-filter-bar">
+      <button class="skills-filter-btn active" data-filter="all">
+        <i class="fa-solid fa-layer-group"></i> All Stacks
+      </button>
+      <button class="skills-filter-btn" data-filter="languages">
+        <i class="fa-solid fa-code"></i> Languages
+      </button>
+      <button class="skills-filter-btn" data-filter="web">
+        <i class="fa-solid fa-globe"></i> Web &amp; Frontend
+      </button>
+      <button class="skills-filter-btn" data-filter="backend">
+        <i class="fa-solid fa-database"></i> Databases &amp; Backend
+      </button>
+      <button class="skills-filter-btn" data-filter="core">
+        <i class="fa-solid fa-brain"></i> Core &amp; Soft Skills
+      </button>
+    </div>
+
+    <!-- Full-Coverage Bento Wall Grid -->
+    <div class="skills-bento-wall">
+      
+      <!-- 1. Featured Hero Tile: Split 2-Column Layout (Languages + Live IDE Console) -->
+      <div class="bento-tile bento-tile-hero" data-category="languages">
+        <div class="hero-split-grid">
+          
+          <!-- Left Column: Language Stacks -->
+          <div class="hero-left-col">
+            <div class="bento-tile-meta">
+              <span class="bento-badge-pulse"><span class="bento-pulse-dot"></span> Core Languages</span>
+              <h3 class="bento-tile-title"><i class="fa-solid fa-code icon-cyan"></i> Programming Languages</h3>
+            </div>
+            <p class="bento-tile-desc">Deep object-oriented software engineering, data structures, and algorithmic logic across enterprise &amp; scripting runtimes.</p>
+
+            <div class="hero-lang-cards">
+              <div class="bento-capsule">
+                <div class="capsule-icon-box">
+                  <i class="devicon-java-plain colored"></i>
+                </div>
+                <div class="capsule-info">
+                  <div class="capsule-header-line">
+                    <span class="capsule-name">JAVA</span>
+                    <span class="capsule-tag tag-cyan">Primary Anchor</span>
+                  </div>
+                  <span class="capsule-sub">Object-Oriented Architecture, Multithreading &amp; DSA</span>
+                </div>
+              </div>
+
+              <div class="bento-capsule">
+                <div class="capsule-icon-box">
+                  <i class="devicon-python-plain colored"></i>
+                </div>
+                <div class="capsule-info">
+                  <div class="capsule-header-line">
+                    <span class="capsule-name">Python</span>
+                    <span class="capsule-tag tag-amber">Logic &amp; Scripts</span>
+                  </div>
+                  <span class="capsule-sub">Automation, Data Pipelines &amp; Algorithmic Scripts</span>
+                </div>
+              </div>
+
+              <div class="bento-capsule">
+                <div class="capsule-icon-box">
+                  <i class="devicon-dot-net-plain colored"></i>
+                </div>
+                <div class="capsule-info">
+                  <div class="capsule-header-line">
+                    <span class="capsule-name">.NET</span>
+                    <span class="capsule-tag tag-purple">Enterprise Dev</span>
+                  </div>
+                  <span class="capsule-sub">C# Application Frameworks &amp; Structured Backend</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Interactive Code IDE Console -->
+          <div class="hero-right-col">
+            <div class="bento-snippet-container">
+              <div class="snippet-header">
+                <div class="snippet-tabs">
+                  <button class="snippet-tab active" data-lang="java"><i class="devicon-java-plain colored"></i> Java (OOP)</button>
+                  <button class="snippet-tab" data-lang="python"><i class="devicon-python-plain colored"></i> Python (Pipeline)</button>
+                  <button class="snippet-tab" data-lang="sql"><i class="devicon-postgresql-plain colored"></i> SQL (Relational)</button>
+                </div>
+                <span class="snippet-badge"><i class="fa-solid fa-terminal"></i> Live IDE</span>
+              </div>
+              <div class="snippet-body">
+                <pre><code id="snippetCode" class="language-java">// Core Object-Oriented Architecture
+public class Developer {
+    private final String name = "Tanish";
+    private final String[] stacks = {"Java", "React", "PostgreSQL"};
+
+    public void buildApplication() {
+        System.out.println("Architecting scalable & robust software solutions.");
+    }
+}</code></pre>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
-      <div class="web">
-        <h2>Web Technologies</h2>
-        <ul>
-          <li>HTML</li>
-          <li>CSS</li>
-          <li>JavaScript</li>
-          <li>React JS</li>
-        </ul>
+
+      <!-- 2. Modern Web & Frontend Ecosystem -->
+      <div class="bento-tile bento-tile-web" data-category="web">
+        <div class="bento-tile-top">
+          <div class="bento-tile-meta">
+            <span class="bento-badge badge-purple"><i class="fa-solid fa-layer-group"></i> Frontend Stack</span>
+            <h3 class="bento-tile-title"><i class="fa-solid fa-globe icon-purple"></i> Web &amp; Frontend</h3>
+          </div>
+          <span class="bento-stat-chip">6 Technologies</span>
+        </div>
+        <p class="bento-tile-desc">Developing responsive, dynamic web applications with modern component modularity and sleek interactive glassmorphism.</p>
+        
+        <div class="bento-capsules-grid bento-grid-2">
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="devicon-react-original colored"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">React JS</span>
+              <span class="capsule-sub">Hooks, State Management &amp; SPAs</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="devicon-javascript-plain colored"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">JavaScript</span>
+              <span class="capsule-sub">ES6+, Asynchronous &amp; DOM Engine</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="devicon-html5-plain colored"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">HTML5</span>
+              <span class="capsule-sub">Semantic Web &amp; Accessibility</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="devicon-css3-plain colored"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">CSS3</span>
+              <span class="capsule-sub">Glassmorphism, Flex/Grid &amp; 3D</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="devicon-tailwindcss-original colored"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">Tailwind CSS</span>
+              <span class="capsule-sub">Utility Design Tokens &amp; Dark Mode</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="devicon-bootstrap-plain colored"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">Bootstrap</span>
+              <span class="capsule-sub">Grid Architecture &amp; Rapid UI</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="db">
-        <h2>Databases & Technologies</h2>
-        <ul>
-          <li>PostgresSQL</li>
-          <li>MySQL</li>
-          <li>MongoDB</li>
-          <li>Git</li>
-        </ul>
+
+      <!-- 3. Databases, Backend & Frameworks -->
+      <div class="bento-tile bento-tile-backend" data-category="backend">
+        <div class="bento-tile-top">
+          <div class="bento-tile-meta">
+            <span class="bento-badge badge-emerald"><i class="fa-solid fa-server"></i> Backend &amp; ML</span>
+            <h3 class="bento-tile-title"><i class="fa-solid fa-database icon-emerald"></i> Databases &amp; Backend</h3>
+          </div>
+          <span class="bento-stat-chip">10 Technologies</span>
+        </div>
+        <p class="bento-tile-desc">Engineering robust relational data schemas, NoSQL document collections, asynchronous Python APIs, and deep learning pipelines.</p>
+        
+        <div class="bento-capsules-grid bento-grid-2">
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="devicon-postgresql-plain colored"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">PostgreSQL</span>
+              <span class="capsule-sub">Relational DBMS, Indexes &amp; ACID</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="devicon-mysql-original colored"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">MySQL</span>
+              <span class="capsule-sub">SQL Optimization &amp; Schema Design</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="devicon-mongodb-plain colored"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">MongoDB</span>
+              <span class="capsule-sub">NoSQL Documents &amp; Geospatial</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="devicon-nodejs-plain colored"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">Node JS</span>
+              <span class="capsule-sub">Asynchronous Backend Runtime</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="devicon-express-original"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">Express JS</span>
+              <span class="capsule-sub">RESTful API Endpoints &amp; Routing</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="devicon-flask-original"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">Flask</span>
+              <span class="capsule-sub">Microframework &amp; Incident Services</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="devicon-django-plain colored"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">Django</span>
+              <span class="capsule-sub">Full-Stack Framework &amp; ORM Engine</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="fa-solid fa-network-wired icon-emerald"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">DRF</span>
+              <span class="capsule-sub">Django REST APIs &amp; Serializers</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="devicon-fastapi-plain colored"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">FastAPI</span>
+              <span class="capsule-sub">High-Performance Async ML APIs</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="devicon-pytorch-original colored"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">PyTorch</span>
+              <span class="capsule-sub">Neural Networks &amp; CNN Embeddings</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="tools">
-        <h2>Frameworks & Tools</h2>
-        <ul>
-          <li>Node JS</li>
-          <li>Express JS</li>
-          <li>Bootstrap</li>
-          <li>Tailwind CSS</li>
-        </ul>
+
+      <!-- 4. Developer Tools & Environment -->
+      <div class="bento-tile bento-tile-tools" data-category="backend">
+        <div class="bento-tile-top">
+          <div class="bento-tile-meta">
+            <span class="bento-badge badge-blue"><i class="fa-solid fa-toolbox"></i> Dev Ecosystem</span>
+            <h3 class="bento-tile-title"><i class="fa-solid fa-screwdriver-wrench icon-cyan"></i> Developer Tools</h3>
+          </div>
+          <span class="bento-stat-chip">4 Tools</span>
+        </div>
+        <p class="bento-tile-desc">Modern integrated development environments, API testing suites, database administration tools, and Git version control.</p>
+
+        <div class="bento-capsules-grid bento-grid-2">
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="devicon-vscode-plain colored"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">VS Code</span>
+              <span class="capsule-sub">IDE, Debugging &amp; Extension Suite</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="devicon-postman-plain colored"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">Postman</span>
+              <span class="capsule-sub">REST API Testing &amp; Mock Servers</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="devicon-postgresql-plain colored"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">pgAdmin</span>
+              <span class="capsule-sub">PostgreSQL GUI &amp; Query Plans</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="devicon-git-plain colored"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">Git &amp; GitHub</span>
+              <span class="capsule-sub">Version Control &amp; CI/CD Pipelines</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="others">
-        <h2>Strong Suites</h2>
-        <ul>
-          <li>Data Structures & Algorithms</li>
-          <li>Problem Solving</li>
-          <li>UI/UX Design</li>
-          <li>Agile Methodologies</li>
-        </ul>
+
+      <!-- 5. Strong Suites & Engineering Principles -->
+      <div class="bento-tile bento-tile-core" data-category="core">
+        <div class="bento-tile-top">
+          <div class="bento-tile-meta">
+            <span class="bento-badge badge-pink"><i class="fa-solid fa-lightbulb"></i> Core Disciplines</span>
+            <h3 class="bento-tile-title"><i class="fa-solid fa-brain icon-pink"></i> Strong Suites</h3>
+          </div>
+          <span class="bento-stat-chip">7 Areas</span>
+        </div>
+        <p class="bento-tile-desc">Methodological engineering foundations emphasizing computational complexity, authentication security, structured logic, and clean design patterns.</p>
+
+        <div class="bento-capsules-grid bento-grid-2">
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="fa-solid fa-diagram-project icon-cyan"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">Data Structures</span>
+              <span class="capsule-sub">Trees, Graphs, HashMaps &amp; Logic</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="fa-solid fa-shield-halved icon-emerald"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">Authentication</span>
+              <span class="capsule-sub">RBAC Security &amp; Session Management</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="fa-solid fa-key icon-amber"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">JWT</span>
+              <span class="capsule-sub">Stateless Tokens &amp; Secure Payloads</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="fa-solid fa-plug-circle-bolt icon-purple"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">API Integration</span>
+              <span class="capsule-sub">REST Endpoints, JSON &amp; Async I/O</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="fa-solid fa-lightbulb icon-amber"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">Problem Solving</span>
+              <span class="capsule-sub">Edge-case Debugging &amp; Optimization</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="fa-solid fa-palette icon-pink"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">UI/UX Design</span>
+              <span class="capsule-sub">Modern Aesthetics &amp; Dark Theme</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="fa-solid fa-arrows-spin icon-cyan"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">Agile Methods</span>
+              <span class="capsule-sub">Sprint Planning &amp; Iterative Delivery</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="softskills">
-        <h2>Soft Skills</h2>
-        <ul>
-          <li>Effective Communication</li>
-          <li>Team Collaboration</li>
-          <li>Adaptability</li>
-          <li>Time Management</li>
-        </ul>
+
+      <!-- 5. Soft Skills & Collaboration -->
+      <div class="bento-tile bento-tile-soft" data-category="core">
+        <div class="bento-tile-top">
+          <div class="bento-tile-meta">
+            <span class="bento-badge badge-blue"><i class="fa-solid fa-users"></i> Professional Skills</span>
+            <h3 class="bento-tile-title"><i class="fa-solid fa-handshake icon-blue"></i> Soft Skills</h3>
+          </div>
+          <span class="bento-stat-chip">4 Strengths</span>
+        </div>
+        <p class="bento-tile-desc">Effective communicator and collaborative team player committed to clear documentation, active listening, and punctual delivery.</p>
+
+        <div class="bento-capsules-grid bento-grid-2">
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="fa-solid fa-comments icon-cyan"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">Communication</span>
+              <span class="capsule-sub">Clear Technical Documentation</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="fa-solid fa-users icon-purple"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">Teamwork</span>
+              <span class="capsule-sub">Cross-functional Pairing &amp; Code Review</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="fa-solid fa-puzzle-piece icon-amber"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">Adaptability</span>
+              <span class="capsule-sub">Fast Framework &amp; Tool Adoption</span>
+            </div>
+          </div>
+          <div class="bento-capsule">
+            <div class="capsule-icon-box">
+              <i class="fa-solid fa-clock icon-emerald"></i>
+            </div>
+            <div class="capsule-info">
+              <span class="capsule-name">Time Management</span>
+              <span class="capsule-sub">Disciplined Milestone Delivery</span>
+            </div>
+          </div>
+        </div>
       </div>
+
     </div>
   </section>
 
@@ -281,243 +750,741 @@
           <i class="fa-solid fa-graduation-cap"></i>
           <div class="sidebar-info">
             <h4>Course Management</h4>
-            <span>SEM-II | Java & DBMS</span>
+            <span>SEM-II | Java &amp; DBMS</span>
+          </div>
+        </div>
+        <div class="sidebar-item" data-project="ticket">
+          <i class="fa-solid fa-ticket"></i>
+          <div class="sidebar-info">
+            <h4>Ticket Tally (ITSM)</h4>
+            <span>Flask &amp; PostgreSQL</span>
+          </div>
+        </div>
+        <div class="sidebar-item" data-project="civiclens">
+          <i class="fa-solid fa-camera-retro"></i>
+          <div class="sidebar-info">
+            <h4>Civic Lens</h4>
+            <span>AI Platform | React &amp; PyTorch</span>
+          </div>
+        </div>
+
+        <div class="sidebar-section-divider">
+          <span><i class="fa-solid fa-bolt"></i> LIVE API EXTENSION</span>
+        </div>
+
+        <div class="sidebar-item sidebar-live-git" data-project="live-git" id="sidebarLiveGitItem">
+          <div class="sidebar-live-icon-box">
+            <i class="fa-solid fa-code-branch"></i>
+            <span class="live-status-ping"></span>
+          </div>
+          <div class="sidebar-info">
+            <h4>Live Git Graph</h4>
+            <span class="live-git-pill">REST Stream // @Tanish1808</span>
           </div>
         </div>
       </div>
 
       <!-- Right Panel: Display Screen -->
       <div class="projects-display">
-        <div class="display-media">
-          <img id="displayImg" src="assets/bus_reservation.png" alt="Bus Seat Reservation System Screenshot"
-            loading="lazy">
+        <!-- 1. Standard Project Inspection View -->
+        <div class="project-standard-view" id="projectStandardView">
+          <div class="display-media">
+            <img id="displayImg" src="assets/bus_reservation.webp" alt="Bus Seat Reservation System Screenshot"
+              loading="lazy">
+          </div>
+          <div class="display-details">
+            <h3 id="displayTitle">Bus Seat Reservation System (SEM-I)</h3>
+            <div id="displayTags" class="display-tags">
+              <span>Core Java</span>
+              <span>Conditional Statements</span>
+              <span>Arrays</span>
+            </div>
+            <p id="displayDesc">This project automates the bus ticket booking process by providing real-time seat
+              availability and secure reservations. It enhances user convenience while helping operators efficiently
+              manage schedules, routes, and passenger data.</p>
+
+            <div class="display-features">
+              <h5>Key Features &amp; Highlights</h5>
+              <ul id="displayFeatures">
+                <li>Real-time visual seat allocation matrix</li>
+                <li>Automated check-ins and ticket generation</li>
+                <li>Validation system preventing double bookings</li>
+                <li>Console UI designed with structured formatting</li>
+              </ul>
+            </div>
+
+            <div class="display-metrics">
+              <div class="display-metrics-header">
+                <h5>Impact &amp; Scale</h5>
+              </div>
+              <div id="displayMetrics" class="display-metrics-grid">
+                <div class="metric-row metric-cyan">
+                  <div class="metric-row-lead">
+                    <span class="metric-icon-box"><i class="fa-solid fa-cubes-stacked"></i></span>
+                    <span class="metric-label">Entities</span>
+                  </div>
+                  <span class="metric-val">12+ Bus Routes, 40-Seat Visual Matrices &amp; Passenger Records</span>
+                </div>
+                <div class="metric-row metric-purple">
+                  <div class="metric-row-lead">
+                    <span class="metric-icon-box"><i class="fa-solid fa-code-branch"></i></span>
+                    <span class="metric-label">Core Logic</span>
+                  </div>
+                  <span class="metric-val">5 Modular Java Classes / 450+ Lines of Clean Code</span>
+                </div>
+                <div class="metric-row metric-emerald">
+                  <div class="metric-row-lead">
+                    <span class="metric-icon-box"><i class="fa-solid fa-bullseye"></i></span>
+                    <span class="metric-label">Impact</span>
+                  </div>
+                  <span class="metric-val">Eliminated manual paper ticketing with zero double-booking lock</span>
+                </div>
+                <div class="metric-row metric-amber">
+                  <div class="metric-row-lead">
+                    <span class="metric-icon-box"><i class="fa-solid fa-microchip"></i></span>
+                    <span class="metric-label">Complexity</span>
+                  </div>
+                  <span class="metric-val">Real-time 2D array state sync &amp; coordinate reservation algorithms</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="display-actions">
+              <a id="displayCodeBtn"
+                href="https://github.com/Tanish1808/Bus_Management_System/blob/main/src/BusSeatReservationSystem.java"
+                target="_blank" class="modal-action-btn">
+                <i class="fab fa-github"></i> View Code <i class="fas fa-external-link-alt"
+                  style="font-size: 0.8rem; margin-left: 4px;"></i>
+              </a>
+            </div>
+          </div>
         </div>
-        <div class="display-details">
-          <h3 id="displayTitle">Bus Seat Reservation System (SEM-I)</h3>
-          <div id="displayTags" class="display-tags">
-            <span>Core Java</span>
-            <span>Conditional Statements</span>
-            <span>Arrays</span>
-          </div>
-          <p id="displayDesc">This project automates the bus ticket booking process by providing real-time seat
-            availability and secure reservations. It enhances user convenience while helping operators efficiently
-            manage schedules, routes, and passenger data.</p>
 
-          <div class="display-features">
-            <h5>Key Features & Highlights</h5>
-            <ul id="displayFeatures">
-              <li>Real-time visual seat allocation matrix</li>
-              <li>Automated check-ins and ticket generation</li>
-              <li>Validation system preventing double bookings</li>
-              <li>Console UI designed with structured formatting</li>
-            </ul>
+        <!-- 2. Live Git Graph Visualizer View -->
+        <div class="project-git-graph-view" id="projectGitGraphView" style="display: none;">
+          <div class="git-graph-chrome-bar">
+            <div class="git-graph-title-wrap">
+              <span class="git-graph-icon-tag"><i class="fa-solid fa-code-commit"></i> Git Graph Extension</span>
+              <span class="git-graph-path">github.com/Tanish1808/* (Live API)</span>
+            </div>
+            <div class="git-graph-actions">
+              <span class="git-live-badge"><span class="git-live-dot"></span> <span id="gitSyncState">SYNCHRONIZED</span></span>
+              <button class="git-refresh-icon-btn" id="gitRefreshBtn" title="Sync with GitHub REST API" aria-label="Refresh Git Stream">
+                <i class="fa-solid fa-arrows-rotate"></i>
+              </button>
+            </div>
           </div>
 
-          <div class="display-actions">
-            <a id="displayCodeBtn"
-              href="https://github.com/Tanish1808/Bus_Management_System/blob/main/src/BusSeatReservationSystem.java"
-              target="_blank" class="modal-action-btn">
-              <i class="fab fa-github"></i> View Code <i class="fas fa-external-link-alt"
-                style="font-size: 0.8rem; margin-left: 4px;"></i>
-            </a>
+          <div class="git-commit-tree-stream" id="gitCommitTree">
+            <!-- Dynamically populated with live GitHub commit tree by script.js -->
+          </div>
+        </div>
+
+        <!-- VS Code Bottom Status Bar -->
+        <div class="ide-status-bar">
+          <div class="status-bar-left">
+            <span class="status-item branch"><i class="fa-solid fa-code-branch"></i> <span id="ideBranchText">main*</span></span>
+            <span class="status-item sync"><i class="fa-solid fa-arrows-rotate"></i> <span>0↓ 1↑</span></span>
+            <span class="status-item live"><span class="ide-live-pip"></span> LIVE REST API</span>
+          </div>
+          <div class="status-bar-right">
+            <span class="status-item repos" id="ideRepoCountBar"><i class="fa-brands fa-github"></i> <span id="ideRepoCountText">5 Public Repos</span></span>
+            <span class="status-item latency" id="ideLatencyText">UTF-8 · 24ms</span>
+            <button class="status-item git-toggle-btn" id="ideGitGraphToggleBtn" title="Toggle Live Git Graph View">
+              <i class="fa-solid fa-code-commit"></i> <span id="ideToggleLabel">View Git Graph</span>
+            </button>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CERTIFICATION SECTION -->
+  <!-- CERTIFICATION SECTION: HOLOGRAPHIC CREDENTIAL DECK & SPOTLIGHT STAGE -->
   <section id="certification" style="padding: 60px 20px;">
-    <div class="container" style="padding: 0;">
+    <div class="container" style="padding: 0; max-width: 1080px; margin: 0 auto;">
 
-      <div class="page-header" style="margin-bottom: 40px;">
-        <h1 style="color: #6EC6FF; font-size: 3.5rem; text-align: center;">Certifications</h1>
-        <p style="text-align: center;">These certifications represent my continuous effort to learn, improve, and build
-          strong technical foundations.</p>
+      <div class="page-header" style="margin-bottom: 30px;">
+        <h1 class="main">Certifications &amp; Accreditations</h1>
+        <p class="speech">Interactive accreditation deck of verified coursework, technical specializations, and hackathon accomplishments.</p>
       </div>
 
-      <div class="category">
-        <h2 style="color: white; font-size: 2rem;">Programming</h2>
-        <div class="cert-grid">
-          <div class="cert-card">
-            <div class="cert-badge badge-java">
-              <i class="fab fa-java"></i>
-            </div>
-            <div class="cert-content">
-              <h3>Introduction to Java</h3>
-              <div class="issuer">Coursera Platform</div>
-              <div class="date">Issued: 2024</div>
-              <div class="tags">
-                <span class="tag">Loops in Java</span>
-                <span class="tag">Basic Concepts of Java</span>
-              </div>
-              <a href="assets/certificates/Coursera Introduction To Java Certificate.pdf" class="view-btn"
-                target="_blank" style="margin-top: 15px;">View Certificate</a>
-            </div>
+      <!-- Credential Spotlight Console -->
+      <div class="cert-deck-console" id="certDeckConsole">
+        
+        <!-- Console Control Header -->
+        <div class="deck-controls-header">
+          <div class="deck-counter-badge">
+            <span class="pulse-beacon"></span>
+            <span id="deckCounterText">CREDENTIAL 01 / 07</span>
           </div>
-          <div class="cert-card">
-            <div class="cert-badge badge-cubes">
-              <i class="fas fa-cubes"></i>
-            </div>
-            <div class="cert-content">
-              <h3>Inheritance and Data Structure in Java</h3>
-              <div class="issuer">Coursera Platform</div>
-              <div class="date">Issued: 2025</div>
-              <div class="tags">
-                <span class="tag">Data Structure</span>
-                <span class="tag">OOPS Concepts</span>
-              </div>
-              <a href="assets/certificates/Inheritance and Data Structure in Java.pdf" class="view-btn" target="_blank"
-                style="margin-top: 15px;">View Certificate</a>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="category">
-        <h2 style="color: white; font-size: 2rem;">Web Development</h2>
-        <div class="cert-grid">
-          <div class="cert-card">
-            <div class="cert-badge badge-web">
-              <i class="fab fa-html5"></i>
-            </div>
-            <div class="cert-content">
-              <h3>Introduction to HTML, CSS, & JavaScript</h3>
-              <div class="issuer">Coursera Platform</div>
-              <div class="date">Issued: 2025</div>
-              <div class="tags">
-                <span class="tag">HTML</span>
-                <span class="tag">CSS</span>
-                <span class="tag">JavaScript</span>
-              </div>
-              <a href="assets/certificates/Introduction to HTML, CSS, & JavaScript.pdf" class="view-btn" target="_blank"
-                style="margin-top: 15px;">View Certificate</a>
-            </div>
+          <div class="deck-category-filters">
+            <button class="deck-filter-btn active" data-filter="all">All</button>
+            <button class="deck-filter-btn" data-filter="programming">Programming</button>
+            <button class="deck-filter-btn" data-filter="web">Web Dev</button>
+            <button class="deck-filter-btn" data-filter="ml">Machine Learning</button>
+            <button class="deck-filter-btn" data-filter="hackathons">Hackathons</button>
           </div>
-        </div>
-      </div>
 
-      <div class="category">
-        <h2 style="color: white; font-size: 2rem;">Machine Learning</h2>
-        <div class="cert-grid">
-          <div class="cert-card">
-            <div class="cert-badge badge-ml">
-              <i class="fas fa-chart-line"></i>
-            </div>
-            <div class="cert-content">
-              <h3>Exploratory Data Analysis for Machine Learning</h3>
-              <div class="issuer">Coursera Platform</div>
-              <div class="date">Issued: 2026</div>
-              <div class="tags">
-                <span class="tag">Data Visualization</span>
-                <span class="tag">Data Cleaning</span>
-                <span class="tag">Statistical Analysis</span>
-              </div>
-              <a href="assets/certificates/Exploratory Data Analysis for Machine Learning.pdf" class="view-btn"
-                target="_blank" style="margin-top: 15px;">View Certificate</a>
-            </div>
+          <div class="deck-nav-arrows">
+            <button class="deck-arrow-btn" id="deckPrevBtn" aria-label="Previous Certificate"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="deck-arrow-btn" id="deckNextBtn" aria-label="Next Certificate"><i class="fa-solid fa-chevron-right"></i></button>
           </div>
         </div>
-      </div>
 
-      <div class="category">
-        <h2 style="color: white; font-size: 2rem;">Hackathons</h2>
-        <div class="cert-grid">
-          <div class="cert-card">
-            <div class="cert-badge badge-hackovate">
-              <i class="fas fa-award"></i>
+        <!-- 3D Card Stage Track -->
+        <div class="deck-stage-wrapper">
+          <div class="deck-stage-track" id="deckStageTrack">
+            
+            <!-- Card 1: Java Intro -->
+            <div class="deck-card active" data-index="0" data-category="programming">
+              <div class="deck-card-glow"></div>
+              <div class="deck-card-header">
+                <div class="deck-crest crest-java">
+                  <i class="devicon-java-plain colored"></i>
+                </div>
+                <div class="deck-status-wrap">
+                  <span class="deck-badge badge-verified"><i class="fa-solid fa-circle-check"></i> Verified Coursework</span>
+                  <span class="deck-year">2024</span>
+                </div>
+              </div>
+              <div class="deck-card-body">
+                <h3 class="deck-title">Introduction to Java</h3>
+                <div class="deck-issuer">
+                  <i class="fa-solid fa-building-columns"></i>
+                  <span>Coursera • LearnQuest</span>
+                </div>
+                <p class="deck-desc">Foundational programming constructs, control flow, loops, methods, syntax rules, and Java virtual machine execution logic.</p>
+                <div class="deck-tags">
+                  <span>Java Core</span>
+                  <span>Control Flow</span>
+                  <span>Loops &amp; Logic</span>
+                  <span>Algorithms</span>
+                </div>
+              </div>
+              <div class="deck-card-footer">
+                <div class="deck-hash">
+                  <span class="hash-tag">ID:</span>
+                  <span class="hash-code">COURSERA-JAVA-24</span>
+                </div>
+                <a href="assets/certificates/Coursera Introduction To Java Certificate.pdf" class="deck-action-btn" target="_blank">
+                  <span>View Certificate</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
             </div>
-            <div class="cert-content">
-              <h3>Hackovate - LJ</h3>
-              <div class="issuer">LJ University</div>
-              <div class="date">Issued : 2025</div>
-              <a href="assets/certificates/LJ_Hackovate.pdf" class="view-btn" target="_blank"
-                style="margin-top: 15px;">View Certificate</a>
+
+            <!-- Card 2: Java Data Structures -->
+            <div class="deck-card" data-index="1" data-category="programming">
+              <div class="deck-card-glow"></div>
+              <div class="deck-card-header">
+                <div class="deck-crest crest-java">
+                  <i class="devicon-java-plain colored"></i>
+                </div>
+                <div class="deck-status-wrap">
+                  <span class="deck-badge badge-verified"><i class="fa-solid fa-circle-check"></i> Verified Specialization</span>
+                  <span class="deck-year">2025</span>
+                </div>
+              </div>
+              <div class="deck-card-body">
+                <h3 class="deck-title">Inheritance &amp; Data Structures in Java</h3>
+                <div class="deck-issuer">
+                  <i class="fa-solid fa-building-columns"></i>
+                  <span>Coursera • LearnQuest</span>
+                </div>
+                <p class="deck-desc">Object-oriented paradigms, class inheritance hierarchies, interfaces, abstract classes, polymorphism, and memory management.</p>
+                <div class="deck-tags">
+                  <span>Data Structures</span>
+                  <span>Inheritance</span>
+                  <span>Polymorphism</span>
+                  <span>OOP Architecture</span>
+                </div>
+              </div>
+              <div class="deck-card-footer">
+                <div class="deck-hash">
+                  <span class="hash-tag">ID:</span>
+                  <span class="hash-code">COURSERA-DS-25</span>
+                </div>
+                <a href="assets/certificates/Inheritance and Data Structure in Java.pdf" class="deck-action-btn" target="_blank">
+                  <span>View Certificate</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
             </div>
-          </div>
-          <div class="cert-card">
-            <div class="cert-badge badge-techsprint">
-              <i class="fas fa-trophy"></i>
+
+            <!-- Card 3: HTML, CSS, JS -->
+            <div class="deck-card" data-index="2" data-category="web">
+              <div class="deck-card-glow"></div>
+              <div class="deck-card-header">
+                <div class="deck-crest crest-js">
+                  <i class="devicon-javascript-plain colored"></i>
+                </div>
+                <div class="deck-status-wrap">
+                  <span class="deck-badge badge-verified"><i class="fa-solid fa-circle-check"></i> Verified Specialization</span>
+                  <span class="deck-year">2025</span>
+                </div>
+              </div>
+              <div class="deck-card-body">
+                <h3 class="deck-title">Introduction to HTML, CSS, &amp; JavaScript</h3>
+                <div class="deck-issuer">
+                  <i class="fa-solid fa-building-columns"></i>
+                  <span>Coursera • IBM</span>
+                </div>
+                <p class="deck-desc">Modern semantic markup, responsive layout styling with Flexbox &amp; Grid, mobile-first design, and interactive frontend DOM scripts.</p>
+                <div class="deck-tags">
+                  <span>HTML5</span>
+                  <span>CSS3</span>
+                  <span>JavaScript</span>
+                  <span>Responsive UI</span>
+                </div>
+              </div>
+              <div class="deck-card-footer">
+                <div class="deck-hash">
+                  <span class="hash-tag">ID:</span>
+                  <span class="hash-code">COURSERA-WEB-25</span>
+                </div>
+                <a href="assets/certificates/Introduction to HTML, CSS, & JavaScript.pdf" class="deck-action-btn" target="_blank">
+                  <span>View Certificate</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
             </div>
-            <div class="cert-content">
-              <h3>LDCE X Techsprint</h3>
-              <div class="issuer">Google Developer Group</div>
-              <div class="date">Issued : 2025</div>
-              <a href="assets/certificates/LDCE X TechSprint_Participation.pdf" class="view-btn" target="_blank"
-                style="margin-top: 15px;">View Certificate</a>
+
+            <!-- Card 4: EDA Machine Learning -->
+            <div class="deck-card" data-index="3" data-category="ml">
+              <div class="deck-card-glow"></div>
+              <div class="deck-card-header">
+                <div class="deck-crest crest-python">
+                  <i class="devicon-python-plain colored"></i>
+                </div>
+                <div class="deck-status-wrap">
+                  <span class="deck-badge badge-verified"><i class="fa-solid fa-circle-check"></i> Verified Specialization</span>
+                  <span class="deck-year">2026</span>
+                </div>
+              </div>
+              <div class="deck-card-body">
+                <h3 class="deck-title">Exploratory Data Analysis for Machine Learning</h3>
+                <div class="deck-issuer">
+                  <i class="fa-solid fa-building-columns"></i>
+                  <span>Coursera • IBM</span>
+                </div>
+                <p class="deck-desc">Feature engineering pipelines, missing data imputation, multivariate distributions, outlier detection, and statistical visualization.</p>
+                <div class="deck-tags">
+                  <span>Data Cleaning</span>
+                  <span>EDA</span>
+                  <span>Statistics</span>
+                  <span>Python</span>
+                </div>
+              </div>
+              <div class="deck-card-footer">
+                <div class="deck-hash">
+                  <span class="hash-tag">ID:</span>
+                  <span class="hash-code">IBM-ML-EDA-26</span>
+                </div>
+                <a href="assets/certificates/Exploratory Data Analysis for Machine Learning.pdf" class="deck-action-btn" target="_blank">
+                  <span>View Certificate</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
             </div>
-          </div>
-          <div class="cert-card">
-            <div class="cert-badge badge-lakshya">
-              <i class="fas fa-laptop-code"></i>
+
+            <!-- Card 5: LJ Hackovate -->
+            <div class="deck-card" data-index="4" data-category="hackathons">
+              <div class="deck-card-glow"></div>
+              <div class="deck-card-header">
+                <div class="deck-crest crest-gold">
+                  <i class="fa-solid fa-award"></i>
+                </div>
+                <div class="deck-status-wrap">
+                  <span class="deck-badge badge-trophy"><i class="fa-solid fa-trophy"></i> 36h Hackathon</span>
+                  <span class="deck-year">2025</span>
+                </div>
+              </div>
+              <div class="deck-card-body">
+                <h3 class="deck-title">Hackovate — National Hackathon</h3>
+                <div class="deck-issuer">
+                  <i class="fa-solid fa-university"></i>
+                  <span>LJ University</span>
+                </div>
+                <p class="deck-desc">Competitive 36-hour hackathon delivering functional prototypes, rapid debugging, team collaboration, and real-time defense.</p>
+                <div class="deck-tags">
+                  <span>Prototyping</span>
+                  <span>Teamwork</span>
+                  <span>Innovation</span>
+                  <span>Full-Stack</span>
+                </div>
+              </div>
+              <div class="deck-card-footer">
+                <div class="deck-hash">
+                  <span class="hash-tag">ID:</span>
+                  <span class="hash-code">HACKOVATE-LJ-25</span>
+                </div>
+                <a href="assets/certificates/LJ_Hackovate.pdf" class="deck-action-btn" target="_blank">
+                  <span>View Certificate</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
             </div>
-            <div class="cert-content">
-              <h3>Lakshya 2.0 - TechFest LDCE 2026</h3>
-              <div class="issuer">LD College of Engineering</div>
-              <div class="date">Issued : 2026</div>
-              <a href="assets/certificates/Lakshya 2.0 Hackathon Participation .pdf" class="view-btn" target="_blank"
-                style="margin-top: 15px;">View Certificate</a>
+
+            <!-- Card 6: LDCE X TechSprint -->
+            <div class="deck-card" data-index="5" data-category="hackathons">
+              <div class="deck-card-glow"></div>
+              <div class="deck-card-header">
+                <div class="deck-crest crest-cyan">
+                  <i class="fa-solid fa-laptop-code"></i>
+                </div>
+                <div class="deck-status-wrap">
+                  <span class="deck-badge badge-trophy"><i class="fa-solid fa-trophy"></i> GDG Event</span>
+                  <span class="deck-year">2025</span>
+                </div>
+              </div>
+              <div class="deck-card-body">
+                <h3 class="deck-title">LDCE × TechSprint Participation</h3>
+                <div class="deck-issuer">
+                  <i class="fa-solid fa-code-branch"></i>
+                  <span>Google Developer Groups (GDG)</span>
+                </div>
+                <p class="deck-desc">Intensive developer hackathon focused on modern developer ecosystems, cloud architectures, and collaborative software sprints.</p>
+                <div class="deck-tags">
+                  <span>GDG Sprint</span>
+                  <span>Cloud Tools</span>
+                  <span>Collaboration</span>
+                  <span>Software Dev</span>
+                </div>
+              </div>
+              <div class="deck-card-footer">
+                <div class="deck-hash">
+                  <span class="hash-tag">ID:</span>
+                  <span class="hash-code">GDG-TECHSPRINT-25</span>
+                </div>
+                <a href="assets/certificates/LDCE X TechSprint_Participation.pdf" class="deck-action-btn" target="_blank">
+                  <span>View Certificate</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
             </div>
+
+            <!-- Card 7: Lakshya 2.0 -->
+            <div class="deck-card" data-index="6" data-category="hackathons">
+              <div class="deck-card-glow"></div>
+              <div class="deck-card-header">
+                <div class="deck-crest crest-purple">
+                  <i class="fa-solid fa-medal"></i>
+                </div>
+                <div class="deck-status-wrap">
+                  <span class="deck-badge badge-trophy"><i class="fa-solid fa-trophy"></i> Flagship TechFest</span>
+                  <span class="deck-year">2026</span>
+                </div>
+              </div>
+              <div class="deck-card-body">
+                <h3 class="deck-title">Lakshya 2.0 — TechFest LDCE</h3>
+                <div class="deck-issuer">
+                  <i class="fa-solid fa-university"></i>
+                  <span>LD College of Engineering</span>
+                </div>
+                <p class="deck-desc">Annual flagship TechFest hackathon and engineering competition focusing on high-impact technology solutions.</p>
+                <div class="deck-tags">
+                  <span>System Design</span>
+                  <span>Engineering</span>
+                  <span>Hackathon</span>
+                  <span>Problem Solving</span>
+                </div>
+              </div>
+              <div class="deck-card-footer">
+                <div class="deck-hash">
+                  <span class="hash-tag">ID:</span>
+                  <span class="hash-code">LDCE-LAKSHYA-26</span>
+                </div>
+                <a href="assets/certificates/Lakshya 2.0 Hackathon Participation .pdf" class="deck-action-btn" target="_blank">
+                  <span>View Certificate</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
+            </div>
+
           </div>
         </div>
+
+        <!-- Micro-Capsule Indicator Strip -->
+        <div class="deck-nav-strip" id="deckNavStrip">
+          <button class="deck-capsule active" data-index="0">
+            <i class="devicon-java-plain"></i>
+            <span>Java</span>
+          </button>
+          <button class="deck-capsule" data-index="1">
+            <i class="devicon-java-plain"></i>
+            <span>Data Structures</span>
+          </button>
+          <button class="deck-capsule" data-index="2">
+            <i class="devicon-javascript-plain"></i>
+            <span>Web Dev</span>
+          </button>
+          <button class="deck-capsule" data-index="3">
+            <i class="devicon-python-plain"></i>
+            <span>ML &amp; EDA</span>
+          </button>
+          <button class="deck-capsule" data-index="4">
+            <i class="fa-solid fa-award"></i>
+            <span>LJ Hackovate</span>
+          </button>
+          <button class="deck-capsule" data-index="5">
+            <i class="fa-solid fa-laptop-code"></i>
+            <span>GDG Sprint</span>
+          </button>
+          <button class="deck-capsule" data-index="6">
+            <i class="fa-solid fa-medal"></i>
+            <span>Lakshya 2.0</span>
+          </button>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- CONTACT SECTION -->
+  <!-- CONTACT SECTION: CYBER COLLABORATION HUB -->
   <section id="contact" style="padding: 60px 20px;">
-    <h2>Let's Connect and Collaborate ❤️</h2>
-    <p class="greetings">Whether it's a New Project, a Collaboration, or just a hi ― I'd Love to hear from you!</p>
+    <h2 class="main">Let's Connect &amp; Collaborate ❤️</h2>
+    <p class="speech">Have an exciting idea, an internship opportunity, or just want to discuss tech? Drop a message or connect directly.</p>
 
-    <div class="social-icons" style="margin: 30px 0; justify-content: center;">
-      <a href="https://github.com/Tanish1808" target="_blank"><i class='bx bxl-github'></i></a>
-      <a href="https://www.linkedin.com/in/tanish-shah-703489349/" target="_blank"><i class='bx bxl-linkedin'></i></a>
-      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=tanish.shahdev@gmail.com" target="_blank"><i
-          class='bx bxs-envelope'></i></a>
+    <div class="contact-hub-container">
+      
+      <!-- 1. Left Column: Holographic Developer Telemetry & Quick Connect -->
+      <div class="contact-info-panel">
+        
+        <!-- Live Status Pill -->
+        <div class="contact-status-badge">
+          <span class="status-pulse-dot"></span>
+          <span>Available for Internships &amp; Projects</span>
+        </div>
+
+        <h3 class="contact-panel-title">Let's Build Something Impactful Together</h3>
+        <p class="contact-panel-desc">
+          I'm currently seeking software development internships and creative collaborations. Whether you need full-stack development, database architecture, or want to discuss a project, my inbox is open!
+        </p>
+
+        <!-- Quick Telemetry Cards -->
+        <div class="contact-telemetry-grid">
+          
+          <!-- Email Telemetry Card with One-Click Copy -->
+          <div class="telemetry-card" id="copyEmailCard">
+            <div class="telemetry-icon-box icon-cyan-glow">
+              <i class="fa-solid fa-envelope"></i>
+            </div>
+            <div class="telemetry-info">
+              <span class="telemetry-label">Direct Email</span>
+              <span class="telemetry-val" id="emailValText">tanishshah1808@gmail.com</span>
+            </div>
+            <button type="button" class="telemetry-copy-btn" id="copyEmailBtn" title="Copy Email Address" aria-label="Copy Email">
+              <i class="fa-regular fa-copy" id="copyIcon"></i>
+              <span class="copy-tooltip" id="copyTooltip">Copy</span>
+            </button>
+          </div>
+
+          <!-- Location Telemetry Card -->
+          <div class="telemetry-card">
+            <div class="telemetry-icon-box icon-purple-glow">
+              <i class="fa-solid fa-location-dot"></i>
+            </div>
+            <div class="telemetry-info">
+              <span class="telemetry-label">Current Location</span>
+              <span class="telemetry-val">Ahmedabad, Gujarat, India</span>
+            </div>
+            <span class="telemetry-chip">IST (UTC+5:30)</span>
+          </div>
+
+          <!-- Response Guarantee Card -->
+          <div class="telemetry-card">
+            <div class="telemetry-icon-box icon-emerald-glow">
+              <i class="fa-solid fa-bolt"></i>
+            </div>
+            <div class="telemetry-info">
+              <span class="telemetry-label">Response Guarantee</span>
+              <span class="telemetry-val">Within 24 Hours</span>
+            </div>
+            <span class="telemetry-chip chip-live">Guaranteed</span>
+          </div>
+
+        </div>
+
+        <!-- Social Network Command Cards -->
+        <div class="contact-social-grid">
+          <a href="https://github.com/Tanish1808" target="_blank" class="contact-social-card card-github">
+            <i class="fa-brands fa-github"></i>
+            <div class="social-card-text">
+              <span class="social-name">GitHub</span>
+              <span class="social-sub">Explore Open-Source Code</span>
+            </div>
+            <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+          </a>
+
+          <a href="https://www.linkedin.com/in/tanish-shah-703489349/" target="_blank" class="contact-social-card card-linkedin">
+            <i class="fa-brands fa-linkedin-in"></i>
+            <div class="social-card-text">
+              <span class="social-name">LinkedIn</span>
+              <span class="social-sub">Professional Network</span>
+            </div>
+            <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- 2. Right Column: Glassmorphic Interactive Contact Console -->
+      <div class="contact-form-panel">
+        
+        <div class="console-header">
+          <div class="console-dots">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
+          <span class="console-title"><i class="fa-solid fa-paper-plane"></i> Direct Message Dispatch</span>
+        </div>
+
+        <form id="contactForm" class="contact-form-inner" novalidate>
+          <div class="form-row-2">
+            <div class="contact-input-wrapper">
+              <i class="fa-solid fa-user input-icon"></i>
+              <input type="text" name="name" id="name" placeholder="Your Name" required autocomplete="name">
+            </div>
+            
+            <div class="contact-input-wrapper">
+              <i class="fa-solid fa-envelope input-icon"></i>
+              <input type="email" name="email" id="email" placeholder="Your Email" required autocomplete="email">
+            </div>
+          </div>
+          
+          <div class="contact-input-wrapper">
+            <i class="fa-solid fa-tag input-icon"></i>
+            <input type="text" name="subject" id="subject" placeholder="Subject / Project Inquiry" required>
+          </div>
+          
+          <div class="contact-input-wrapper textarea-wrapper">
+            <i class="fa-solid fa-message input-icon"></i>
+            <textarea name="message" id="message" cols="10" rows="6" placeholder="Tell me about your project, opportunity, or message..." required></textarea>
+          </div>
+
+          <div id="contactStatus" class="contact-status"></div>
+          
+          <button type="submit" id="contactSubmitBtn" class="cyber-submit-btn">
+            <span class="btn-glow-layer"></span>
+            <span class="btn-content">
+              <span>Send Message</span>
+              <i class="fa-solid fa-paper-plane"></i>
+            </span>
+          </button>
+        </form>
+
+      </div>
+
     </div>
-
-    <form id="contactForm" class="contact" novalidate>
-      <input type="text" name="name" id="name" placeholder="Your Name" required>
-      <input type="email" name="email" id="email" placeholder="Your Email" required>
-      <input type="text" name="subject" id="subject" placeholder="Subject" required>
-      <textarea name="message" id="message" cols="10" rows="7" placeholder="Your Message" required></textarea>
-      <div id="contactStatus" class="contact-status"></div>
-      <button type="submit" id="contactSubmitBtn">Send Message 🚀</button>
-    </form>
   </section>
 
   <!-- FOOTER -->
-  <footer class="footer">
-    <p>© 2025 Tanish Shah. All rights reserved.</p>
-    <span>Designed & Developed by Tanish Shah.</span>
+  <footer class="footer" id="footer">
+    <div class="footer-top-divider"></div>
+    <div class="footer-container">
+      
+      <!-- Column 1: Brand & Status Hub -->
+      <div class="footer-col footer-col-brand">
+        <div class="footer-brand-header">
+          <div class="footer-logo">
+            <h6>Tanish Shah</h6>
+            <p class="footer-role">IT Student &amp; Developer</p>
+          </div>
+        </div>
+        <p class="footer-bio">
+          Crafting robust backend architectures, responsive user interfaces, and scalable software solutions.
+        </p>
+        <div class="footer-status-pill">
+          <span class="status-pulse-dot"></span>
+          <span class="status-text">Available for Internship Opportunities</span>
+        </div>
+
+        <!-- Cyber Theme Accent Customizer -->
+        <div class="footer-theme-palette">
+          <span class="palette-label"><i class="fa-solid fa-palette"></i> Theme Accent:</span>
+          <div class="palette-dots">
+            <button class="palette-dot dot-cyan active" data-theme="cyan" aria-label="Cyber Cyan Theme" title="Cyber Cyan"></button>
+            <button class="palette-dot dot-purple" data-theme="purple" aria-label="Neon Purple Theme" title="Neon Purple"></button>
+            <button class="palette-dot dot-emerald" data-theme="emerald" aria-label="Matrix Emerald Theme" title="Matrix Emerald"></button>
+            <button class="palette-dot dot-amber" data-theme="amber" aria-label="Solar Amber Theme" title="Solar Amber"></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Column 2: Quick Navigation Index -->
+      <div class="footer-col footer-col-nav">
+        <h4 class="footer-heading">Quick Navigation</h4>
+        <ul class="footer-nav-list">
+          <li><a href="#home" class="footer-nav-link"><i class="fa-solid fa-chevron-right"></i> Home</a></li>
+          <li><a href="#about" class="footer-nav-link"><i class="fa-solid fa-chevron-right"></i> About Me</a></li>
+          <li><a href="#skills" class="footer-nav-link"><i class="fa-solid fa-chevron-right"></i> Skills &amp; Stack</a></li>
+          <li><a href="#projects" class="footer-nav-link"><i class="fa-solid fa-chevron-right"></i> Featured Projects</a></li>
+          <li><a href="#certification" class="footer-nav-link"><i class="fa-solid fa-chevron-right"></i> Certifications</a></li>
+          <li><a href="#contact" class="footer-nav-link"><i class="fa-solid fa-chevron-right"></i> Contact Hub</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Connect & In-Footer Back to Top -->
+      <div class="footer-col footer-col-connect">
+        <h4 class="footer-heading">Connect &amp; Telemetry</h4>
+        <p class="footer-connect-desc">Open for software engineering internships, technical collaborations, and inquiries.</p>
+        <div class="footer-social-row">
+          <a href="https://github.com/Tanish1808" target="_blank" rel="noopener noreferrer" class="footer-social-btn" aria-label="GitHub Profile" title="GitHub">
+            <i class="fa-brands fa-github"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/tanish-shah-703489349/" target="_blank" rel="noopener noreferrer" class="footer-social-btn" aria-label="LinkedIn Profile" title="LinkedIn">
+            <i class="fa-brands fa-linkedin-in"></i>
+          </a>
+          <a href="mailto:tanishshah1808@gmail.com" class="footer-social-btn" aria-label="Send Email" title="Email">
+            <i class="fa-solid fa-envelope"></i>
+          </a>
+        </div>
+
+        <button id="footerBackToTop" class="footer-back-to-top-btn" aria-label="Scroll back to top of page" title="Scroll to Top">
+          <i class="fa-solid fa-arrow-up"></i>
+          <span>Back to Top</span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Bottom Utility & Copyright Bar -->
+    <div class="footer-bottom-bar">
+      <div class="footer-bottom-container">
+        <div class="footer-tech-credit">
+          <i class="fa-solid fa-code"></i>
+          <span>Built with HTML5, CSS3 &amp; Vanilla JavaScript — no frameworks, no shortcuts.</span>
+        </div>
+        <div class="footer-copyright">
+          <span>&copy; 2025 Tanish Shah. All rights reserved.</span>
+        </div>
+      </div>
+    </div>
   </footer>
 
-  <!-- PROJECT DETAIL MODAL -->
-  <div id="projectModal" class="project-modal" aria-hidden="true" role="dialog">
-    <div class="modal-overlay" id="modalOverlay"></div>
-    <div class="modal-wrapper">
-      <button class="modal-close-btn" id="modalCloseBtn" aria-label="Close modal">
+  <!-- RESUME DETAIL MODAL -->
+  <div id="resumeModal" class="cert-modal resume-modal" aria-hidden="true" role="dialog">
+    <div class="modal-overlay" id="resumeModalOverlay"></div>
+    <div class="modal-wrapper cert-modal-wrapper resume-modal-wrapper">
+      <button class="modal-close-btn" id="resumeModalCloseBtn" aria-label="Close modal">
         <i class="fa-solid fa-xmark"></i>
       </button>
-      <div class="modal-content-grid">
-        <div class="modal-left-media">
-          <img id="modalProjectImg" src="" alt="Project Screenshot" class="modal-project-img">
+      <div class="cert-modal-header resume-modal-header">
+        <h2 id="resumeModalTitle" class="modal-project-title">Tanish Shah — Resume</h2>
+        <div class="resume-modal-actions">
+          <a id="resumeDownloadBtn" href="assets/resume.pdf" download="Tanish_Shah_Resume.pdf" class="modal-action-btn resume-download-btn" target="_blank" title="Download PDF">
+            <i class="fa-solid fa-download"></i>
+            <span>Download</span>
+          </a>
+          <button id="resumeOpenTabBtn" class="modal-action-btn resume-open-tab-btn" aria-label="Open resume in new tab" title="Open in New Tab">
+            <span>Open in Tab</span>
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </button>
         </div>
-        <div class="modal-right-details">
-          <h2 id="modalProjectTitle" class="modal-project-title">Project Title</h2>
-          <div id="modalProjectTags" class="modal-project-tags"></div>
-          <p id="modalProjectDesc" class="modal-project-desc">Detailed project description...</p>
-          <div class="modal-features-section">
-            <h3>Key Features & Technical Highlights</h3>
-            <ul id="modalProjectFeatures" class="modal-project-features"></ul>
-          </div>
-          <div class="modal-footer-actions">
-            <a id="modalProjectCodeBtn" href="#" target="_blank" class="modal-action-btn">
-              <i class="fab fa-github"></i> View Code <i class="fas fa-external-link-alt"
-                style="font-size: 0.8rem; margin-left: 4px;"></i>
-            </a>
-          </div>
-        </div>
+      </div>
+      <div class="cert-modal-body" id="resumeModalBody">
       </div>
     </div>
   </div>
@@ -538,7 +1505,9 @@
     </div>
   </div>
 
-  <button id="backToTop" aria-label="Back to top">↑</button>
+  <button id="backToTop" aria-label="Back to top" title="Back to Top">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
 
   <script src="script.js"></script>
 </body>

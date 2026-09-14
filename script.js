@@ -24,17 +24,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // ── Typewriter Effect (Continuous Loop) ───────────────────────────
     const roleEl = document.querySelector(".hero-role");
-    const phrase = "IT Student | Coder | Problem Solver";
+    const phrases = [
+        "IT Student | Coder | Problem Solver"
+    ];
+    let phraseIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
 
     function typeWriter() {
+        if (!roleEl) return;
+        const currentPhrase = phrases[phraseIndex];
+
         if (!isDeleting) {
             // Typing forward
-            roleEl.textContent = phrase.slice(0, charIndex + 1);
+            roleEl.textContent = currentPhrase.slice(0, charIndex + 1);
             charIndex++;
 
-            if (charIndex === phrase.length) {
+            if (charIndex === currentPhrase.length) {
                 // Finished typing → pause 1.5s then start deleting
                 isDeleting = true;
                 setTimeout(typeWriter, 1500);
@@ -43,12 +49,13 @@ document.addEventListener("DOMContentLoaded", () => {
             setTimeout(typeWriter, 80);
         } else {
             // Deleting backward
-            roleEl.textContent = phrase.slice(0, charIndex - 1);
+            roleEl.textContent = currentPhrase.slice(0, charIndex - 1);
             charIndex--;
 
             if (charIndex === 0) {
                 // Finished deleting → tiny pause then retype
                 isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
                 setTimeout(typeWriter, 400);
                 return;
             }
@@ -62,34 +69,45 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     // ── End Typewriter ─────────────────────────────────────────────────
 
-    // Back to top button logic
+    // ── Sticky Navbar Elevation, Back to Top & ScrollSpy Listener ────
+    const navbarEl = document.querySelector(".navbar");
     const backToTop = document.getElementById("backToTop");
-    window.addEventListener("scroll", () => {
-        if (window.scrollY > 300) {
-            backToTop.style.display = "block";
-            backToTop.style.opacity = "1";
-        } else {
-            backToTop.style.opacity = "0";
-            setTimeout(() => {
-                if (window.scrollY <= 300) backToTop.style.display = "none";
-            }, 300);
-        }
-    });
-
-    backToTop.addEventListener("click", () => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-
-    // Scroll Spy for Navbar Links
+    const footerBackToTop = document.getElementById("footerBackToTop");
     const sections = document.querySelectorAll("section");
     const scrollNavLinks = document.querySelectorAll(".nav-links a");
 
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+    if (backToTop) {
+        backToTop.addEventListener("click", scrollToTop);
+    }
+
+    if (footerBackToTop) {
+        footerBackToTop.addEventListener("click", scrollToTop);
+    }
+
+    // Consolidated single scroll event listener for performance
     window.addEventListener("scroll", () => {
+        const scrollPos = window.scrollY;
+
+        // 1. Navbar elevation styling toggle (> 40px)
+        if (navbarEl) {
+            navbarEl.classList.toggle("scrolled", scrollPos > 40);
+        }
+
+        // 2. Floating Back to Top Button visibility (> 250px)
+        if (backToTop) {
+            backToTop.classList.toggle("show", scrollPos > 250);
+        }
+
+        // 3. ScrollSpy for Navbar Links
         let current = "";
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.clientHeight;
-            if (scrollY >= (sectionTop - sectionHeight / 3)) {
+            if (scrollPos >= (sectionTop - sectionHeight / 3)) {
                 current = section.getAttribute("id");
             }
         });
@@ -102,29 +120,138 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Intersection Observer for Fade-In Animations
+    // ── Intersection Observer for Smooth Staggered Scroll Animations ──
     const observerOptions = {
-        threshold: 0.1,
-        rootMargin: "0px 0px -50px 0px"
+        threshold: 0.12,
+        rootMargin: "0px 0px -40px 0px"
     };
 
-    const observer = new IntersectionObserver((entries) => {
+    const scrollObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add("visible");
-                observer.unobserve(entry.target);
+                scrollObserver.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
-    // Add .fade-in class to elements we want to animate, then observe them
-    const animatedElements = document.querySelectorAll(
-        ".hero-box .stat-item, .about-me, .edu-card, .skills-card > div, .projects-dashboard, .cert-card, .contact input, .contact textarea"
-    );
-    animatedElements.forEach(el => {
-        el.classList.add("fade-in");
-        observer.observe(el);
+    // 1. Sibling Element Groups (Staggered Reveals with dynamic CSS transition-delay)
+    const staggerGroups = [
+        // Hero Section: Quick Stat Items (4 items in 2x2 grid)
+        { selector: ".hero-box .stat-item", staggerMs: 90, maxDelay: 600 },
+        // About Section: Education Selector Cards (3 cards in top row)
+        { selector: ".edu-selector-row .edu-select-card", staggerMs: 100, maxDelay: 600 },
+        // Skills Section: Bento Mastery Tiles (6 grid tiles)
+        { selector: ".skills-bento-wall .bento-tile", staggerMs: 80, maxDelay: 600 },
+        // Projects Section: Sidebar Project Selector Items (5 project items)
+        { selector: ".projects-sidebar .sidebar-item", staggerMs: 90, maxDelay: 600 },
+        // Contact Section: Telemetry Info Cards (4 telemetry cards in left panel)
+        { selector: ".contact-telemetry-panel .telemetry-card", staggerMs: 90, maxDelay: 600 },
+        // Footer Section: Footer Columns (3 columns)
+        { selector: ".footer-container .footer-col", staggerMs: 100, maxDelay: 600 }
+    ];
+
+    staggerGroups.forEach(group => {
+        const elements = document.querySelectorAll(group.selector);
+        elements.forEach((el, index) => {
+            el.classList.add("fade-in");
+            const delay = Math.min(index * group.staggerMs, group.maxDelay);
+            el.style.transitionDelay = `${delay}ms`;
+            scrollObserver.observe(el);
+        });
     });
+
+    // 2. Standalone Single Elements (Instant Reveal with 0ms Delay)
+    const singleElements = document.querySelectorAll(
+        ".about-intro-wrap, .about-me > h5, .edu-inspect-stage, .skills-filter-bar, .skills-bento-wall, .projects-dashboard, .cert-deck-console, .contact-info-column, .contact-form-panel, .footer-bottom-bar"
+    );
+    singleElements.forEach(el => {
+        if (!el.classList.contains("fade-in")) {
+            el.classList.add("fade-in");
+            el.style.transitionDelay = "0ms";
+            scrollObserver.observe(el);
+        }
+    });
+
+    // ── Skills Bento Wall Category Filter ────────────────────────────────
+    const skillFilterBtns = document.querySelectorAll(".skills-filter-btn");
+    const bentoTiles = document.querySelectorAll(".bento-tile");
+    const bentoWall = document.querySelector(".skills-bento-wall");
+
+    if (skillFilterBtns.length > 0 && bentoWall) {
+        skillFilterBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                skillFilterBtns.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                const filter = btn.getAttribute("data-filter");
+
+                let visibleCount = 0;
+                bentoTiles.forEach(tile => {
+                    const matches = (filter === "all" || tile.getAttribute("data-category") === filter);
+                    if (matches) {
+                        visibleCount++;
+                        tile.style.display = "flex";
+                        tile.style.opacity = "1";
+                        tile.style.transform = "translateY(0)";
+                    } else {
+                        tile.style.display = "none";
+                        tile.style.opacity = "0";
+                    }
+                });
+
+                if (visibleCount === 1) {
+                    bentoWall.classList.add("is-single-card");
+                } else {
+                    bentoWall.classList.remove("is-single-card");
+                }
+            });
+        });
+    }
+
+    // ── Bento Interactive Code Snippet Tabs ─────────────────────────────
+    const snippetTabs = document.querySelectorAll(".snippet-tab");
+    const snippetCode = document.getElementById("snippetCode");
+
+    const codeSnippets = {
+        java: `// Core Object-Oriented Architecture
+public class Developer {
+    private final String name = "Tanish";
+    private final String[] stacks = {"Java", "React", "PostgreSQL", "Flask", "PyTorch"};
+
+    public void buildApplication() {
+        System.out.println("Architecting scalable & robust software solutions.");
+    }
+}`,
+        python: `# Async ML & REST Pipeline
+from fastapi import FastAPI
+import torch
+
+app = FastAPI(title="Civic Lens API")
+
+@app.get("/classify")
+async def classify_issue(image_tensor: torch.Tensor):
+    return {"status": "classified", "severity": "High"}`,
+        sql: `-- Relational Schema & SLA Query
+SELECT t.ticket_id, t.subject, t.priority, s.sla_status
+FROM it_tickets t
+JOIN sla_policies s ON t.policy_id = s.id
+WHERE t.status = 'OPEN'
+ORDER BY t.priority_weight DESC;`
+    };
+
+    if (snippetTabs.length > 0 && snippetCode) {
+        snippetTabs.forEach(tab => {
+            tab.addEventListener("click", () => {
+                snippetTabs.forEach(t => t.classList.remove("active"));
+                tab.classList.add("active");
+                const lang = tab.getAttribute("data-lang");
+                if (codeSnippets[lang]) {
+                    snippetCode.textContent = codeSnippets[lang];
+                    snippetCode.className = `language-${lang}`;
+                }
+            });
+        });
+    }
 
     // ── Hamburger Menu Toggle ──────────────────────────────────────────
     const menuToggle = document.getElementById("menuToggle");
@@ -173,7 +300,8 @@ document.addEventListener("DOMContentLoaded", () => {
   - <span class="terminal-command-info">about</span>    : Learn more about Tanish Shah
   - <span class="terminal-command-info">skills</span>   : Print coding languages and tech stack
   - <span class="terminal-command-info">projects</span> : View major portfolio projects
-  - <span class="terminal-command-info">contact</span>  : Show email and social profiles
+  - <span class="terminal-command-info">resume</span>   : View &amp; open official resume in new tab
+  - <span class="terminal-command-info">contact</span>  : Scroll to contact form &amp; view profiles
   - <span class="terminal-command-info">theme</span>    : Toggle Light/Dark mode of the site
   - <span class="terminal-command-info">clear</span>    : Clear the console screen
   - <span class="terminal-command-info">cat developer.json</span> : Output raw developer info
@@ -184,19 +312,50 @@ document.addEventListener("DOMContentLoaded", () => {
             about: () => `Tanish Shah is an enthusiastic Information Technology student, problem solver, and coder. 
 Currently building premium user interfaces and software systems, focusing on clean code, scalability, and modern web APIs.`,
             skills: () => `Core Tech Stack & Skills:
-  - Languages  : Java, Python, .NET
-  - Web Tech   : HTML5, CSS3, JavaScript, React JS
-  - Databases  : PostgreSQL, MySQL, MongoDB, Git
-  - Frameworks : Node JS, Express JS, Bootstrap, Tailwind CSS
-  - Suites     : Data Structures & Algorithms, Problem Solving, UI/UX Design`,
+  - Languages  : Java, Python, JavaScript, SQL, .NET
+  - Web & Front: HTML5, CSS3, React JS, Tailwind CSS, Bootstrap
+  - Back & ML  : Node JS, Express JS, Flask, Django, DRF, FastAPI, PyTorch
+  - Databases  : PostgreSQL, MySQL, MongoDB, Git & GitHub
+  - Dev Tools  : VS Code, Postman, pgAdmin
+  - Concepts   : Data Structures & Algorithms, Authentication, JWT, REST APIs, UI/UX Design`,
             projects: () => `Portfolio Projects:
-  1. <span class="terminal-command-info">Bus Seat Reservation System (SEM-I)</span> — Java app automating real-time seat availability & booking.
-  2. <span class="terminal-command-info">Hostel Management System (SEM-I)</span> — OOPs-based administration portal for room management & payments.
-  3. <span class="terminal-command-info">Course Management System (SEM-II)</span> — Institutional platform for digital course enrollment, grading & DB structures.`,
-            contact: () => `Let's connect!
-  - Email    : <a href="mailto:tanish.shahdev@gmail.com" target="_blank" style="color: var(--accent-cyan);">tanish.shahdev@gmail.com</a>
+  1. <span class="terminal-command-info">Bus Seat Reservation System (SEM-I)</span> — Core Java real-time booking matrix & seat locking.
+  2. <span class="terminal-command-info">Hostel Management System (SEM-I)</span> — OOPs-based room allocation, student records & payments.
+  3. <span class="terminal-command-info">Course Management System (SEM-II)</span> — Relational DBMS course catalog, prerequisites & GPA calc.
+  4. <span class="terminal-command-info">Ticket Tally (ITSM Platform)</span> — Priority Queue triage, JWT auth, SLA tracking & Flask/PostgreSQL.
+  5. <span class="terminal-command-info">Civic Lens (AI Platform)</span> — PyTorch ML classification, geospatial duplicate detection & React.`,
+            resume: () => {
+                fetch("assets/resume.pdf", { method: "HEAD" })
+                    .then(res => {
+                        if (res.ok) {
+                            window.open("assets/resume.pdf", "_blank");
+                        } else {
+                            const fallbackDiv = document.createElement("div");
+                            fallbackDiv.className = "terminal-output";
+                            fallbackDiv.innerHTML = `<span class="terminal-command-error">Notice:</span> Resume document currently being updated. Please check back shortly!`;
+                            terminalHistory.appendChild(fallbackDiv);
+                            if (terminalBody) terminalBody.scrollTop = terminalBody.scrollHeight;
+                        }
+                    })
+                    .catch(() => {
+                        window.open("assets/resume.pdf", "_blank");
+                    });
+                return `<span class="terminal-command-success">Accessing Resume:</span> Opening <span class="terminal-command-info">assets/resume.pdf</span> in a new tab...`;
+            },
+            contact: () => {
+                const contactSection = document.getElementById("contact");
+                if (contactSection) {
+                    contactSection.scrollIntoView({ behavior: "smooth" });
+                    setTimeout(() => {
+                        const nameInput = document.getElementById("name");
+                        if (nameInput) nameInput.focus();
+                    }, 650);
+                }
+                return `<span class="terminal-command-success">Navigating to Contact Section...</span> Auto-focusing transmission form.
+  - Email    : <a href="mailto:tanishshah1808@gmail.com" target="_blank" style="color: var(--accent-cyan);">tanishshah1808@gmail.com</a>
   - GitHub   : <a href="https://github.com/Tanish1808" target="_blank" style="color: var(--accent-cyan);">github.com/Tanish1808</a>
-  - LinkedIn : <a href="https://www.linkedin.com/in/tanish-shah-703489349/" target="_blank" style="color: var(--accent-cyan);">tanish-shah-703489349</a>`,
+  - LinkedIn : <a href="https://www.linkedin.com/in/tanish-shah-703489349/" target="_blank" style="color: var(--accent-cyan);">tanish-shah-703489349</a>`;
+            },
             "cat developer.json": () => `<span class="bracket">{</span>
   <div class="indent"><span class="key">"name"</span>: <span class="val">"Tanish Shah"</span>,</div>
   <div class="indent"><span class="key">"role"</span>: <span class="val">"IT Student & Coder"</span>,</div>
@@ -779,7 +938,7 @@ Currently building premium user interfaces and software systems, focusing on cle
                 showStatus("Web3Forms token missing. Opening mail client...", "loading");
 
                 setTimeout(() => {
-                    window.open(`mailto:tanish.shahdev@gmail.com?subject=${subject}&body=${body}`, "_self");
+                    window.open(`mailto:tanishshah1808@gmail.com?subject=${subject}&body=${body}`, "_self");
                     showStatus("Mail client opened. Please send the email! ❤️", "success");
                 }, 1200);
             } finally {
@@ -794,7 +953,37 @@ Currently building premium user interfaces and software systems, focusing on cle
         }
     }
 
-    // ── Projects Detail Modal Logic ────────────────────────────────────
+    // ── One-Click Email Copy Telemetry Handler ─────────────────────────
+    const copyEmailBtn = document.getElementById("copyEmailBtn");
+    const copyEmailCard = document.getElementById("copyEmailCard");
+    const copyTooltip = document.getElementById("copyTooltip");
+    const copyIcon = document.getElementById("copyIcon");
+
+    if (copyEmailBtn && copyTooltip) {
+        const copyEmailAction = (e) => {
+            if (e) e.stopPropagation();
+            const emailText = "tanishshah1808@gmail.com";
+            navigator.clipboard.writeText(emailText).then(() => {
+                copyTooltip.textContent = "Copied! 🎉";
+                if (copyIcon) copyIcon.className = "fa-solid fa-check";
+                copyEmailBtn.style.background = "var(--accent-cyan)";
+                copyEmailBtn.style.color = "#0b0f19";
+
+                setTimeout(() => {
+                    copyTooltip.textContent = "Copy";
+                    if (copyIcon) copyIcon.className = "fa-regular fa-copy";
+                    copyEmailBtn.style.background = "";
+                    copyEmailBtn.style.color = "";
+                }, 2000);
+            }).catch(() => {
+                copyTooltip.textContent = "Copied!";
+            });
+        };
+
+        copyEmailBtn.addEventListener("click", copyEmailAction);
+    }
+
+    // ── Projects Detail & Live Git Graph Logic ────────────────────────
     const projectsData = {
         bus: {
             title: "Bus Seat Reservation System (SEM-I)",
@@ -806,7 +995,13 @@ Currently building premium user interfaces and software systems, focusing on cle
                 "Validation system preventing double bookings",
                 "Console UI designed with structured formatting"
             ],
-            image: "assets/bus_reservation.png",
+            metrics: [
+                "Entities: 12+ Bus Routes, 40-Seat Visual Matrices & Passenger Records",
+                "Core Logic: 5 Modular Java Classes / 450+ Lines of Clean Code",
+                "Impact: Eliminated manual paper ticketing with zero double-booking lock",
+                "Complexity: Real-time 2D array state sync & coordinate reservation algorithms"
+            ],
+            image: "assets/bus_reservation.webp",
             github: "https://github.com/Tanish1808/Bus_Management_System/blob/main/src/BusSeatReservationSystem.java"
         },
         hostel: {
@@ -819,7 +1014,13 @@ Currently building premium user interfaces and software systems, focusing on cle
                 "Centralized payment history logger",
                 "Structured request/complaints management workflow"
             ],
-            image: "assets/hostel_management.png",
+            metrics: [
+                "Entities: 50+ Room Inventories, 200+ Student Profiles & Transaction Ledgers",
+                "Core Logic: 8 Modular Java Classes / 650+ Lines of Clean Code",
+                "Impact: Automated room allocations, student check-ins & fee audit workflows",
+                "Complexity: Dynamic occupancy calculation & relational record integrity validation"
+            ],
+            image: "assets/hostel_management.webp",
             github: "https://github.com/Tanish1808/Hostel_Management_System/blob/main/src/HostelManagementSystem.java"
         },
         course: {
@@ -832,89 +1033,434 @@ Currently building premium user interfaces and software systems, focusing on cle
                 "Grading spreadsheet calculator",
                 "Performance visualization metrics for academic reporting"
             ],
-            image: "assets/course_management.png",
+            metrics: [
+                "Entities: 15+ Relational Tables (Courses, Students, Faculty, Prerequisites, Grades)",
+                "Core Logic: 10+ Java Service Handlers / 800+ Lines with Relational DBMS Queries",
+                "Impact: Digitalized academic course allocation & automated GPA calculation pipelines",
+                "Complexity: Multi-tier prerequisite graph validation & transactional enrollment locking"
+            ],
+            image: "assets/course_management.webp",
             github: "https://github.com/Tanish1808/Course_Management_System/tree/main/src"
+        },
+        ticket: {
+            title: "Ticket Tally – Smart IT Ticket Management System",
+            description: "An internal IT support ticket management system developed for creating, assigning, tracking, and resolving support requests with automated lifecycle workflows.",
+            tech: ["Flask", "PostgreSQL", "JavaScript", "JWT"],
+            features: [
+                "Priority Queue-based ticket prioritization system to efficiently handle high-priority support requests",
+                "Role-based dashboards for Employees, IT Staff, and Administrators with secure JWT authentication",
+                "Integrated email notifications, SLA tracking, and automated PDF ticket generation",
+                "Automated end-to-end support ticket lifecycle tracking and resolution workflows"
+            ],
+            metrics: [
+                "Entities: PostgreSQL Relational Schemas (Tickets, Users, SLA Policies, Audit Logs)",
+                "Core Logic: Priority Queue algorithms & JWT-authenticated Flask API routes",
+                "Impact: Streamlines IT support triage with real-time SLA compliance tracking",
+                "Complexity: Priority Queue dispatch algorithms & role-based dashboard access control"
+            ],
+            image: "assets/ticket_tally.webp",
+            github: "https://github.com/Tanish1808/Trial_Ticket_Tally"
+        },
+        civiclens: {
+            title: "Civic Lens – AI-Powered Civic Issue Reporting Platform",
+            description: "An AI-powered civic issue reporting platform that enables citizens to report infrastructure problems using geotagged photos and track their resolution through a public transparency dashboard.",
+            tech: ["React", "Django", "DRF", "FastAPI", "PyTorch", "MongoDB"],
+            features: [
+                "ML pipeline using PyTorch and FastAPI to automatically classify issue category and severity with manual review queue",
+                "Two-stage duplicate detection using MongoDB 2dsphere geospatial queries, perceptual hashing, and CNN embedding similarity",
+                "Community-driven ticket verification, JWT-based authentication with RBAC, and RESTful APIs",
+                "Admin analytics dashboard for real-time municipal KPIs, issue trends, and ticket management"
+            ],
+            metrics: [
+                "Entities: MongoDB 2dsphere Geospatial Collections & PyTorch CNN Embedding Vectors",
+                "Core Logic: FastAPI ML inference pipeline & Django REST Framework backend APIs",
+                "Impact: Eliminates duplicate municipal reports & transparently accelerates civic resolution",
+                "Complexity: Two-stage duplicate detection via perceptual hashing + CNN feature embeddings"
+            ],
+            image: "assets/civic_lens_placeholder.webp",
+            github: "https://github.com/Tanish1808/civic-lens"
         }
     };
 
-    // ── Projects Dashboard Logic ───────────────────────────────────────
+    // ── Projects Dashboard & Live Git Graph Controller ─────────────────
     const sidebarItems = document.querySelectorAll(".sidebar-item");
     const displayPanel = document.querySelector(".projects-display");
+    const projectStandardView = document.getElementById("projectStandardView");
+    const projectGitGraphView = document.getElementById("projectGitGraphView");
+    const gitCommitTree = document.getElementById("gitCommitTree");
+    const gitRefreshBtn = document.getElementById("gitRefreshBtn");
+    const gitSyncState = document.getElementById("gitSyncState");
+    const ideGitGraphToggleBtn = document.getElementById("ideGitGraphToggleBtn");
+    const ideToggleLabel = document.getElementById("ideToggleLabel");
+    const ideRepoCountText = document.getElementById("ideRepoCountText");
+    const ideLatencyText = document.getElementById("ideLatencyText");
+    const ideBranchText = document.getElementById("ideBranchText");
     const displayImg = document.getElementById("displayImg");
     const displayTitle = document.getElementById("displayTitle");
     const displayTags = document.getElementById("displayTags");
     const displayDesc = document.getElementById("displayDesc");
     const displayFeatures = document.getElementById("displayFeatures");
+    const displayMetrics = document.getElementById("displayMetrics");
     const displayCodeBtn = document.getElementById("displayCodeBtn");
 
+    const GH_USERNAME = "Tanish1808";
+    const GH_CACHE_KEY = `gh_git_graph_${GH_USERNAME}`;
+    const GH_CACHE_TTL = 15 * 60 * 1000; // 15 minutes TTL
+
+    // Format relative timestamp
+    const formatGitTimeAgo = (dateStr) => {
+        if (!dateStr) return "Active";
+        const now = new Date();
+        const past = new Date(dateStr);
+        const diffSec = Math.floor((now - past) / 1000);
+        if (diffSec < 3600) return `${Math.max(1, Math.floor(diffSec / 60))}m ago`;
+        if (diffSec < 86400) return `${Math.floor(diffSec / 3600)}h ago`;
+        if (diffSec < 2592000) return `${Math.floor(diffSec / 86400)}d ago`;
+        return past.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+    };
+
+    // DevIcon language resolver
+    const getGitLangBadge = (lang) => {
+        if (!lang) return `<i class="fa-solid fa-code" style="color: var(--accent-cyan);"></i> <span>Code</span>`;
+        const lower = lang.toLowerCase();
+        if (lower === "python") return `<i class="devicon-python-plain colored"></i> <span>Python</span>`;
+        if (lower === "java") return `<i class="devicon-java-plain colored"></i> <span>Java</span>`;
+        if (lower === "javascript") return `<i class="devicon-javascript-plain colored"></i> <span>JavaScript</span>`;
+        if (lower === "typescript") return `<i class="devicon-typescript-plain colored"></i> <span>TypeScript</span>`;
+        if (lower === "html") return `<i class="devicon-html5-plain colored"></i> <span>HTML</span>`;
+        return `<i class="fa-solid fa-code" style="color: var(--accent-purple);"></i> <span>${lang}</span>`;
+    };
+
+    // Render Git Commit Tree Nodes
+    const renderGitGraphTree = (user, repos, latencyMs = 24) => {
+        if (ideRepoCountText && user && typeof user.public_repos !== "undefined") {
+            ideRepoCountText.textContent = `${user.public_repos} Public Repos`;
+        }
+        if (ideLatencyText) {
+            ideLatencyText.textContent = `UTF-8 · ${latencyMs}ms`;
+        }
+        if (gitSyncState) {
+            gitSyncState.textContent = "SYNCHRONIZED";
+        }
+
+        if (!gitCommitTree) return;
+
+        const colorClasses = ["dot-green", "dot-cyan", "dot-purple", "dot-amber"];
+
+        if (repos && repos.length > 0) {
+            gitCommitTree.innerHTML = repos.slice(0, 5).map((repo, idx) => {
+                const dotColor = colorClasses[idx % colorClasses.length];
+                const hash = repo.node_id ? repo.node_id.slice(-7) : `#${Math.floor(Math.random()*16777215).toString(16).slice(0,6)}`;
+                const branch = repo.default_branch || "main";
+                const timeAgo = formatGitTimeAgo(repo.pushed_at || repo.updated_at);
+                const desc = repo.description || "Public open-source repository & software module by @Tanish1808.";
+                const langBadge = getGitLangBadge(repo.language);
+                const isLast = idx === repos.length - 1 || idx === 4;
+
+                return `
+                    <div class="git-tree-node">
+                        <div class="node-branch-line-col">
+                            <span class="node-branch-track" style="${isLast ? 'bottom: 50%;' : ''}"></span>
+                            <span class="node-commit-dot ${dotColor}"></span>
+                        </div>
+                        <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="node-commit-card">
+                            <div class="node-card-head">
+                                <div class="node-head-left">
+                                    <span class="node-hash-tag">${hash}</span>
+                                    <span class="node-branch-badge">${branch}</span>
+                                    <h4 class="node-repo-title">${repo.name}</h4>
+                                </div>
+                                <span class="node-time-badge">${timeAgo}</span>
+                            </div>
+                            <p class="node-commit-msg">${desc}</p>
+                            <div class="node-card-foot">
+                                <span class="node-lang-tag">${langBadge}</span>
+                                <span class="node-view-link"><span>Inspect Code</span> <i class="fa-solid fa-arrow-right"></i></span>
+                            </div>
+                        </a>
+                    </div>
+                `;
+            }).join("");
+        } else {
+            renderGitFallbackTree();
+        }
+    };
+
+    // Fallback Git Tree for Offline or Rate-Limited States
+    const renderGitFallbackTree = () => {
+        if (gitSyncState) gitSyncState.textContent = "OFFLINE SNAPSHOT";
+        if (ideLatencyText) ideLatencyText.textContent = "UTF-8 · CACHED";
+        if (ideRepoCountText) ideRepoCountText.textContent = "4 Public Repos";
+        if (!gitCommitTree) return;
+
+        const fallbackRepos = [
+            { name: "Trial_Ticket_Tally", hash: "#8f1b2c", branch: "main", lang: "Python", time: "Recent", url: "https://github.com/Tanish1808/Trial_Ticket_Tally", desc: "Enterprise-grade IT Service Management (ITSM) incident orchestration platform with SLA tracking & Neon PostgreSQL." },
+            { name: "Course_Management_System", hash: "#4a9e3d", branch: "main", lang: "Java", time: "Verified", url: "https://github.com/Tanish1808/Course_Management_System", desc: "Academic course allocation and student enrollment architecture built with object-oriented Java & DBMS concepts." },
+            { name: "Bus_Management_System", hash: "#2c77e1", branch: "main", lang: "Java", time: "Verified", url: "https://github.com/Tanish1808/Bus_Management_System", desc: "Real-time transit scheduling and automated ticketing transaction core with multithreading." },
+            { name: "My_Portfolio", hash: "#011c349", branch: "dev", lang: "JavaScript", time: "Active", url: "https://github.com/Tanish1808/My_Portfolio", desc: "Interactive personal developer portfolio featuring mock terminal, VS Code Git Graph, and 3D credential deck." }
+        ];
+
+        const colorClasses = ["dot-green", "dot-cyan", "dot-purple", "dot-amber"];
+
+        gitCommitTree.innerHTML = fallbackRepos.map((repo, idx) => {
+            const dotColor = colorClasses[idx % colorClasses.length];
+            const langBadge = getGitLangBadge(repo.lang);
+            const isLast = idx === fallbackRepos.length - 1;
+
+            return `
+                <div class="git-tree-node">
+                    <div class="node-branch-line-col">
+                        <span class="node-branch-track" style="${isLast ? 'bottom: 50%;' : ''}"></span>
+                        <span class="node-commit-dot ${dotColor}"></span>
+                    </div>
+                    <a href="${repo.url}" target="_blank" rel="noopener noreferrer" class="node-commit-card">
+                        <div class="node-card-head">
+                            <div class="node-head-left">
+                                <span class="node-hash-tag">${repo.hash}</span>
+                                <span class="node-branch-badge">${repo.branch}</span>
+                                <h4 class="node-repo-title">${repo.name}</h4>
+                            </div>
+                            <span class="node-time-badge">${repo.time}</span>
+                        </div>
+                        <p class="node-commit-msg">${repo.desc}</p>
+                        <div class="node-card-foot">
+                            <span class="node-lang-tag">${langBadge}</span>
+                            <span class="node-view-link"><span>Inspect Code</span> <i class="fa-solid fa-arrow-right"></i></span>
+                        </div>
+                    </a>
+                </div>
+            `;
+        }).join("");
+    };
+
+    // Fetch Live GitHub Telemetry with Session Cache
+    const fetchLiveGitStream = async (forceRefresh = false) => {
+        if (!forceRefresh) {
+            try {
+                const cachedRaw = sessionStorage.getItem(GH_CACHE_KEY);
+                if (cachedRaw) {
+                    const cached = JSON.parse(cachedRaw);
+                    if (Date.now() - cached.timestamp < GH_CACHE_TTL) {
+                        renderGitGraphTree(cached.user, cached.repos, cached.latency || 22);
+                        return;
+                    }
+                }
+            } catch (e) {
+                // Ignore storage read error
+            }
+        }
+
+        if (gitSyncState) gitSyncState.textContent = "SYNCING...";
+        const startTime = performance.now();
+
+        try {
+            const [userRes, reposRes] = await Promise.all([
+                fetch(`https://api.github.com/users/${GH_USERNAME}`, { headers: { "Accept": "application/vnd.github.v3+json" } }),
+                fetch(`https://api.github.com/users/${GH_USERNAME}/repos?sort=updated&per_page=6`, { headers: { "Accept": "application/vnd.github.v3+json" } })
+            ]);
+
+            const latencyMs = Math.round(performance.now() - startTime);
+
+            if (!userRes.ok || !reposRes.ok) {
+                renderGitFallbackTree();
+                return;
+            }
+
+            const userData = await userRes.json();
+            const reposData = await reposRes.json();
+
+            try {
+                sessionStorage.setItem(GH_CACHE_KEY, JSON.stringify({
+                    user: userData,
+                    repos: reposData,
+                    latency: latencyMs,
+                    timestamp: Date.now()
+                }));
+            } catch (e) {}
+
+            renderGitGraphTree(userData, reposData, latencyMs);
+        } catch (err) {
+            renderGitFallbackTree();
+        }
+    };
+
+    // Switch View Helper Function
+    const switchToView = (viewType) => {
+        if (!projectStandardView || !projectGitGraphView || !displayPanel) return;
+
+        displayPanel.classList.add("updating");
+        setTimeout(() => {
+            if (viewType === "live-git") {
+                projectStandardView.style.display = "none";
+                projectGitGraphView.style.display = "flex";
+                if (ideToggleLabel) ideToggleLabel.textContent = "View Project";
+                if (ideBranchText) ideBranchText.textContent = "remote/live*";
+                fetchLiveGitStream();
+            } else {
+                projectStandardView.style.display = "flex";
+                projectGitGraphView.style.display = "none";
+                if (ideToggleLabel) ideToggleLabel.textContent = "View Git Graph";
+                if (ideBranchText) ideBranchText.textContent = "main*";
+            }
+            displayPanel.classList.remove("updating");
+        }, 220);
+    };
+
+    // Event listener for Sidebar clicks
     if (sidebarItems.length > 0 && displayPanel) {
         sidebarItems.forEach(item => {
             item.addEventListener("click", () => {
-                // If already active, do nothing
                 if (item.classList.contains("active")) return;
 
                 const projectId = item.getAttribute("data-project");
-                const data = projectsData[projectId];
 
-                if (data) {
-                    // Remove active class from all items
-                    sidebarItems.forEach(sib => {
-                        sib.classList.remove("active");
-                        // Also reset the transform inline styles from 3D tilt
-                        sib.style.transform = "";
-                        sib.style.transition = "";
-                    });
+                // Clear active state across all sidebar items
+                sidebarItems.forEach(sib => {
+                    sib.classList.remove("active");
+                    sib.style.transform = "";
+                    sib.style.transition = "";
+                });
 
-                    // Add active class to clicked item
-                    item.classList.add("active");
+                item.classList.add("active");
 
-                    // Trigger fade out / slide down transition on display panel
-                    displayPanel.classList.add("updating");
+                if (projectId === "live-git") {
+                    switchToView("live-git");
+                } else {
+                    const data = projectsData[projectId];
+                    if (data) {
+                        switchToView("standard");
+                        setTimeout(() => {
+                            if (displayImg) {
+                                displayImg.src = data.image;
+                                displayImg.alt = `${data.title} Screenshot`;
+                            }
+                            if (displayTitle) displayTitle.textContent = data.title;
+                            if (displayDesc) displayDesc.textContent = data.description;
+                            if (displayTags) {
+                                displayTags.innerHTML = "";
+                                data.tech.forEach(techName => {
+                                    const span = document.createElement("span");
+                                    span.textContent = techName;
+                                    displayTags.appendChild(span);
+                                });
+                            }
+                            if (displayFeatures) {
+                                displayFeatures.innerHTML = "";
+                                data.features.forEach(feat => {
+                                    const li = document.createElement("li");
+                                    li.textContent = feat;
+                                    displayFeatures.appendChild(li);
+                                });
+                            }
+                            if (displayMetrics) {
+                                displayMetrics.innerHTML = "";
+                                if (data.metrics && data.metrics.length > 0) {
+                                    const getMetricMeta = (label, idx) => {
+                                        const l = label.toLowerCase();
+                                        if (l.includes("entities") || l.includes("model") || l.includes("scale") || l.includes("table")) {
+                                            return { icon: "fa-solid fa-cubes-stacked", colorClass: "metric-cyan" };
+                                        }
+                                        if (l.includes("logic") || l.includes("core") || l.includes("code") || l.includes("class")) {
+                                            return { icon: "fa-solid fa-code-branch", colorClass: "metric-purple" };
+                                        }
+                                        if (l.includes("problem") || l.includes("solved") || l.includes("impact") || l.includes("outcome")) {
+                                            return { icon: "fa-solid fa-bullseye", colorClass: "metric-emerald" };
+                                        }
+                                        if (l.includes("complexity") || l.includes("algo") || l.includes("state") || l.includes("validation")) {
+                                            return { icon: "fa-solid fa-microchip", colorClass: "metric-amber" };
+                                        }
+                                        const fallbacks = [
+                                            { icon: "fa-solid fa-cubes-stacked", colorClass: "metric-cyan" },
+                                            { icon: "fa-solid fa-code-branch", colorClass: "metric-purple" },
+                                            { icon: "fa-solid fa-bullseye", colorClass: "metric-emerald" },
+                                            { icon: "fa-solid fa-microchip", colorClass: "metric-amber" }
+                                        ];
+                                        return fallbacks[idx % fallbacks.length];
+                                    };
 
-                    // Wait for transition duration (350ms) to update content
-                    setTimeout(() => {
-                        // Update media content
-                        if (displayImg) {
-                            displayImg.src = data.image;
-                            displayImg.alt = `${data.title} Screenshot`;
-                        }
+                                    data.metrics.forEach((metricItem, idx) => {
+                                        let labelText = "Metric";
+                                        let valText = metricItem;
 
-                        // Update text details
-                        if (displayTitle) displayTitle.textContent = data.title;
-                        if (displayDesc) displayDesc.textContent = data.description;
+                                        if (typeof metricItem === "string" && metricItem.includes(":")) {
+                                            const parts = metricItem.split(":");
+                                            labelText = parts[0].trim();
+                                            valText = parts.slice(1).join(":").trim();
+                                        } else if (typeof metricItem === "object" && metricItem.label) {
+                                            labelText = metricItem.label;
+                                            valText = metricItem.value;
+                                        }
 
-                        // Update tags
-                        if (displayTags) {
-                            displayTags.innerHTML = "";
-                            data.tech.forEach(techName => {
-                                const span = document.createElement("span");
-                                span.textContent = techName;
-                                displayTags.appendChild(span);
-                            });
-                        }
+                                        const meta = getMetricMeta(labelText, idx);
+                                        const row = document.createElement("div");
+                                        row.className = `metric-row ${meta.colorClass}`;
 
-                        // Update features
-                        if (displayFeatures) {
-                            displayFeatures.innerHTML = "";
-                            data.features.forEach(feat => {
-                                const li = document.createElement("li");
-                                li.textContent = feat;
-                                displayFeatures.appendChild(li);
-                            });
-                        }
+                                        const leadDiv = document.createElement("div");
+                                        leadDiv.className = "metric-row-lead";
 
-                        // Update code link
-                        if (displayCodeBtn) {
-                            displayCodeBtn.href = data.github;
-                        }
+                                        const iconBox = document.createElement("span");
+                                        iconBox.className = "metric-icon-box";
+                                        iconBox.innerHTML = `<i class="${meta.icon}"></i>`;
 
-                        // Transition back in: remove "updating" class
-                        displayPanel.classList.remove("updating");
-                    }, 350);
+                                        const labelSpan = document.createElement("span");
+                                        labelSpan.className = "metric-label";
+                                        labelSpan.textContent = labelText;
+
+                                        leadDiv.appendChild(iconBox);
+                                        leadDiv.appendChild(labelSpan);
+
+                                        const valSpan = document.createElement("span");
+                                        valSpan.className = "metric-val";
+                                        valSpan.textContent = valText;
+
+                                        row.appendChild(leadDiv);
+                                        row.appendChild(valSpan);
+                                        displayMetrics.appendChild(row);
+                                    });
+                                }
+                            }
+                            if (displayCodeBtn) {
+                                displayCodeBtn.href = data.github;
+                            }
+                        }, 220);
+                    }
                 }
             });
         });
     }
+
+    // Toggle button on bottom status bar
+    if (ideGitGraphToggleBtn) {
+        ideGitGraphToggleBtn.addEventListener("click", () => {
+            const isGitViewActive = projectGitGraphView && projectGitGraphView.style.display !== "none";
+            if (isGitViewActive) {
+                // Switch back to first project (bus)
+                const firstItem = document.querySelector('.sidebar-item[data-project="bus"]');
+                if (firstItem) firstItem.click();
+            } else {
+                // Switch to live-git
+                const gitItem = document.querySelector('.sidebar-item[data-project="live-git"]');
+                if (gitItem) gitItem.click();
+            }
+        });
+    }
+
+    // Manual Refresh button in Git Graph view
+    if (gitRefreshBtn) {
+        gitRefreshBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            gitRefreshBtn.style.transform = "rotate(360deg)";
+            gitRefreshBtn.style.transition = "transform 0.5s ease";
+            fetchLiveGitStream(true);
+            setTimeout(() => {
+                gitRefreshBtn.style.transform = "";
+                gitRefreshBtn.style.transition = "";
+            }, 500);
+        });
+    }
+
+    // Initial background prefetch for status bar metrics
+    fetchLiveGitStream();
 
     // ── Certifications Detail Modal Logic ──────────────────────────────
     const certModal = document.getElementById("certModal");
@@ -924,24 +1470,21 @@ Currently building premium user interfaces and software systems, focusing on cle
     const certModalIframe = document.getElementById("certModalIframe");
 
     if (certModal && certModalCloseBtn && certModalOverlay && certModalIframe) {
-        // Select all cert cards View Certificate buttons
-        const certViewButtons = document.querySelectorAll(".cert-card .view-btn");
+        const handleCertOpen = (pdfUrl, card) => {
+            if (pdfUrl && pdfUrl !== "#" && pdfUrl !== "") {
+                const titleEl = card ? card.querySelector(".deck-title") : null;
+                const certTitle = titleEl ? titleEl.textContent.trim() : "Accreditation";
+                openCertModal(pdfUrl, certTitle);
+            }
+        };
 
-        certViewButtons.forEach(btn => {
+        const actionButtons = document.querySelectorAll(".deck-card .deck-action-btn");
+        actionButtons.forEach(btn => {
             btn.addEventListener("click", (e) => {
+                e.preventDefault();
+                e.stopPropagation();
                 const pdfUrl = btn.getAttribute("href");
-                
-                // If it is a real PDF (does not start with '#' or is empty)
-                if (pdfUrl && pdfUrl !== "#" && pdfUrl !== "") {
-                    e.preventDefault(); // Intercept browser navigation
-                    
-                    // Find the certificate card title
-                    const card = btn.closest(".cert-card");
-                    const titleEl = card ? card.querySelector("h3") : null;
-                    const certTitle = titleEl ? titleEl.textContent.trim() : "Certification";
-                    
-                    openCertModal(pdfUrl, certTitle);
-                }
+                handleCertOpen(pdfUrl, btn.closest(".deck-card"));
             });
         });
 
@@ -960,10 +1503,8 @@ Currently building premium user interfaces and software systems, focusing on cle
 
         function openCertModal(url, title) {
             certModalTitle.textContent = title;
-            // Append PDF view parameters to fit the page horizontally and hide navigation panes
             certModalIframe.src = url + "#toolbar=0&navpanes=0&view=FitH";
             
-            // Show Modal and disable background scrolling
             certModal.classList.add("active");
             certModal.setAttribute("aria-hidden", "false");
             document.body.classList.add("modal-open");
@@ -974,9 +1515,246 @@ Currently building premium user interfaces and software systems, focusing on cle
             certModal.setAttribute("aria-hidden", "true");
             document.body.classList.remove("modal-open");
             
-            // Clear iframe src after transition to stop PDF loading/audio in background
             setTimeout(() => {
                 certModalIframe.src = "";
+            }, 400);
+        }
+    }
+
+    // ── Holographic Credential Deck Controller ────────────────────────
+    const deckCards = Array.from(document.querySelectorAll("#deckStageTrack .deck-card"));
+    const deckCapsules = Array.from(document.querySelectorAll("#deckNavStrip .deck-capsule"));
+    const deckFilterBtns = Array.from(document.querySelectorAll(".deck-category-filters .deck-filter-btn"));
+    const deckPrevBtn = document.getElementById("deckPrevBtn");
+    const deckNextBtn = document.getElementById("deckNextBtn");
+    const deckCounterText = document.getElementById("deckCounterText");
+    const deckConsole = document.getElementById("certDeckConsole");
+
+    if (deckCards.length > 0) {
+        let currentIdx = 0;
+        let currentFilter = "all";
+
+        const getVisibleCards = () => {
+            if (currentFilter === "all") return deckCards;
+            return deckCards.filter(card => card.getAttribute("data-category") === currentFilter);
+        };
+
+        const updateDeck = (newIdx) => {
+            const visible = getVisibleCards();
+            if (visible.length === 0) return;
+
+            // Clamp index
+            if (newIdx < 0) newIdx = visible.length - 1;
+            if (newIdx >= visible.length) newIdx = 0;
+            currentIdx = newIdx;
+
+            const activeCard = visible[currentIdx];
+            const activeCardIdx = parseInt(activeCard.getAttribute("data-index"), 10);
+
+            // Update Cards State
+            deckCards.forEach(card => {
+                card.classList.remove("active", "prev", "next");
+                const cardCat = card.getAttribute("data-category");
+                if (currentFilter !== "all" && cardCat !== currentFilter) {
+                    card.style.display = "none";
+                } else {
+                    card.style.display = "block";
+                }
+            });
+
+            activeCard.classList.add("active");
+
+            // Update Counter
+            if (deckCounterText) {
+                const curStr = String(currentIdx + 1).padStart(2, "0");
+                const totStr = String(visible.length).padStart(2, "0");
+                deckCounterText.textContent = `CREDENTIAL ${curStr} / ${totStr}`;
+            }
+
+            // Update Capsules
+            deckCapsules.forEach(cap => {
+                const capIdx = parseInt(cap.getAttribute("data-index"), 10);
+                if (capIdx === activeCardIdx) {
+                    cap.classList.add("active");
+                } else {
+                    cap.classList.remove("active");
+                }
+            });
+        };
+
+        // Navigation arrow triggers
+        if (deckPrevBtn) {
+            deckPrevBtn.addEventListener("click", () => updateDeck(currentIdx - 1));
+        }
+        if (deckNextBtn) {
+            deckNextBtn.addEventListener("click", () => updateDeck(currentIdx + 1));
+        }
+
+        // Capsule strip triggers
+        deckCapsules.forEach(capsule => {
+            capsule.addEventListener("click", () => {
+                const targetIdx = parseInt(capsule.getAttribute("data-index"), 10);
+                const targetCard = deckCards.find(c => parseInt(c.getAttribute("data-index"), 10) === targetIdx);
+                
+                // If filter is active and this card belongs to different category, switch filter to all
+                if (targetCard && currentFilter !== "all" && targetCard.getAttribute("data-category") !== currentFilter) {
+                    currentFilter = "all";
+                    deckFilterBtns.forEach(b => b.classList.toggle("active", b.getAttribute("data-filter") === "all"));
+                }
+
+                const visible = getVisibleCards();
+                const newPos = visible.indexOf(targetCard);
+                if (newPos !== -1) {
+                    updateDeck(newPos);
+                }
+            });
+        });
+
+        // Filter tab triggers
+        deckFilterBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                deckFilterBtns.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                currentFilter = btn.getAttribute("data-filter");
+                updateDeck(0);
+            });
+        });
+
+        // Keyboard arrow navigation when hovering over or focused inside certDeckConsole
+        document.addEventListener("keydown", (e) => {
+            if (document.body.classList.contains("modal-open")) return;
+            const rect = deckConsole ? deckConsole.getBoundingClientRect() : null;
+            const inViewport = rect && rect.top < window.innerHeight && rect.bottom > 0;
+
+            if (inViewport) {
+                if (e.key === "ArrowLeft") {
+                    updateDeck(currentIdx - 1);
+                } else if (e.key === "ArrowRight") {
+                    updateDeck(currentIdx + 1);
+                }
+            }
+        });
+
+        // Mobile touch swipe gestures on stage
+        const stageTrack = document.getElementById("deckStageTrack");
+        if (stageTrack) {
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+            stageTrack.addEventListener("touchstart", (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+
+            stageTrack.addEventListener("touchend", (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                const diffX = touchStartX - touchEndX;
+                if (Math.abs(diffX) > 45) {
+                    if (diffX > 0) {
+                        updateDeck(currentIdx + 1); // Swipe left -> Next
+                    } else {
+                        updateDeck(currentIdx - 1); // Swipe right -> Prev
+                    }
+                }
+            }, { passive: true });
+        }
+
+        // Initialize First Card
+        updateDeck(0);
+    }
+
+    // ── Resume Modal Controller ─────────────────────────────────────────
+    const resumeLink = document.getElementById("resumeNavLink");
+    const resumeModal = document.getElementById("resumeModal");
+    const resumeModalCloseBtn = document.getElementById("resumeModalCloseBtn");
+    const resumeModalOverlay = document.getElementById("resumeModalOverlay");
+    const resumeModalBody = document.getElementById("resumeModalBody");
+    const resumeDownloadBtn = document.getElementById("resumeDownloadBtn");
+    const resumeOpenTabBtn = document.getElementById("resumeOpenTabBtn");
+
+    if (resumeLink && resumeModal && resumeModalCloseBtn && resumeModalOverlay && resumeModalBody) {
+        resumeLink.addEventListener("click", (e) => {
+            e.preventDefault();
+            openResumeModal();
+        });
+
+        resumeModalCloseBtn.addEventListener("click", closeResumeModal);
+        resumeModalOverlay.addEventListener("click", closeResumeModal);
+
+        // Open in New Tab Button: opens PDF outside the site without closing the modal
+        if (resumeOpenTabBtn) {
+            resumeOpenTabBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                window.open("assets/resume.pdf", "_blank");
+            });
+        }
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && resumeModal.classList.contains("active")) {
+                closeResumeModal();
+            }
+        });
+
+        async function openResumeModal() {
+            // Show loading placeholder while verifying PDF availability
+            resumeModalBody.innerHTML = `
+                <div class="resume-placeholder-card">
+                    <div class="resume-placeholder-icon">
+                        <i class="fa-solid fa-spinner fa-spin"></i>
+                    </div>
+                    <h3>Loading Resume...</h3>
+                </div>
+            `;
+            resumeModal.classList.add("active");
+            resumeModal.setAttribute("aria-hidden", "false");
+            document.body.classList.add("modal-open");
+
+            try {
+                const res = await fetch("assets/resume.pdf", { method: "HEAD" });
+                if (res.ok) {
+                    // PDF exists -> Render iframe viewer and reveal action buttons
+                    resumeModalBody.innerHTML = `<iframe id="resumeIframe" src="assets/resume.pdf#toolbar=0&navpanes=0&view=FitH" frameborder="0" width="100%" height="100%" title="Tanish Shah Resume"></iframe>`;
+                    if (resumeDownloadBtn) resumeDownloadBtn.style.display = "inline-flex";
+                    if (resumeOpenTabBtn) resumeOpenTabBtn.style.display = "inline-flex";
+                } else {
+                    throw new Error("Resume not found");
+                }
+            } catch {
+                // PDF is missing -> Show sleek glassmorphic Coming Soon card
+                if (resumeDownloadBtn) resumeDownloadBtn.style.display = "none";
+                if (resumeOpenTabBtn) resumeOpenTabBtn.style.display = "none";
+                resumeModalBody.innerHTML = `
+                    <div class="resume-placeholder-card">
+                        <div class="resume-placeholder-icon">
+                            <i class="fa-solid fa-file-pdf"></i>
+                        </div>
+                        <h3>Resume Coming Soon</h3>
+                        <p>I'm currently updating my resume with recent academic achievements and projects. Feel free to explore my showcased projects or get in touch directly!</p>
+                        <div class="resume-placeholder-highlights">
+                            <span>🎓 Bachelor of Engineering in IT (LJ University)</span>
+                            <span>💻 Java & Web Developer</span>
+                            <span>🚀 Seeking Internship</span>
+                        </div>
+                        <a href="#contact" class="resume-contact-shortcut" id="resumeContactBtn">
+                            <span>Let's Connect</span> <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                `;
+                const contactBtn = document.getElementById("resumeContactBtn");
+                if (contactBtn) {
+                    contactBtn.addEventListener("click", () => {
+                        closeResumeModal();
+                    });
+                }
+            }
+        }
+
+        function closeResumeModal() {
+            resumeModal.classList.remove("active");
+            resumeModal.setAttribute("aria-hidden", "true");
+            document.body.classList.remove("modal-open");
+
+            setTimeout(() => {
+                resumeModalBody.innerHTML = "";
             }, 400);
         }
     }
@@ -1010,4 +1788,148 @@ Currently building premium user interfaces and software systems, focusing on cle
             card.style.transition = "transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.5s cubic-bezier(0.25, 1, 0.5, 1)";
         });
     });
+
+    // ── Footer Interactive Cyber Theme Accent Switcher ─────────────────
+    const paletteDots = document.querySelectorAll(".palette-dot");
+    const savedAccent = localStorage.getItem("tanish_neon_accent") || "cyan";
+
+    const applyAccentTheme = (themeName) => {
+        if (themeName === "cyan") {
+            document.body.removeAttribute("data-accent");
+        } else {
+            document.body.setAttribute("data-accent", themeName);
+        }
+
+        paletteDots.forEach(dot => {
+            if (dot.getAttribute("data-theme") === themeName) {
+                dot.classList.add("active");
+            } else {
+                dot.classList.remove("active");
+            }
+        });
+
+        localStorage.setItem("tanish_neon_accent", themeName);
+    };
+
+    if (savedAccent && savedAccent !== "cyan") {
+        applyAccentTheme(savedAccent);
+    }
+
+    paletteDots.forEach(dot => {
+        dot.addEventListener("click", () => {
+            const chosenTheme = dot.getAttribute("data-theme");
+            applyAccentTheme(chosenTheme);
+        });
+    });
+
+    // ── Education Spotlight Dashboard Controller ──────────────────────
+    const eduSelectCards = document.querySelectorAll(".edu-selector-row .edu-select-card");
+    const stageStatusPill = document.getElementById("stageStatusPill");
+    const stagePeriodChip = document.getElementById("stagePeriodChip");
+    const stageMainTitle = document.getElementById("stageMainTitle");
+    const stageInstName = document.getElementById("stageInstName");
+    const eduInspectStage = document.getElementById("eduInspectStage");
+
+    const eduStageData = {
+        be: {
+            status: '<span class="badge-radar-dot"></span> Active Milestone &bull; In Progress',
+            statusClass: 'tag-active',
+            period: '2024 \u2013 2028',
+            title: 'Bachelor of Engineering in Information Technology',
+            inst: '<i class="fa-solid fa-building-columns"></i> LJ University (Lok Jagruti)',
+            stat1Lbl: '<i class="fa-solid fa-clock"></i> Standing',
+            stat1Val: 'Pursuing: 3rd Year',
+            stat1Class: 'val-cyan',
+            stat2Lbl: '<i class="fa-solid fa-award"></i> Curriculum / Board',
+            stat2Val: 'Undergraduate Degree',
+            stat2Class: '',
+            stat3Lbl: '<i class="fa-solid fa-location-dot"></i> Location',
+            stat3Val: 'Ahmedabad, Gujarat'
+        },
+        hsc: {
+            status: '<i class="fa-solid fa-circle-check"></i> Completed &bull; Merit Distinction',
+            statusClass: 'tag-done',
+            period: 'Completed In 2024',
+            title: 'Higher Secondary Education (12\u1d57\u02b0 Grade)',
+            inst: '<i class="fa-solid fa-school"></i> Sheth C.N. Vidhyalaya',
+            stat1Lbl: '<i class="fa-solid fa-chart-line"></i> Percentage',
+            stat1Val: '90% Distinction',
+            stat1Class: 'val-emerald',
+            stat2Lbl: '<i class="fa-solid fa-award"></i> Examination Board',
+            stat2Val: 'Gujarat Board (GSEB)',
+            stat2Class: '',
+            stat3Lbl: '<i class="fa-solid fa-location-dot"></i> Location',
+            stat3Val: 'Ahmedabad, Gujarat'
+        },
+        ssc: {
+            status: '<i class="fa-solid fa-circle-check"></i> Completed &bull; Honors Distinction',
+            statusClass: 'tag-done',
+            period: 'Completed In 2022',
+            title: 'Secondary Education (10\u1d57\u02b0 Grade)',
+            inst: '<i class="fa-solid fa-school"></i> Sheth C.N. Vidhyalaya',
+            stat1Lbl: '<i class="fa-solid fa-chart-line"></i> Percentage',
+            stat1Val: '92% Distinction',
+            stat1Class: 'val-emerald',
+            stat2Lbl: '<i class="fa-solid fa-award"></i> Examination Board',
+            stat2Val: 'Gujarat Board (GSEB)',
+            stat2Class: '',
+            stat3Lbl: '<i class="fa-solid fa-location-dot"></i> Location',
+            stat3Val: 'Ahmedabad, Gujarat'
+        }
+    };
+
+    const updateEduStage = (key) => {
+        const item = eduStageData[key];
+        if (!item || !eduInspectStage) return;
+
+        eduSelectCards.forEach(c => {
+            if (c.getAttribute("data-edu") === key) {
+                c.classList.add("active");
+            } else {
+                c.classList.remove("active");
+            }
+        });
+
+        eduInspectStage.style.opacity = "0.35";
+        eduInspectStage.style.transform = "translateY(3px)";
+
+        setTimeout(() => {
+            if (stageStatusPill) {
+                stageStatusPill.className = `stage-status-pill ${item.statusClass}`;
+                stageStatusPill.innerHTML = item.status;
+            }
+            if (stagePeriodChip) stagePeriodChip.textContent = item.period;
+            if (stageMainTitle) stageMainTitle.textContent = item.title;
+            if (stageInstName) stageInstName.innerHTML = item.inst;
+
+            const statBoxes = document.querySelectorAll(".stage-stat-box");
+            if (statBoxes.length >= 3) {
+                statBoxes[0].querySelector(".stat-lbl").innerHTML = item.stat1Lbl;
+                statBoxes[0].querySelector(".stat-val").className = `stat-val ${item.stat1Class}`;
+                statBoxes[0].querySelector(".stat-val").textContent = item.stat1Val;
+
+                statBoxes[1].querySelector(".stat-lbl").innerHTML = item.stat2Lbl;
+                statBoxes[1].querySelector(".stat-val").className = `stat-val ${item.stat2Class}`;
+                statBoxes[1].querySelector(".stat-val").textContent = item.stat2Val;
+
+                statBoxes[2].querySelector(".stat-lbl").innerHTML = item.stat3Lbl;
+                statBoxes[2].querySelector(".stat-val").textContent = item.stat3Val;
+            }
+
+            eduInspectStage.style.opacity = "1";
+            eduInspectStage.style.transform = "translateY(0)";
+        }, 110);
+    };
+
+    if (eduSelectCards.length > 0) {
+        eduSelectCards.forEach(card => {
+            const key = card.getAttribute("data-edu");
+            card.addEventListener("mouseenter", () => updateEduStage(key));
+            card.addEventListener("focus", () => updateEduStage(key));
+            card.addEventListener("click", () => updateEduStage(key));
+        });
+    }
 });
+
+
+
