@@ -52,7 +52,7 @@ body.light-theme {
     --border-card-top-left: rgba(15, 23, 42, 0.12);
     --text-primary: #0F172A;
     --text-secondary: #334155;
-    --text-muted: rgba(15, 23, 42, 0.5);
+    --text-muted: #475569;
     
     /* Accent Colors (Contrast-optimized) */
     --accent-cyan: #0088A3;
@@ -4851,9 +4851,20 @@ body.light-theme .footer-bottom-bar {
 
     .resume-download-btn,
     .resume-open-tab-btn {
-        padding: 6px 12px !important;
+        padding: 8px 12px !important;
         font-size: 0.76rem !important;
+        min-height: 40px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         gap: 5px;
+    }
+
+    .modal-close-btn {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        min-height: 40px;
     }
 }
 
@@ -4868,9 +4879,54 @@ body.light-theme .footer-bottom-bar {
 
     .resume-download-btn,
     .resume-open-tab-btn {
-        padding: 5px 9px !important;
-        font-size: 0.7rem !important;
+        padding: 8px 10px !important;
+        font-size: 0.72rem !important;
+        min-height: 40px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         gap: 4px;
+    }
+
+    .modal-close-btn {
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+        min-height: 38px;
+    }
+}
+
+/* ============================================================
+   ACCESSIBILITY: PREFERS-REDUCED-MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto !important;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .fade-in {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+
+    .status-live-beacon,
+    .ping-circle,
+    .status-dot-pulse,
+    .badge-status-dot {
+        animation: none !important;
+    }
+
+    .hero-canvas {
+        opacity: 0.4 !important;
     }
 }
 
