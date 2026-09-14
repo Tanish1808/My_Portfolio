@@ -787,19 +787,31 @@ Currently building premium user interfaces and software systems, focusing on cle
             }
         }
 
+        const prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)");
+
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             // Update and draw particles
             particles.forEach(p => {
-                p.update();
+                if (!prefersReducedMotion || !prefersReducedMotion.matches) {
+                    p.update();
+                }
                 p.draw();
             });
 
             // Draw connecting lines
             drawConnections();
 
-            requestAnimationFrame(animate);
+            if (!prefersReducedMotion || !prefersReducedMotion.matches) {
+                requestAnimationFrame(animate);
+            }
+        }
+
+        if (prefersReducedMotion && prefersReducedMotion.addEventListener) {
+            prefersReducedMotion.addEventListener("change", () => {
+                animate();
+            });
         }
 
         // Track mouse position relative to hero canvas bounding rect
